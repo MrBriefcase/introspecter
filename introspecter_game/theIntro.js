@@ -6,7 +6,7 @@ gameIntro.prototype = {
         function playGame(){
             // ***** RETURN TO NORMAL WHEN DONE
 //            game.state.start('TheGame');
-            game.state.start('TheGame');
+            game.state.start('Part4');
         };
         
         function viewCredits(){
