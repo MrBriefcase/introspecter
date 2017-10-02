@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>introspecter - prototype v1</title>
+        <meta charset='utf-8'/>
+        
+        <!-- Add the minified phaser js and seperate game states -->
+        <script type='text/javascript' src='./phaser.min.js'></script>
+        
+        <script type='text/javascript' src='./boot.js'></script>
+        <script type='text/javascript' src='./preload.js'></script>
+        <script type='text/javascript' src='./theIntro.js'></script>
+        <script type='text/javascript' src='./creditsVid.js'></script>
+        <script type='text/javascript' src='./theGame.js'></script>
+        <script type='text/javascript' src='./part2.js'></script>
+        <script type='text/javascript' src='./part3.js'></script>
+        <script type='text/javascript' src='./part4.js'></script>
+        <script type='text/javascript' src='./credits.js'></script>
+    </head>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+    
+    <body>
+    
+    <!-- MAIN BODY OF GAME -->
+    <script type='text/javascript'>
+        
+        var game = new Phaser.Game(800, 600, Phaser.AUTO, '');
+        
+        // Add states.
+        game.state.add('Boot', boot);
+        game.state.add('Preload', preload);
+        game.state.add('GameIntro', gameIntro);
+        game.state.add('CreditsVid', creditsVid);
+        game.state.add('TheGame', theGame);
+        game.state.add('Part2', part2);
+        game.state.add('Part3', part3);
+        game.state.add('Part4', part4);
+        game.state.add('Credits', credits);
+        
+        // Load up the first state.
+        game.state.start('Boot');
+        
+    </script>
+        
+    </body>
+</html>
