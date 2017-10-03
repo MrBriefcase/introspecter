@@ -71,10 +71,14 @@ theGame.prototype = {
         
         
         // Create player and its attributes.
-        player = game.add.sprite(32, 300, 'mainChar');
+        player = game.add.sprite(32, 300, 'char');
         game.physics.arcade.enable(player);
         player.body.gravity.y = 400;
         player.body.collideWorldBounds = true;
+        // Add player animations
+        player.animations.add('left', [0, 1, 2], 10, true);
+        player.animations.add('right', [4, 5, 6], 10, true);
+        
         
         // Create buddy.
         buddy = game.add.sprite(1200, 300, 'buddy');
@@ -102,6 +106,7 @@ theGame.prototype = {
         // Player controls (L, R, D, U)
         if (cursors.left.isDown){
             player.body.velocity.x = -200;
+            player.animations.play('left');
             if (buddy.followed && ((buddy.x - player.x) > 100)){
                 buddy.body.velocity.x = -200;
             } else{
@@ -109,13 +114,16 @@ theGame.prototype = {
             }
         } else if (cursors.right.isDown){
             player.body.velocity.x = 200;
+            player.animations.play('right');
             if (buddy.followed && ((player.x - buddy.x) > 100)){
                 buddy.body.velocity.x = 200;
             } else{
                 buddy.body.velocity.x = 0;
             }
         } else {
-            // Stop
+            // Stop and stand still
+            player.animations.stop();
+            player.frame = 3;
         }
         
         // Once player reaches a point in the map, pass to the next game point.        

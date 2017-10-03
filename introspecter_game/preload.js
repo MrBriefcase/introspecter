@@ -12,6 +12,8 @@ preload.prototype = {
         // Player sprite and 1st background.
         game.load.image('bg_1', './images/bg_proto.png');
         game.load.image('mainChar', './images/photo.jpg');
+        // test spritesheet
+        game.load.spritesheet('char', './images/test_spritesheet.png', 50, 150)
         
         // Load buddy char. and border. and fruit.
         game.load.image('buddy', './images/buddy.png');
