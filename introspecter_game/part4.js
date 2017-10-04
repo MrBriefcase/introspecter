@@ -109,15 +109,13 @@ part4.prototype = {
             
             // Display the choices that you have
             choice1 = game.add.text(50, 150, 'Later', { font: "24px Old School Adventures", fill: "#ffffff"});
-            choice1.move = true;
-            num23++;
         }
         
         // Swaying motion of text
-        if (num23 == 2){
-            choice1.angle += 1;
-            choice1.fontSize += 1;
-        }
+//        if (choice1.move){
+//            choice1.angle += 1;
+//            choice1.fontSize += 1;
+//        }
     },
     
     render: function(){

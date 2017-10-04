@@ -42,6 +42,7 @@ part2.prototype = {
         // Add music... Holder for now
 //        music = game.add.audio('FloFliz');
 //        music.loopFull();
+        text1sound = game.add.audio('text1sound');
         
         // Create cam spot. for later. and BG... for later
         camSpot = game.add.sprite(1400, 600, null);
@@ -89,27 +90,26 @@ part2.prototype = {
                 text.endOfDialogue = true;
                 return;
             }
-
             //  get the letter in the message
             letter = content[letterIndex];
-
             //  flag variable
             wordIndex = 0;
-
             //  Call the 'nextWord' function to concat the message into the game.
             game.time.events.repeat(letterDelay, letter.length, nextWord, this);
-
             //  Advance to the next letter
             letterIndex++;
         }
 
         function nextWord(){
-            //  Add the next letter onto the text string
+            //  Add the next letter onto the text string and make a sound
             text.text = text.text.concat(letter[wordIndex]);
-
+            if(text1sound.isPlaying){
+                text1sound.restart();
+            } else{
+                text1sound.play();
+            }
             //  Advance the word index to the next word in the line
             wordIndex++;
-
             //  Last word?
             if (wordIndex === letter.length){
                 //  Get the next line after the lineDelay amount of ms has elapsed
@@ -316,7 +316,11 @@ part2.prototype = {
         function nextWord(){
             //  Add the next letter onto the text string
             text.text = text.text.concat(letter);
-
+            if (text1sound.isPlaying){
+                text1sound.restart();
+            } else{
+                text1sound.play();
+            }
             //  Advance the word index to the next word in the line
             wordIndex++;
 

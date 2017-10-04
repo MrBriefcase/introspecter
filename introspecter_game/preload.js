@@ -28,6 +28,7 @@ preload.prototype = {
         // Load up music and sounds.
         game.load.audio('introTest', ['./audio/Cosmic_Disaster_OST.wav']);
         game.load.audio('FloFliz', ['./audio/FloFliz.mp3']);
+        game.load.audio('text1sound', './audio/text_sound1.wav')
         
         // Setup variables.
         var buddy;
@@ -35,6 +36,7 @@ preload.prototype = {
         var player;
         var cursors;
         var music;
+        var text1sound;
     },
     
     create: function(){
