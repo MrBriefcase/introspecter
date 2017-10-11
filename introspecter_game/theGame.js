@@ -10,7 +10,7 @@ var letterIndex = 0;
 var wordDelay = 120;
 var letterDelay = 20;
 
-
+var theGround, ground;
 
 theGame.prototype = {
     create: function(){
@@ -23,8 +23,14 @@ theGame.prototype = {
         // Enable physics.
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
-        // Create background.
-        game.add.sprite(0, 0, 'bg_1');
+        // Create ground and make it collideable.
+        theGround = game.add.group();
+        theGround.enableBody = true;
+        ground = theGround.create(0, 485, 'ground');
+        ground.body.immovable = true;
+        
+        // Create background
+        game.add.sprite(0, 0, 'intro_bg');
         
         // Create border.
         border = game.add.sprite(200, 200, 'border');
@@ -40,16 +46,12 @@ theGame.prototype = {
                 //  We're finished
                 return;
             }
-
             //  get the letter in the message
             letter = content[letterIndex];
-
             //  flag variable
             wordIndex = 0;
-
             //  Call the 'nextWord' function to concat the message into the game.
             game.time.events.repeat(letterDelay, letter.length, nextWord, this);
-
             //  Advance to the next letter
             letterIndex++;
         }
@@ -57,10 +59,8 @@ theGame.prototype = {
         function nextWord(){
             //  Add the next letter onto the text string
             text.text = text.text.concat(letter[wordIndex]);
-
             //  Advance the word index to the next word in the line
             wordIndex++;
-
             //  Last word?
             if (wordIndex === letter.length){
                 //  Get the next line after the lineDelay amount of ms has elapsed
@@ -99,6 +99,10 @@ theGame.prototype = {
     },
     
     update: function(){
+        // Collide player and buddy with ground.
+        game.physics.arcade.collide(player, theGround);
+        game.physics.arcade.collide(buddy, theGround);
+        
         // Reset player velocity.
         player.body.velocity.x = 0;
         buddy.body.velocity.x = 0;

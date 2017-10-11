@@ -9,9 +9,12 @@ preload.prototype = {
         game.load.image('credBtn', './images/credits_button.png');
         game.load.image('backBtn', './images/back_btn.png');
         
-        // Player sprite and 1st background.
+        // Player sprite and 1st background. and ground.
+        game.load.image('intro_bg', './images/intro_bg.png');
+        game.load.image('past_bg', './images/bg_1_to_3.png');
         game.load.image('bg_1', './images/bg_proto.png');
         game.load.image('mainChar', './images/photo.jpg');
+        game.load.image('ground', './images/ground.png');
         // test spritesheet
         game.load.spritesheet('char', './images/test_spritesheet.png', 50, 150)
         
@@ -19,6 +22,7 @@ preload.prototype = {
         game.load.image('buddy', './images/buddy.png');
         game.load.image('border', './images/border.png');
         game.load.image('border2', './images/border_v2.png');
+        game.load.image('border_v3', './images/dialogue_box.png');
         game.load.image('fruit', './images/fruit.png');
         game.load.image('fruit2', './images/fruit2.png');
         game.load.image('fruit3', './images/fruit3.png');
@@ -37,6 +41,8 @@ preload.prototype = {
         var cursors;
         var music;
         var text1sound;
+        var ground;
+        var theGround;
     },
     
     create: function(){
