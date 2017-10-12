@@ -10,6 +10,8 @@ boot.prototype = {
         var example = game.add.sprite(game.world.centerX, game.world.centerY, 'examp');
         example.anchor.setTo(0.5, 0.5);
         
+        game.stage.smoothed = false;
+        
         // Pass the state to 'Preload'.
         game.time.events.add(Phaser.Timer.SECOND, nextState, this);
         

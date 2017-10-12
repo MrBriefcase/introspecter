@@ -3,6 +3,7 @@ var part2 = function(game){};
 var fruit_y = 1000;
 var fruit1, fruit2, fruit3, fruit4;
 var fruits = [fruit1, fruit2, fruit3, fruit4];
+
 var firstFruitEaten = false;
 var finishedFirstFruit = false;
 var fruitEaten2 = false;
@@ -15,9 +16,9 @@ var fruitEaten5 = false;
 var finishedFruit5 = false;
 var fruitCounter = 0;
 
-var content = "Where am I?";
+//var content = "Where am I?";
 var text_2;
-var bg;
+var bg, bg2;
 var growBigger = true;
 var border, border_2, border_3;
 var borders, borders_2, borders_3;
@@ -30,13 +31,17 @@ var endOfPart1 = false;
 
 var camSpot;
 
-part2.prototype = {
+
+part2.prototype = {    
     create: function(){
         console.log('youre in part 2, bug when you press X before text loads');
         
         // Set world bounds and physics.
         game.world.setBounds(0, 0, 2400, 600);
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        
+        // Create the bg image and later bg image.
+        bg2 = game.add.sprite(0, 0, 'past_bg');
         bg = game.add.sprite(0, 0, null);
         
         // Add music... Holder for now
@@ -49,11 +54,14 @@ part2.prototype = {
         
         
         // Create main character.        
-        player = game.add.sprite(375, 225, 'mainChar');
+        player = game.add.sprite(375, 225, 'char');
         game.physics.arcade.enable(player);
         player.body.gravity.y = 400;
         player.body.collideWorldBounds = true;
         player.movable = false;
+        // Add player animations
+        player.animations.add('left', [0, 1, 2], 10, true);
+        player.animations.add('right', [4, 5, 6], 10, true);
         
         // Create fruits (1, 2, 3, 4).
         for (i=0; i<4; i++){
@@ -79,7 +87,7 @@ part2.prototype = {
         function createText(){
             dialogueFocus = true;
             border = borders.create(200, 200, 'border2');
-            text = game.add.text(border.x+50, border.y+50, '', { font: "24px Old School Adventures", fill: "#ffffff" });
+            text = game.add.text(border.x+50, border.y+50, '', { font: "24px Questrial", fill: "#ffffff" });
             nextLine();
         }
         
@@ -150,10 +158,14 @@ part2.prototype = {
         // PLayer controls (L, R, D, U)
         if (cursors.left.isDown && player.movable){
             player.body.velocity.x = -200;
+            player.animations.play('left');
         } else if (cursors.right.isDown && player.movable){
             player.body.velocity.x = 200;
+            player.animations.play('right');
         } else {
-            // Stop (nothing)
+            // Stop and stand still
+            player.animations.stop();
+            player.frame = 3;
         }
         
         // Move to next text dialogue.
@@ -246,7 +258,7 @@ part2.prototype = {
         function createText(){
             dialogueFocus = true;
             border = borders.create(game.camera.view.x+200, game.camera.view.y+200, 'border2');
-            var text = game.add.text(border.x+50, border.y+50, '', { font: "24px Old School Adventures", fill: "#ffffff" });
+            var text = game.add.text(border.x+50, border.y+50, '', { font: "24px Questrial", fill: "#ffffff" });
             nextLine();
         }
         function createText2(){
@@ -338,25 +350,25 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit');
             // create growing x instruction
-            text_2 = game.add.text(1175, 450, 'x', { font: "24px Old School Adventures", fill: "#ffffff" })
+            text_2 = game.add.text(1175, 450, 'x', { font: "24px Questrial", fill: "#ffffff" })
         }
         function eatFruit2(){
             player.movable = false;
             console.log('player touched fruit2');
             // create growing x instruction
-            text_2 = game.add.text(1325, 450, 'x', { font: "24px Old School Adventures", fill: "#ffffff" })
+            text_2 = game.add.text(1325, 450, 'x', { font: "24px Questrial", fill: "#ffffff" })
         }
         function eatFruit3(){
             player.movable = false;
             console.log('player touched fruit3');
             // create growing x instruction
-            text_2 = game.add.text(1475, 450, 'x', { font: "24px Old School Adventures", fill: "#ffffff" })
+            text_2 = game.add.text(1475, 450, 'x', { font: "24px Questrial", fill: "#ffffff" })
         }
         function eatFruit4(){
             player.movable = false;
             console.log('player touched fruit4');
             // create growing x instruction
-            text_2 = game.add.text(1625, 450, 'x', { font: "24px Old School Adventures", fill: "#ffffff" })
+            text_2 = game.add.text(1625, 450, 'x', { font: "24px Questrial", fill: "#ffffff" })
         }
         function eatFruit5(){
             player.movable = false;

@@ -4,6 +4,10 @@ credits.prototype = {
     create: function(){
         console.log('youre in the credits state');
         
+        video = game.add.video('jump_boy');
+        video.play();
+        video.addToWorld();
+        
         function backToIntro(){
             game.state.start('GameIntro');
         };

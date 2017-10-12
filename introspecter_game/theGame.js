@@ -2,7 +2,7 @@ var theGame = function(game){};
 
 
 // Variables for letter by letter text.
-var content = "Hello, my name is Daren\nAnd I like turtles.\nAnd also sleeping!";
+var content = "I should go\nvisit my friend\nit's been awhile";
 
 var letter = [];
 var wordIndex = 0;
@@ -10,12 +10,23 @@ var letterIndex = 0;
 var wordDelay = 120;
 var letterDelay = 20;
 
-var theGround, ground;
+WebFontConfig = {
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['Questrial']
+    }
+};
+
 
 theGame.prototype = {
+    preload: function(){
+        // Load up the webfont script
+        game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+    },
+    
     create: function(){
         console.log('youre in the main game state');
-        // Create the beginning sequence of the game.
+        // Create the beginning sequence of the game
         
         // Setup world, which will setup the camera.
         game.world.setBounds(0, 0, 2400, 600);
@@ -29,15 +40,19 @@ theGame.prototype = {
         ground = theGround.create(0, 485, 'ground');
         ground.body.immovable = true;
         
+        // Setup controls.
+        cursors = game.input.keyboard.createCursorKeys();
+        
         // Create background
         game.add.sprite(0, 0, 'intro_bg');
         
+        
         // Create border.
-        border = game.add.sprite(200, 200, 'border');
+        border = game.add.sprite(200, 200, 'border_v3');
         
         // Create text, letter by letter.
-        text = game.add.text(border.x+50, border.y+50, '', { font: "15px Old School Adventures", fill: "#000000" });
-
+        text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+        
         nextLine();
         
         // functions get hoisted!!!
@@ -59,6 +74,11 @@ theGame.prototype = {
         function nextWord(){
             //  Add the next letter onto the text string
             text.text = text.text.concat(letter[wordIndex]);
+            if (text1sound.isPlaying){
+                text1sound.restart();
+            } else{
+                text1sound.play();
+            }
             //  Advance the word index to the next word in the line
             wordIndex++;
             //  Last word?
@@ -68,17 +88,15 @@ theGame.prototype = {
             }
         }
         
-        
-        
         // Create player and its attributes.
-        player = game.add.sprite(32, 300, 'char');
+        player = game.add.sprite(32, 300, 'char_kid');
         game.physics.arcade.enable(player);
         player.body.gravity.y = 400;
         player.body.collideWorldBounds = true;
         // Add player animations
-        player.animations.add('left', [0, 1, 2], 10, true);
-        player.animations.add('right', [4, 5, 6], 10, true);
-        
+        player.animations.add('left', [3, 2, 1, 0], 15, true);
+        player.animations.add('right', [5, 6, 7, 8], 15, true);
+        player.scale.setTo(2, 2);
         
         // Create buddy.
         buddy = game.add.sprite(1200, 300, 'buddy');
@@ -87,15 +105,13 @@ theGame.prototype = {
         buddy.body.collideWorldBounds = true;
         buddy.followed = false;
         
-        // Setup controls.
-        cursors = game.input.keyboard.createCursorKeys();
-        
         // Setup camera movement.
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
         
-        // Add music.
+        // Add music and sound.
 //        music = game.add.audio('introTest');
 //        music.play();
+        text1sound = game.add.audio('text1sound');
     },
     
     update: function(){
@@ -127,7 +143,7 @@ theGame.prototype = {
         } else {
             // Stop and stand still
             player.animations.stop();
-            player.frame = 3;
+            player.frame = 4;
         }
         
         // Once player reaches a point in the map, pass to the next game point.        

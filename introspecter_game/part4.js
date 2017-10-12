@@ -36,6 +36,7 @@ part4.prototype = {
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
         
         // Create dialogue and relevant materials.
+        dialogueNum = 0;
         borders = game.add.group();
         var content = 'Milo.';
         game.time.events.add(1000, createText, this);
