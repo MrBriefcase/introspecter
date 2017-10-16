@@ -40,7 +40,12 @@ part2.prototype = {
         game.world.setBounds(0, 0, 2400, 600);
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
-        // Create the bg image and later bg image.
+        // Create the bg image and later bg image. and ground.
+        theGround = game.add.group();
+        theGround.enableBody = true;
+        ground = theGround.create(0, 460, 'ground');
+        ground.body.immovable = true;
+        
         bg2 = game.add.sprite(0, 0, 'past_bg');
         bg = game.add.sprite(0, 0, null);
         
@@ -129,6 +134,12 @@ part2.prototype = {
     
     
     update: function(){
+        // Collide player and fruits with the ground.
+        game.physics.arcade.collide(player, theGround);
+        game.physics.arcade.collide(fruits[0], theGround);
+        game.physics.arcade.collide(fruits[1], theGround);
+        game.physics.arcade.collide(fruits[2], theGround);
+        game.physics.arcade.collide(fruits[3], theGround);
         // Perform function when player touches fruits.
 //        game.physics.arcade.overlap(player, fruits[0], eatFruit, null, this);
         if (player.x > 1100 && !firstFruitEaten){
@@ -350,25 +361,25 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit');
             // create growing x instruction
-            text_2 = game.add.text(1175, 450, 'x', { font: "24px Questrial", fill: "#ffffff" })
+            text_2 = game.add.text(1175, 370, 'x', { font: "24px Questrial", fill: "#ffffff" })
         }
         function eatFruit2(){
             player.movable = false;
             console.log('player touched fruit2');
             // create growing x instruction
-            text_2 = game.add.text(1325, 450, 'x', { font: "24px Questrial", fill: "#ffffff" })
+            text_2 = game.add.text(1325, 370, 'x', { font: "24px Questrial", fill: "#ffffff" })
         }
         function eatFruit3(){
             player.movable = false;
             console.log('player touched fruit3');
             // create growing x instruction
-            text_2 = game.add.text(1475, 450, 'x', { font: "24px Questrial", fill: "#ffffff" })
+            text_2 = game.add.text(1475, 370, 'x', { font: "24px Questrial", fill: "#ffffff" })
         }
         function eatFruit4(){
             player.movable = false;
             console.log('player touched fruit4');
             // create growing x instruction
-            text_2 = game.add.text(1625, 450, 'x', { font: "24px Questrial", fill: "#ffffff" })
+            text_2 = game.add.text(1625, 370, 'x', { font: "24px Questrial", fill: "#ffffff" })
         }
         function eatFruit5(){
             player.movable = false;
