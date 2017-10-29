@@ -7,6 +7,10 @@ var rotateRight = true;
 var tutorialChoose = true;
 var slowItDown = 0;
 var typeableWords = [];
+//var correct = [];
+
+var choiceBG;
+var typingMiniGame = false;
 
 var chooseGrow = true;
 
@@ -23,6 +27,9 @@ part4.prototype = {
         
         // Set music and sounds
         text1sound = game.add.audio('text1sound');
+        
+        // Add choiceBG
+        choiceBG = game.add.sprite(0, 0, null);
         
         // Create character
         player = game.add.sprite(375, 225, 'char');
@@ -327,6 +334,10 @@ part4.prototype = {
             text.text = '';
             nextLine();
         }
+        
+        
+        
+        
         if (game.input.keyboard.isDown(Phaser.Keyboard.X) && text.dialogueAfterChoice3){
             // Print out more dialogue
             text.dialogueAfterChoice3 = false;
@@ -335,36 +346,214 @@ part4.prototype = {
             content = 'Even then,\nyou made your\nown choice.';
             text.text = '';
             nextLine();
+            
             // text.dialogueAfterChoice4 is: true
             
             // Display the CHOOSEEEEEEEEEEEEE INSTRUCTION
             game.time.events.add(Phaser.Timer.SECOND*4.5, function(){
-                createTypeableWord('CHOOSE', 350);
+                createTypeableWord('CHOOSE', 350, 350);
             }, this);
         }
         
-        function createTypeableWord(typeThis, yPos){
+        
+        
+        
+        
+        function createTypeableWord(typeThis, xPos, yPos){
             var word = typeThis;
             var typeThisWord = [];
             
-            var xPos = 350;
+            var xHold = xPos;
             
             for (var i = 0; i < word.length; i++){
-                typeThisWord[i] = game.add.text(xPos, yPos, word[i], { font: "12px Old School Adventures", fill: "#ffffff" });
-                xPos += 15;
+                typeThisWord[i] = game.add.text(xHold, yPos, word[i], { font: "12px Old School Adventures", fill: "#ffffff" });
+                typeThisWord[i].typed = false;
+                typeThisWord[i].isCurrChar = false;
+                xHold += 15;
             }
+            typeThisWord[0].isCurrChar = true;
             typeableWords.push(typeThisWord);
             
             console.log('create typeable word fn works!');
         }
         
-        // Make the CHOOSE instruction typeable and each letter grow and shrink
+        
+        
+        
+        // Make the CHOOSE instruction typeable and each letter grow and shrink ****** IMPORTANT
         // to indicate it needs to be typed.
         if (typeableWords.length == 1 && tutorialChoose){
             tutorialChoose = false;
-            growShrink(typeableWords[0]);
+//            growShrink(typeableWords[0]);
+//            console.log('code reaches here');
+//            // Create correct-letter array for the CHOOSE word.
+//            for (var i = 0; i < typeableWords[0].length; i++){
+//                typeableWords[0][i].typed = false;
+//                typeableWords[0][i].isCurrChar = false;
+//            }
+//            console.log('code reaches after there');
+            
+            // Set .isCurrChar for sequential buton pressing.
+//            typeableWords[0][0].isCurrChar = true;
+            
+            // Catch all key inputs.
+            game.input.keyboard.addCallbacks(this, null, null, keyPress);
+            
         }
         
+        
+        
+        
+        
+        // All important keyPress function (will modify after functionality works)
+        function keyPress(char){
+            console.log('keypress works');
+            console.log('char: ' + char);
+            
+            // Loop through CHOOSE and when match, change colour
+            // .isCurrChar ****** SOLUTION TO MY FUTURE PROBLEM(type in sequential order)
+            for (var i = 0; i < typeableWords[0].length; i++){
+                if (typeableWords[0][i].typed == false && typeableWords[0][i].isCurrChar){
+                    // check (char == this letter) ? change colour : ---
+                    if (typeableWords[0][i].text.toLowerCase() == char){
+                        console.log('typed the correct key');
+                        
+                        // Change text color
+                        typeableWords[0][i].fill = '#5683ff';
+                        
+                        // why does doing this change alll to true????!!!****FIXED
+                        typeableWords[0][i].typed = true;
+                        
+                        // next letter is the curr char.
+                        if (i != typeableWords[0].length - 1){
+                            typeableWords[0][i].isCurrChar = false;
+                            typeableWords[0][i+1].isCurrChar = true;
+                        }
+                        
+                        break;
+                    } else {
+                        // restart word.
+                        restartWord(typeableWords[0]);
+                    }
+                } else{
+                    continue;
+                }
+            }
+            
+            // if all CHOOSE is typed then move on. (only need to check the last character)
+            if (typeableWords[0][5].typed){
+                // delete key catcher
+                game.input.keyboard.onPressCallback = null;
+                
+                // delay delete CHOOSE, Text box
+                // v    v   v   v   v
+                // fade in new BG
+                // v    v   v   v   v   
+                // start WORD TYPING MINIGAME
+                
+                game.time.events.add(Phaser.Timer.SECOND*3, function(){
+                    text.text = '';
+                    border.destroy();
+                    
+                    destroyWord(typeableWords[0]);
+                    typeableWords.splice(0, 1);
+                    
+                    choiceBG.loadTexture('bg_1');
+                    // ****** NEED TO IMPLEMENT FADE
+                    
+                    typingMiniGame = true;
+                }, this);
+                
+//                game.time.events.add(Phaser.Timer.SECONDS*5, function(){
+//                    console.log('code reaches here!!!!'); // NEVER REACHES HERE!!!!!!NOOOOO
+//                    
+//                    choiceBG.loadTexture('bg_1');
+//                }, this);
+            }
+        }
+        
+        
+        
+        // IMPLEMENT TYPING MINIGAME
+        
+        
+        if (typingMiniGame) {
+            typingMiniGame = false;
+            
+            // Only creates one ******* need to fix!!!! *******
+            // ****** NEED TO DO:
+            // -- generate random word
+            // -- generate at random Y location
+            // -- generate at 1.5 second intervals (adjustable)
+            // -- generate until 1 of 3 conditions met:
+            //      - type enough + words (positive)
+            //      - type enough - words (negative)
+            //      - miss enough words (neutral)
+            createTypeableWord('EXAMPLE', 1200, 300);
+            
+            game.input.keyboard.addCallbacks(this, null, null, keyPressV2);
+            
+            for (var i = 0; i < typeableWords[0].length; i++){
+                game.physics.arcade.enable(typeableWords[0][i]);
+                typeableWords[0][i].body.gravity.x = -50;
+            }
+        }
+        
+        
+        
+        
+        // keyPress for the mini game portion
+        function keyPressV2(char){
+            console.log('keypress works again');
+            
+            // check char against all words and their currChar.
+            for (var i = 0; i < typeableWords.length; i++){
+                for (var j = 0; j < typeableWords[i].length; j++){
+                    if (typeableWords[i][j].typed == false && typeableWords[i][j].isCurrChar){
+                        // check (char == this letter) ? change colour : ---
+                        if (typeableWords[i][j].text.toLowerCase() == char){
+                            console.log('typed the correct key');
+                            
+                            // Change text color
+                            typeableWords[i][j].fill = '#5683ff';
+                            
+                            // why does doing this change alll to true????!!!****FIXED
+                            typeableWords[i][j].typed = true;
+                            
+                            // next letter is the curr char.
+                            if (j != typeableWords[i].length - 1){
+                                typeableWords[i][j].isCurrChar = false;
+                                typeableWords[i][j+1].isCurrChar = true;
+                            }
+                            
+                            break;
+                        } else {
+                            // restart word.
+                            restartWord(typeableWords[i]);
+                        }
+                    } else{
+                        continue;
+                    }
+                }
+            }
+        }
+        
+        // Destroy word
+        function destroyWord(word){
+            for (var i = 0; i < word.length; i++){
+                word[i].destroy();
+            }
+        }
+        
+        // Restart word
+        function restartWord(word){
+            for (var i = 0; i < word.length; i++){
+                word[i].fill = '#ffffff';
+                word[i].typed = false;
+                word[i].isCurrChar = false;
+            }
+            word[0].isCurrChar = true;
+        }
         
         // Function to GROW and SHRINK typeable words. Pass in typeable word.
         // ************NEEDS ATTENTION
@@ -401,7 +590,7 @@ part4.prototype = {
             }
         }
         
-        console.log('update has run this times');
+//        console.log('update has run this times');
     },
     
     render: function(){
