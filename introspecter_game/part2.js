@@ -4,6 +4,36 @@ var fruit_y = 1000;
 var fruit1, fruit2, fruit3, fruit4;
 var fruits = [fruit1, fruit2, fruit3, fruit4];
 
+var part2_intro_speech = [
+    "You ", "were ", "never ", "a ", "good ", "person. "
+];
+var part2_ending_speech = [
+    "But ", "still ", "you ", "had ", "a ", "choice? "
+];
+var dyingFruitSpeech = [
+    "What the...",
+    "Alright, I'll dig deep.",
+    "For you, River.",
+    "It's all in my head, right?",
+    
+    "Hey!",
+    "Give us some food!",
+    
+    "No! F*** off!",
+    "These are mine!",
+    
+    "Please!",
+    "We're hungry!",
+    
+    "Ha! You think I care?",
+    "I need this more than you.",
+    
+    "I didn't mean to...",
+    "I just...",
+    "I didn't know...",
+    "I gotta move forward."
+];
+
 var firstFruitEaten = false;
 var finishedFirstFruit = false;
 var fruitEaten2 = false;

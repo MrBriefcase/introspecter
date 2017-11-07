@@ -2,7 +2,21 @@ var theGame = function(game){};
 
 
 // Variables for letter by letter text.
-var content = "I should go\nvisit my friend\nit's been awhile";
+var content = "Oh boy!";
+
+var intro_pt1_speeches = [
+    "Today's a great day!",
+    "I'm gonna have so much fun with my best friend!",
+    "You and River be careful playing!",
+    "Look both ways before crossing the street!",
+    "Hey Milo!",
+    "What'll we do today?",
+    "I dunno actually...",
+    "ANYTHING!",
+    ".  .  .",
+    "RACE YOU TO THE OTHER SIDE!",
+    "Loser buys our snacks!"
+];
 
 var letter = [];
 var wordIndex = 0;
@@ -53,12 +67,14 @@ theGame.prototype = {
         // Create text, letter by letter.
         text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
         
-        nextLine();
+        game.time.events.add(Phaser.Timer.SECOND*2, nextLine);
         
         // functions get hoisted!!!
         function nextLine(){
             if (letterIndex === content.length){
                 //  We're finished
+                text.endOfDialogue = true;
+                
                 return;
             }
             //  get the letter in the message
@@ -89,14 +105,15 @@ theGame.prototype = {
         }
         
         // Create player and its attributes.
-        player = game.add.sprite(32, 300, 'char_kid');
+        player = game.add.sprite(300, 370, 'char_kid');
         game.physics.arcade.enable(player);
         player.body.gravity.y = 400;
         player.body.collideWorldBounds = true;
         // Add player animations
-        player.animations.add('left', [3, 2, 1, 0], 15, true);
-        player.animations.add('right', [5, 6, 7, 8], 15, true);
+        player.animations.add('left', [3, 2, 1, 0], 5, true);
+        player.animations.add('right', [5, 6, 7, 8], 5, true);
         player.scale.setTo(2, 2);
+        player.movable = false;
         
         // Create buddy.
         buddy = game.add.sprite(1200, 300, 'buddy');
@@ -124,19 +141,19 @@ theGame.prototype = {
         buddy.body.velocity.x = 0;
         
         // Player controls (L, R, D, U)
-        if (cursors.left.isDown){
-            player.body.velocity.x = -200;
+        if (cursors.left.isDown && player.movable){
+            player.body.velocity.x = -100;
             player.animations.play('left');
             if (buddy.followed && ((buddy.x - player.x) > 100)){
-                buddy.body.velocity.x = -200;
+                buddy.body.velocity.x = -100;
             } else{
                 buddy.body.velocity.x = 0;
             }
-        } else if (cursors.right.isDown){
-            player.body.velocity.x = 200;
+        } else if (cursors.right.isDown && player.movable){
+            player.body.velocity.x = 100;
             player.animations.play('right');
             if (buddy.followed && ((player.x - buddy.x) > 100)){
-                buddy.body.velocity.x = 200;
+                buddy.body.velocity.x = 100;
             } else{
                 buddy.body.velocity.x = 0;
             }
@@ -145,6 +162,10 @@ theGame.prototype = {
             player.animations.stop();
             player.frame = 4;
         }
+        
+        
+        if (game.input.keyboard.isDown(Phaser.Keyboard.X) && text.endOfDialogue){
+        
         
         // Once player reaches a point in the map, pass to the next game point.        
         if (player.x > 1600){

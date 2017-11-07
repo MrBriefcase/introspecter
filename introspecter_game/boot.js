@@ -10,6 +10,7 @@ boot.prototype = {
         var example = game.add.sprite(game.world.centerX, game.world.centerY, 'examp');
         example.anchor.setTo(0.5, 0.5);
         
+        // Preserves hard edges!!! (to maintain pixel look)
         game.stage.smoothed = false;
         
         // Pass the state to 'Preload'.

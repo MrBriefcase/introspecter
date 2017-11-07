@@ -14,6 +14,44 @@ var typingMiniGame = false;
 
 var chooseGrow = true;
 
+var positiveChoice = 0;
+var negativeChoice = 0;
+var neutralChoice = 0;
+
+var negativeWords = ['bad', 'worse', 'reallybad'];
+var positiveWords = ['good', 'better', 'best'];
+
+var choice_intro_speech = [
+    "But ", "still ", "you ", "had ", "a ", "choice. "
+];
+
+var choice_speech = [
+    "I had a few choices after highschool.",
+    "It was so hard to choose.",
+    "Where did I go again?",
+    "It didn't matter, did it?",
+    "Fate had a path for me...",
+    "I had to take over the family business...",
+    "But still! I made a choice!!"
+];
+
+var posi_speech = [
+    "Yea! No matter where I was...",
+    "I could still control my attitude!",
+    "I could still be whoever I choose to be!"
+];
+
+var nega_speech = [
+    "Noo...",
+    "I hate everything...",
+    "There is no purpose to any of this..."
+];
+
+var neut_speech = [
+    "hahaaha, who am I kidding?",
+    "I missed all my opportunities...",
+    "I'm an apathetic piece of shit."
+];
 
 
 part4.prototype = {
@@ -377,6 +415,27 @@ part4.prototype = {
             console.log('create typeable word fn works!');
         }
         
+        // Alternate version with added gravity.
+        function createTypeableWord_v2(typeThis, xPos, yPos){
+            var word = typeThis;
+            var typeThisWord = [];
+            
+            var xHold = xPos;
+            
+            for (var i = 0; i < word.length; i++){
+                typeThisWord[i] = game.add.text(xHold, yPos, word[i], { font: "12px Old School Adventures", fill: "#ffffff" });
+                typeThisWord[i].typed = false;
+                typeThisWord[i].isCurrChar = false;
+                game.physics.arcade.enable(typeThisWord[i]);
+                typeThisWord[i].body.gravity.x = -50;
+                xHold += 15;
+            }
+            typeThisWord[0].isCurrChar = true;
+            typeableWords.push(typeThisWord);
+            
+            console.log('create typeable word fn works!');
+        }
+        
         
         
         
@@ -476,6 +535,22 @@ part4.prototype = {
         
         // IMPLEMENT TYPING MINIGAME
         
+        // function for creating a random word (-/0/+) at random y.
+        function createRandomWord(){
+//            console.log('fn called');
+            var negOrPos = Math.round(Math.random());
+            var yRandPos = Math.round(Math.random()*400) + 100;
+            var randIndex = Math.round(Math.random()*2);
+            if (negOrPos == 0){
+                createTypeableWord_v2(negativeWords[randIndex], 800, yRandPos);
+                // attach neg or pos identifier to last appended word.
+                typeableWords[typeableWords.length-1].isNeg = true;
+            } else if (negOrPos == 1){
+                createTypeableWord_v2(positiveWords[randIndex], 800, yRandPos);
+                // attach neg or pos identifier to last appended word.
+                typeableWords[typeableWords.length-1].isNeg = false;
+            }
+        }
         
         if (typingMiniGame) {
             typingMiniGame = false;
@@ -489,22 +564,30 @@ part4.prototype = {
             //      - type enough + words (positive)
             //      - type enough - words (negative)
             //      - miss enough words (neutral)
-            createTypeableWord('EXAMPLE', 1200, 300);
+            createTypeableWord_v2('type this as fast as you can!', 1200, 300);
+            
+            // looped event:
+            // game.time.events.loop(delay, fn, this);
+            game.time.events.loop(Phaser.Timer.SECOND*1.5, createRandomWord, this);
             
             game.input.keyboard.addCallbacks(this, null, null, keyPressV2);
             
-            for (var i = 0; i < typeableWords[0].length; i++){
-                game.physics.arcade.enable(typeableWords[0][i]);
-                typeableWords[0][i].body.gravity.x = -50;
-            }
         }
         
+        
+        // main loop for typing mini game
+        
+        // This check actually goes at the end of every keyPress.
+//        if (positiveChoice == 10 || negativeChoice == 10 || neutralChoice == 10)
         
         
         
         // keyPress for the mini game portion
+        
+        // I only just realized that i should have used objects 10/31/17
+        
         function keyPressV2(char){
-            console.log('keypress works again');
+//            console.log('keypress works again');
             
             // check char against all words and their currChar.
             for (var i = 0; i < typeableWords.length; i++){
@@ -512,7 +595,7 @@ part4.prototype = {
                     if (typeableWords[i][j].typed == false && typeableWords[i][j].isCurrChar){
                         // check (char == this letter) ? change colour : ---
                         if (typeableWords[i][j].text.toLowerCase() == char){
-                            console.log('typed the correct key');
+//                            console.log('typed the correct key');
                             
                             // Change text color
                             typeableWords[i][j].fill = '#5683ff';
@@ -532,7 +615,21 @@ part4.prototype = {
                             restartWord(typeableWords[i]);
                         }
                     } else{
-                        continue;
+//                        continue;
+                    }
+                    if (typeableWords[i][typeableWords[i].length-1].typed == true){
+                        // when last letter is typed please update arrays and destroy word.
+                        console.log('WORD FINISHED');
+                        // Check choice arrays
+                        //      if not maxed yet, increment appropriate num
+                        //      and destroy word.
+                        // Else
+                        //      when maxed, destroy all words
+                        //      
+                        if (typeableWords[i].isNeg){
+                            negativeChoice++;
+                            console.log('negChoice: ' + negativeChoice);
+                        }
                     }
                 }
             }

@@ -5,8 +5,9 @@ gameIntro.prototype = {
         // Create functions to move to different states.
         function playGame(){
             // ***** RETURN TO NORMAL WHEN DONE
-//            game.state.start('TheGame');
-            game.state.start('Part4');
+            game.state.start('TheGame');
+//            game.state.start('Part2');
+//            game.state.start('Part4');
         };
         
         function viewCredits(){
