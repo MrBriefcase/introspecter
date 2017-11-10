@@ -1,37 +1,45 @@
 var part2 = function(game){};
 
+var black_bg;
+var black_bg2;
+var fourthStop = false;
+
 var fruit_y = 1000;
 var fruit1, fruit2, fruit3, fruit4;
 var fruits = [fruit1, fruit2, fruit3, fruit4];
 
-var part2_intro_speech = [
-    "You ", "were ", "never ", "a ", "good ", "person. "
-];
-var part2_ending_speech = [
-    "But ", "still ", "you ", "had ", "a ", "choice? "
-];
+//var part2_intro_speech = [
+//    "You ", "were ", "never ", "a ", "good ", "person. "
+//];
+var part2_intro_speech = "You were never\na good person.";
+
+//var part2_ending_speech = [
+//    "But ", "still ", "you ", "had ", "a ", "choice? "
+//];
+var part2_ending_speech = "But still you had a choice?";
+
 var dyingFruitSpeech = [
     "What the...",
-    "Alright, I'll dig deep.",
+    "Alright, I'll\ndig deep.",
     "For you, River.",
-    "It's all in my head, right?",
+    "It's all in my\nhead, right?",
     
     "Hey!",
-    "Give us some food!",
+    "Give us some\nfood!",
     
     "No! F*** off!",
-    "These are mine!",
+    "These are\nmine!",
     
     "Please!",
     "We're hungry!",
     
-    "Ha! You think I care?",
-    "I need this more than you.",
+    "Ha! You think\nI care?",
+    "I need this\nmore than\nyou.",
     
-    "I didn't mean to...",
+    "I didn't mean\nto...",
     "I just...",
     "I didn't know...",
-    "I gotta move forward."
+    "I gotta move\nforward."
 ];
 
 var firstFruitEaten = false;
@@ -65,9 +73,13 @@ var camSpot;
 part2.prototype = {    
     create: function(){
         console.log('youre in part 2, bug when you press X before text loads');
+        // NOT ANYMORE!!!
         
         // Set world bounds and physics.
         game.world.setBounds(0, 0, 2400, 600);
+        dialogue_Num = 0;
+        border = game.add.sprite(50, 50, null);
+        border.created = true;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
         // Create the bg image and later bg image. and ground.
@@ -78,11 +90,6 @@ part2.prototype = {
         
         bg2 = game.add.sprite(0, 0, 'past_bg');
         bg = game.add.sprite(0, 0, null);
-        
-        // Add music... Holder for now
-//        music = game.add.audio('FloFliz');
-//        music.loopFull();
-        text1sound = game.add.audio('text1sound');
         
         // Create cam spot. for later. and BG... for later
         camSpot = game.add.sprite(1400, 600, null);
@@ -99,13 +106,29 @@ part2.prototype = {
         player.animations.add('right', [4, 5, 6], 10, true);
         
         // Create fruits (1, 2, 3, 4).
-        for (i=0; i<4; i++){
-            fruit_y += 150;
-            fruits[i] = game.add.sprite(fruit_y, 300, 'fruit');
-            game.physics.arcade.enable(fruits[i]);
-            fruits[i].body.gravity.y = 400;
-            fruits[i].body.collideWorldBounds = true;
-        }
+//        for (i=0; i<4; i++){
+//            fruit_y += 150;
+//            fruits[i] = game.add.sprite(fruit_y, 300, 'fruit');
+//            game.physics.arcade.enable(fruits[i]);
+//            fruits[i].body.gravity.y = 400;
+//            fruits[i].body.collideWorldBounds = true;
+//        }
+        fruits[0] = game.add.sprite(1150, 300, 'fruit1_1');
+        game.physics.arcade.enable(fruits[0]);
+        fruits[0].body.gravity.y = 400;
+        fruits[0].body.collideWorldBounds = true;
+        fruits[1] = game.add.sprite(1300, 300, 'fruit2_1');
+        game.physics.arcade.enable(fruits[1]);
+        fruits[1].body.gravity.y = 400;
+        fruits[1].body.collideWorldBounds = true;
+        fruits[2] = game.add.sprite(1450, 300, 'fruit3_1');
+        game.physics.arcade.enable(fruits[2]);
+        fruits[2].body.gravity.y = 400;
+        fruits[2].body.collideWorldBounds = true;
+        fruits[3] = game.add.sprite(1600, 300, 'fruit4_1');
+        game.physics.arcade.enable(fruits[3]);
+        fruits[3].body.gravity.y = 400;
+        fruits[3].body.collideWorldBounds = true;
         
         // Create controls.
         cursors = game.input.keyboard.createCursorKeys();
@@ -113,40 +136,111 @@ part2.prototype = {
         // Create camera movement.
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
         
-        // Create dialogue....
-        borders = game.add.group();
-        borders_2 = game.add.group();
-        borders_3 = game.add.group();
-        game.time.events.add(1000, createText, this);
         
-        function createText(){
-            dialogueFocus = true;
-            border = borders.create(200, 200, 'border2');
-            text = game.add.text(border.x+50, border.y+50, '', { font: "24px Questrial", fill: "#ffffff" });
-            nextLine();
-        }
-        
-        function nextLine(){
-            if (letterIndex === content.length){
+        // **** letter by letter functions
+        function nextLine(speech, xpos, ypos, clr){
+            if (!border.created){
+                // create border
+                border = game.add.sprite(200, 200, 'border');
+                border.loadTexture('border');
+                border.x = xpos;
+                border.y = ypos;
+                text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                border.created = true;
+            }
+            if (clr == 'milo'){
+                text.fill = milo_speech_clr;
+            }
+            if (clr == 'friend'){
+                text.fill = friend_speech_clr;
+            }
+            if (clr == 'neutral'){
+                text.fill = '#000000';
+            }
+            
+            if (letterIndex === speech.length){
                 //  We're finished
                 letterIndex = 0;
-                text.endOfDialogue = true;
+                dialogue_Num++;
+                
+                console.log('lByl v1');
+                
+                switch(dialogue_Num){
+                    case 1:
+                        text.endOfDial1 = true;
+                        break;
+                    case 2:
+                        text.endOfDial2 = true;
+                        break;
+                    case 3:
+                        text.endOfDial3 = true;
+                        break;
+                    case 4:
+                        text.endOfDial4 = true;
+                        break;
+                    case 5:
+                        text.endOfDial5 = true;
+                        break;
+                    case 6:
+                        text.endOfDial6 = true;
+                        break;
+                    case 7:
+                        text.endOfDial7 = true;
+                        break;
+                    case 8:
+                        text.endOfDial8 = true;
+                        break;
+                    case 9:
+                        text.endOfDial9 = true;
+                        break;
+                    case 10:
+                        text.endOfDial10 = true;
+                        break;
+                    case 11:
+                        text.endOfDial11 = true;
+                        break;
+                    case 12:
+                        text.endOfDial12 = true;
+                        break;
+                    case 13:
+                        text.endOfDial13 = true;
+                        break;
+                    case 14:
+                        text.endOfDial14 = true;
+                        break;
+                    case 15:
+                        text.endOfDial15 = true;
+                        break;
+                    case 16:
+                        text.endOfDial16 = true;
+                        break;
+                    case 17:
+                        text.endOfDial17 = true;
+                        break;
+                    case 18:
+                        text.endOfDial18 = true;
+                        break;
+                    case 19:
+                        text.endOfDial19 = true;
+                        break;
+                }
+                
                 return;
             }
             //  get the letter in the message
-            letter = content[letterIndex];
+            letter = speech[letterIndex];
             //  flag variable
             wordIndex = 0;
             //  Call the 'nextWord' function to concat the message into the game.
-            game.time.events.repeat(letterDelay, letter.length, nextWord, this);
+            game.time.events.repeat(letterDelay, letter.length, function(){nextWord(speech);}, this);
             //  Advance to the next letter
             letterIndex++;
         }
 
-        function nextWord(){
-            //  Add the next letter onto the text string and make a sound
+        function nextWord(speech2){
+            //  Add the next letter onto the text string
             text.text = text.text.concat(letter[wordIndex]);
-            if(text1sound.isPlaying){
+            if (text1sound.isPlaying){
                 text1sound.restart();
             } else{
                 text1sound.play();
@@ -156,9 +250,156 @@ part2.prototype = {
             //  Last word?
             if (wordIndex === letter.length){
                 //  Get the next line after the lineDelay amount of ms has elapsed
-                game.time.events.add(letterDelay, nextLine, this);
+                game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
             }
         }
+        
+        // setup music
+//        music = game.add.audio('audio_pt2');
+//        music.loop = true;
+//        music.play();
+        
+        // setup intro stuff
+        black_bg = game.add.sprite(0, 0, 'blk_bg');
+        
+        game.time.events.add(Phaser.Timer.SECOND*2, function(){
+            text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
+            nextLine(part2_intro_speech, 75, 300);
+            game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
+        });
+        
+        function dialogueKeyPress(char){
+            if (char == 'x' && text.endOfDial1){
+                text.endOfDial1 = false;
+                text.text = '';
+                black_bg.loadTexture(null);
+                border.created = false;
+                
+                game.time.events.add(Phaser.Timer.SECOND*1, function(){nextLine(dyingFruitSpeech[0], 300, 150, 'milo'); music = game.add.audio('audio_pt1'); music.loop = true; music.play();})
+            }
+            
+            // intro dialogue done, character in focus
+            if (char == 'x' && text.endOfDial2){
+                text.endOfDial2 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[1]);
+            }
+            if (char == 'x' && text.endOfDial3){
+                text.endOfDial3 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[2]);
+            }
+            if (char == 'x' && text.endOfDial4){
+                text.endOfDial4 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[3]);
+            }
+            if (char == 'x' && text.endOfDial5){
+                text.endOfDial5 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                player.movable = true;
+                
+                firstStop = true;
+            }
+            
+            // *** first segment
+            
+            if (char == 'x' && text.endOfDial6){
+                text.endOfDial6 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[5]);
+            }
+            if (char == 'x' && text.endOfDial7){
+                text.endOfDial7 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                nextLine(dyingFruitSpeech[6], 790, 180, 'milo');
+            }
+            if (char == 'x' && text.endOfDial8){
+                text.endOfDial8 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[7]);
+            }
+            if (char == 'x' && text.endOfDial9){
+                text.endOfDial9 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                player.movable = true;
+                
+                secondStop = true;
+            }
+            
+            // *** second segment
+            
+            if (char == 'x' && text.endOfDial10){
+                text.endOfDial10 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[9]);
+            }
+            if (char == 'x' && text.endOfDial11){
+                text.endOfDial11 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                nextLine(dyingFruitSpeech[10], 1280, 180, 'milo');
+            }
+            if (char == 'x' && text.endOfDial12){
+                text.endOfDial12 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[11]);
+            }
+            if (char == 'x' && text.endOfDial13){
+                text.endOfDial13 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                player.movable = true;
+                
+                thirdStop = true;
+            }
+            
+            // *** third Segment
+            
+            if (char == 'x' && text.endOfDial14){
+                text.endOfDial14 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[13]);
+            }
+            if (char == 'x' && text.endOfDial15){
+                text.endOfDial15 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[14]);
+            }
+            if (char == 'x' && text.endOfDial16){
+                text.endOfDial16 = false;
+                text.text = '';
+                nextLine(dyingFruitSpeech[15]);
+            }
+            if (char == 'x' && text.endOfDial17){
+                text.endOfDial17 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                player.movable = true;
+                
+                fourthStop = true;
+            }
+            if (char == 'x' && text.endOfDial18){
+                text.endOfDial18 = false;
+                music.stop();
+                
+                game.time.events.add(Phaser.Timer.SECOND*1, function(){
+                    game.state.start('Part3');
+                })
+            }
+        }
+        
+        // Sounds and music
+        eatingSound = game.add.audio('bite_sfx');
     },
     
     
@@ -187,16 +428,27 @@ part2.prototype = {
         } else if (player.x > 1800 && !fruitEaten5){
             fruitEaten5 = true;
             eatFruit5();
-        } else if (player.x > 2100 && !endOfPart1){
+        } else if (player.x > 2100 && fourthStop){
             // Advance to part 3 of the game.
-            dialogueScene3 = true;
-            endOfPart1 = true;
+//            dialogueScene3 = true;
+//            endOfPart1 = true;
+            fourthStop = false;
+            
+            player.movable = false;
+            black_bg.loadTexture('blk_bg');
+            text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
+            black_bg.bringToTop();
+            text.bringToTop();
+            
+            game.time.events.add(Phaser.Timer.SECOND*2, function(){
+                nextLine(part2_ending_speech, 75, 150);
+            });
         }
         
         // Reset player velocity
         player.body.velocity.x = 0;
         
-        // PLayer controls (L, R, D, U)
+        // Player controls (L, R, D, U)
         if (cursors.left.isDown && player.movable){
             player.body.velocity.x = -200;
             player.animations.play('left');
@@ -209,180 +461,21 @@ part2.prototype = {
             player.frame = 3;
         }
         
-        // Move to next text dialogue.
-        if (dialogueFocus && game.input.keyboard.isDown(Phaser.Keyboard.X) && text.endOfDialogue){
-            text.endOfDialogue = false;
-            dialogueNum++;
-            // New dialogue.
-            content = "I can hardly\nremember \nanything...";
-            text.text = '';
-            createText();
-            console.log('printed second box');
-        }
         
-        // Move to 3rd dialogue box.
-        if (dialogueFocus && game.input.keyboard.isDown(Phaser.Keyboard.X) && text.endOfDialogue2){
-            text.endOfDialogue2 = false;
-            dialogueNum++;
-            // New dialogue.
-            content = "someone help\nme...";
-            text.text = '';
-            createText();
-            console.log('printed 3rd box');
-        }
-        
-        // Get rid of text box and make char movable
-        if (dialogueFocus && game.input.keyboard.isDown(Phaser.Keyboard.X) && text.endOfDialogue3){
-            text.endOfDialogue3 = false;
-            dialogueNum++;
-            text.text = '';
-            borders.destroy();
-            player.movable = true;
-            console.log('getting rid of text box');
-        }
-        
-        // Pre-text before food.
-        // When player approaches the food, play dialogue
-        if (player.x > 890 && (dialogueNum == 3)) {
-            // Play dialogue
-            dialogueNum++;
+        if (player.x > 890 && firstStop){
+            firstStop = false;
             player.movable = false;
-            dialogueScene2 = true;
-//            content = "Man, I'm pretty\nhungry.";
-//            createText(500, 200);
-        }
-        
-        if (dialogueScene2){
-            dialogueScene2 = false;
-            content = "Man, I'm pretty\nhungry.";
-            createText2();
-        }
-        
-        
-        
-        // Dialogue before moving to part 3.
-        if (dialogueScene3){
-            dialogueScene3 = false;
-            content = "Msg before\npart 3.";
-            createText3();
-        }
-        if (endOfPart1 && (dialogueNum == 6) && game.input.keyboard.isDown(Phaser.Keyboard.X)){
-            dialogueNum++;
-        }
-        if (endOfPart1 && game.input.keyboard.isDown(Phaser.Keyboard.X) && (dialogueNum > 6)){
-            game.state.start('Part3');
-        }
-        
-        
-        
-        if (game.input.keyboard.isDown(Phaser.Keyboard.X) && text.endOfDialogue4){
-            text.endOfDialogue4 = false;
-            dialogueNum++;
-            text.text = '';
-            content = "these look\ntasty!";
-            createText2();
-        }
-        
-        // End of 2nd series of text.
-        if (game.input.keyboard.isDown(Phaser.Keyboard.X) && text.endOfDialogue5){
-            text.endOfDialogue5 = false;
-            dialogueNum++;
-            text.text = '';
-            borders_2.destroy();
-            // Executes in final dialogue group.
-            player.movable = true;
-        }
-        
-        
-        
-        // Appropriate functions
-        function createText(){
-            dialogueFocus = true;
-            border = borders.create(game.camera.view.x+200, game.camera.view.y+200, 'border2');
-            var text = game.add.text(border.x+50, border.y+50, '', { font: "24px Questrial", fill: "#ffffff" });
-            nextLine();
-        }
-        function createText2(){
-            dialogueFocus = true;
-            border_2 = borders_2.create(700, 200, 'border2');
-            text.x = 750;
-            nextLine();
-            console.log('printing dialogue_2');
-        }
-        function createText3(){
-            border_3 = borders_3.create(2000, 200, 'border2');
-            border_3.bringToTop();
-            text.x = 2050;
-            player.movable = false;
-            nextLine();
-            console.log('final dialogue before');
-        }
-        
-        function nextLine(){
-            if (letterIndex === content.length){
-                //  We're finished
-//                if (!text.endOfDialogue3){
-//                    text.endOfDialogue = false;
-//                    text.endOfDialogue2 = false;
-//                }
-//                if (!text.endOfDialogue && !text.endOfDialogue2){
-//                    text.endOfDialogue3 = true;
-//                }
-//                if (!text.endOfDialogue){
-//                    text.endOfDialogue2 = true;
-//                }
-                switch (dialogueNum){
-                    case 1:
-                        text.endOfDialogue2 = true;
-                        break;
-                    case 2:
-                        text.endOfDialogue3 = true;
-                        break;
-                    case 4:
-                        text.endOfDialogue4 = true;
-                        break;
-                    case 5:
-                        text.endOfDialogue5 = true;
-                        break;
-                    default:
-                        break;
-                }
-                
-                letterIndex = 0;
-                wordIndex = 0;
-                return;
-            }
-
-            //  get the letter in the message
-            letter = content[letterIndex];
             
-            //  flag variable
-            wordIndex = 0;
-
-            //  Call the 'nextWord' function to concat the message into the game.
-            game.time.events.add(20, nextWord, this);
-
-            //  Advance to the next letter
-            letterIndex++;
+            nextLine(dyingFruitSpeech[4], 500, 180, 'neutral');
         }
-
-        function nextWord(){
-            //  Add the next letter onto the text string
-            text.text = text.text.concat(letter);
-            if (text1sound.isPlaying){
-                text1sound.restart();
-            } else{
-                text1sound.play();
-            }
-            //  Advance the word index to the next word in the line
-            wordIndex++;
-
-            //  Last word?
-            if (wordIndex === letter.length){
-                //  Get the next line after the lineDelay amount of ms has elapsed
-                game.time.events.add(20, nextLine, this);
-            }
+        
+        if (player.x > 1360 && secondStop){
+            secondStop = false;
+            player.movable = false;
+            
+            nextLine(dyingFruitSpeech[8], 975, 180, 'neutral');
         }
+        
         
         // 
         // Fruit eatting function!
@@ -435,7 +528,10 @@ part2.prototype = {
                 player.bringToTop();
                 text.bringToTop();
                 game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
-                player.movable = true;
+//                player.movable = true;
+            }, this);
+            game.time.events.add(Phaser.Timer.SECOND*11, function(){
+                nextLine(dyingFruitSpeech[12], 1700, 180, 'milo');
             }, this);
         }                        
         
@@ -461,98 +557,220 @@ part2.prototype = {
             fruitCounter++;
             if (fruitCounter > 50 && fruitCounter < 100){
                 // Change fruit texture
-                fruits[0].loadTexture('fruit2');
+                fruits[0].loadTexture('fruit1_2');
                 
             } else if (fruitCounter >= 100 && fruitCounter < 150){
-                fruits[0].loadTexture('fruit3');
+                fruits[0].loadTexture('fruit1_3');
             } else if (fruitCounter >= 150 && fruitCounter < 200){
-                fruits[0].loadTexture('fruit4');
-            } else if (fruitCounter >= 200){
-                fruits[0].loadTexture('fruit5');
+                fruits[0].loadTexture('fruit1_4');
+//            } else if (fruitCounter >= 200){
+//                fruits[0].loadTexture('fruit5');
                 player.movable = true;
                 finishedFirstFruit = true;
                 fruitCounter = 0;
                 text_2.text = '';
+            }
+            
+            if (eatingSound.isPlaying){
+                eatingSound.restart();
+            } else{
+                eatingSound.play();
             }
         }
         if (fruitEaten2 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit2){
             fruitCounter++;
             if (fruitCounter > 50 && fruitCounter < 100){
                 // Change fruit texture
-                fruits[1].loadTexture('fruit2');
+                fruits[1].loadTexture('fruit2_2');
                 
             } else if (fruitCounter >= 100 && fruitCounter < 150){
-                fruits[1].loadTexture('fruit3');
+                fruits[1].loadTexture('fruit2_3');
             } else if (fruitCounter >= 150 && fruitCounter < 200){
-                fruits[1].loadTexture('fruit4');
-            } else if (fruitCounter >= 200){
-                fruits[1].loadTexture('fruit5');
+                fruits[1].loadTexture('fruit2_4');
+//            } else if (fruitCounter >= 200){
+//                fruits[1].loadTexture('fruit5');
                 player.movable = true;
                 finishedFruit2 = true;
                 fruitCounter = 0;
                 text_2.text = '';
+            }
+            
+            if (eatingSound.isPlaying){
+                eatingSound.restart();
+            } else{
+                eatingSound.play();
             }
         }
         if (fruitEaten3 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit3){
             fruitCounter++;
             if (fruitCounter > 50 && fruitCounter < 100){
                 // Change fruit texture
-                fruits[2].loadTexture('fruit2');
+                fruits[2].loadTexture('fruit3_2');
                 
             } else if (fruitCounter >= 100 && fruitCounter < 150){
-                fruits[2].loadTexture('fruit3');
+                fruits[2].loadTexture('fruit3_3');
             } else if (fruitCounter >= 150 && fruitCounter < 200){
-                fruits[2].loadTexture('fruit4');
-            } else if (fruitCounter >= 200){
-                fruits[2].loadTexture('fruit5');
+                fruits[2].loadTexture('fruit3_4');
+//            } else if (fruitCounter >= 200){
+//                fruits[2].loadTexture('fruit5');
                 player.movable = true;
                 finishedFruit3 = true;
                 fruitCounter = 0;
                 text_2.text = '';
+            }
+            
+            if (eatingSound.isPlaying){
+                eatingSound.restart();
+            } else{
+                eatingSound.play();
             }
         }
         if (fruitEaten4 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit4){
             fruitCounter++;
             if (fruitCounter > 50 && fruitCounter < 100){
                 // Change fruit texture
-                fruits[3].loadTexture('fruit2');
+                fruits[3].loadTexture('fruit4_2');
                 
             } else if (fruitCounter >= 100 && fruitCounter < 150){
-                fruits[3].loadTexture('fruit3');
+                fruits[3].loadTexture('fruit4_3');
             } else if (fruitCounter >= 150 && fruitCounter < 200){
-                fruits[3].loadTexture('fruit4');
-            } else if (fruitCounter >= 200){
-                fruits[3].loadTexture('fruit5');
+                fruits[3].loadTexture('fruit4_4');
+//            } else if (fruitCounter >= 200){
+//                fruits[3].loadTexture('fruit5');
                 player.movable = true;
                 finishedFruit4 = true;
                 fruitCounter = 0;
                 text_2.text = '';
             }
+            
+            if (eatingSound.isPlaying){
+                eatingSound.restart();
+            } else{
+                eatingSound.play();
+            }
         }
-        // LAST FRUIT!!!
-        // ***Do camera movement as well
-        // *******
-//        if (fruitEaten5 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit5){
-//            fruitCounter++;
-//            if (fruitCounter > 50 && fruitCounter < 100){
-//                // Change fruit texture
-//                fruits[4].loadTexture('fruit2');
-//                
-//            } else if (fruitCounter >= 100 && fruitCounter < 150){
-//                fruits[4].loadTexture('fruit3');
-//            } else if (fruitCounter >= 150 && fruitCounter < 200){
-//                fruits[4].loadTexture('fruit4');
-//            } else if (fruitCounter >= 200){
-//                fruits[4].loadTexture('fruit5');
-//                player.movable = true;
-//                finishedFruit5 = true;
-//                fruitCounter = 0;
-//                text_2.text = '';
-//            }
-//        }
+        
+        
+        // Text speech functions
+        function nextLine(speech, xpos, ypos, clr){
+            if (!border.created){
+                // create border
+                border = game.add.sprite(200, 200, 'border');
+                border.loadTexture('border_v3');
+                border.x = xpos;
+                border.y = ypos;
+                text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                border.created = true;
+            }
+            if (clr == 'milo'){
+                text.fill = milo_speech_clr;
+            }
+            if (clr == 'friend'){
+                text.fill = friend_speech_clr;
+            }
+            if (clr == 'neutral'){
+                text.fill = '#000000';
+            }
+            
+            if (letterIndex === speech.length){
+                //  We're finished
+                letterIndex = 0;
+                dialogue_Num++;
+                
+                console.log('lByl v1');
+                
+                switch(dialogue_Num){
+                    case 1:
+                        text.endOfDial1 = true;
+                        break;
+                    case 2:
+                        text.endOfDial2 = true;
+                        break;
+                    case 3:
+                        text.endOfDial3 = true;
+                        break;
+                    case 4:
+                        text.endOfDial4 = true;
+                        break;
+                    case 5:
+                        text.endOfDial5 = true;
+                        break;
+                    case 6:
+                        text.endOfDial6 = true;
+                        break;
+                    case 7:
+                        text.endOfDial7 = true;
+                        break;
+                    case 8:
+                        text.endOfDial8 = true;
+                        break;
+                    case 9:
+                        text.endOfDial9 = true;
+                        break;
+                    case 10:
+                        text.endOfDial10 = true;
+                        break;
+                    case 11:
+                        text.endOfDial11 = true;
+                        break;
+                    case 12:
+                        text.endOfDial12 = true;
+                        break;
+                    case 13:
+                        text.endOfDial13 = true;
+                        break;
+                    case 14:
+                        text.endOfDial14 = true;
+                        break;
+                    case 15:
+                        text.endOfDial15 = true;
+                        break;
+                    case 16:
+                        text.endOfDial16 = true;
+                        break;
+                    case 17:
+                        text.endOfDial17 = true;
+                        break;
+                    case 18:
+                        text.endOfDial18 = true;
+                        break;
+                    case 19:
+                        text.endOfDial19 = true;
+                        break;
+                }
+                
+                return;
+            }
+            //  get the letter in the message
+            letter = speech[letterIndex];
+            //  flag variable
+            wordIndex = 0;
+            //  Call the 'nextWord' function to concat the message into the game.
+            game.time.events.repeat(letterDelay, letter.length, function(){nextWord(speech);}, this);
+            //  Advance to the next letter
+            letterIndex++;
+        }
+
+        function nextWord(speech2){
+            //  Add the next letter onto the text string
+            text.text = text.text.concat(letter[wordIndex]);
+            if (text1sound.isPlaying){
+                text1sound.restart();
+            } else{
+                text1sound.play();
+            }
+            //  Advance the word index to the next word in the line
+            wordIndex++;
+            //  Last word?
+            if (wordIndex === letter.length){
+                //  Get the next line after the lineDelay amount of ms has elapsed
+                game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
+            }
+        }
     },
     
     render: function(){
         game.debug.spriteInfo(player, 50, 50);
+        game.debug.pointer(game.input.activePointer);
     }
 }

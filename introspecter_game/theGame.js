@@ -2,27 +2,45 @@ var theGame = function(game){};
 
 
 // Variables for letter by letter text.
-var content = "Oh boy!";
 
 var intro_pt1_speeches = [
-    "Today's a great day!",
-    "I'm gonna have so much fun with my best friend!",
-    "You and River be careful playing!",
-    "Look both ways before crossing the street!",
-    "Hey Milo!",
-    "What'll we do today?",
-    "I dunno actually...",
+    "Oh boy!",
+    "Today's a\ngreat day!",
+    "I'm gonna have\nso much fun with\nmy best friend!",
+    
+    "You and River\nbe careful\nplaying!",
+    "Look both ways\nbefore crossing\nthe street!",
+    
+    "Yeah mom!",
+    "I know!\nWe'll be\ncareful!",
+    
+    "Hey Milo! <3",
+    "What'll we\ndo today? :3",
+    
+    "I dunno\nactually...",
     "ANYTHING!",
     ".  .  .",
-    "RACE YOU TO THE OTHER SIDE!",
-    "Loser buys our snacks!"
+    "RACE YOU TO\nTHE OTHER\nSIDE!",
+    "Loser buys\nour snacks!"
 ];
+
+var milo_speech_clr = '#59a9f8';
+var friend_speech_clr = '#f5a0a0';
 
 var letter = [];
 var wordIndex = 0;
 var letterIndex = 0;
 var wordDelay = 120;
 var letterDelay = 20;
+
+var dialogue_Num = 0;
+
+var firstStop = false;
+var secondStop = false;
+var thirdStop = false;
+
+var leftRight_velo = 100;
+var sfx;
 
 WebFontConfig = {
     //  The Google Fonts we want to load (specify as many as you like in the array)
@@ -62,32 +80,103 @@ theGame.prototype = {
         
         
         // Create border.
-        border = game.add.sprite(200, 200, 'border_v3');
+        border = game.add.sprite(200, 200, null);
+        border.created = false;
         
         // Create text, letter by letter.
-        text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+//        text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
         
-        game.time.events.add(Phaser.Timer.SECOND*2, nextLine);
+        game.time.events.add(Phaser.Timer.SECOND*2, function(){
+            nextLine(intro_pt1_speeches[0], 200, 200, 'milo');
+            game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
+        });
         
         // functions get hoisted!!!
-        function nextLine(){
-            if (letterIndex === content.length){
+        function nextLine(speech, xpos, ypos, clr){
+            if (!border.created){
+                // create border
+//                border = game.add.sprite(200, 200, 'border2');
+                border.loadTexture('border');
+                border.x = xpos;
+                border.y = ypos;
+                text = game.add.text(border.x+15, border.y+15, '', { font: "22px Questrial", fill: "#000000" });
+                border.created = true;
+            }
+            if (clr == 'milo'){
+                text.fill = milo_speech_clr;
+            }
+            if (clr == 'friend'){
+                text.fill = friend_speech_clr;
+            }
+            if (clr == 'neutral'){
+                text.fill = '#000000';
+            }
+            
+            if (letterIndex === speech.length){
                 //  We're finished
-                text.endOfDialogue = true;
+                letterIndex = 0;
+                dialogue_Num++;
+                
+                console.log('lByl v1');
+                
+                switch(dialogue_Num){
+                    case 1:
+                        text.endOfDial1 = true;
+                        break;
+                    case 2:
+                        text.endOfDial2 = true;
+                        break;
+                    case 3:
+                        text.endOfDial3 = true;
+                        break;
+                    case 4:
+                        text.endOfDial4 = true;
+                        break;
+                    case 5:
+                        text.endOfDial5 = true;
+                        break;
+                    case 6:
+                        text.endOfDial6 = true;
+                        break;
+                    case 7:
+                        text.endOfDial7 = true;
+                        break;
+                    case 8:
+                        text.endOfDial8 = true;
+                        break;
+                    case 9:
+                        text.endOfDial9 = true;
+                        break;
+                    case 10:
+                        text.endOfDial10 = true;
+                        break;
+                    case 11:
+                        text.endOfDial11 = true;
+                        break;
+                    case 12:
+                        text.endOfDial12 = true;
+                        break;
+                    case 13:
+                        text.endOfDial13 = true;
+                        break;
+                    case 14:
+                        text.endOfDial14 = true;
+                        break;
+                }
                 
                 return;
             }
             //  get the letter in the message
-            letter = content[letterIndex];
+            letter = speech[letterIndex];
             //  flag variable
             wordIndex = 0;
             //  Call the 'nextWord' function to concat the message into the game.
-            game.time.events.repeat(letterDelay, letter.length, nextWord, this);
+            game.time.events.repeat(letterDelay, letter.length, function(){nextWord(speech);}, this);
             //  Advance to the next letter
             letterIndex++;
         }
 
-        function nextWord(){
+        function nextWord(speech2){
             //  Add the next letter onto the text string
             text.text = text.text.concat(letter[wordIndex]);
             if (text1sound.isPlaying){
@@ -100,7 +189,115 @@ theGame.prototype = {
             //  Last word?
             if (wordIndex === letter.length){
                 //  Get the next line after the lineDelay amount of ms has elapsed
-                game.time.events.add(letterDelay, nextLine, this);
+                game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
+            }
+        }
+        
+
+        
+        // Key press function for continuing dialogue
+        function dialogueKeyPress(char){
+            if (char == 'x' && text.endOfDial1){
+                // refresh dialogue or clear text box.
+                text.endOfDial1 = false;
+                text.text = '';
+                nextLine(intro_pt1_speeches[1]);
+            }
+            if (char == 'x' && text.endOfDial2){
+                text.endOfDial2 = false;
+                text.text = '';
+                nextLine(intro_pt1_speeches[2]);
+            }
+            
+            
+            if (char == 'x' && text.endOfDial3){
+                text.endOfDial3 = false;
+                
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                player.movable = true;
+                
+                firstStop = true;
+            }
+            
+            
+            // ********** segment
+            
+            
+            if (char == 'x' && text.endOfDial4){
+                text.endOfDial4 = false;
+                text.text = '';
+                nextLine(intro_pt1_speeches[4]);
+            }
+            if (char == 'x' && text.endOfDial5){
+                // milos turn
+                text.endOfDial5 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                nextLine(intro_pt1_speeches[5], 750, 150, 'milo');
+            }
+            if (char == 'x' && text.endOfDial6){
+                text.endOfDial6 = false;
+                text.text = '';
+                nextLine(intro_pt1_speeches[6]);
+            }
+            if (char == 'x' && text.endOfDial7){
+                text.endOfDial7 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                player.movable = true;
+                
+                secondStop = true;
+            }
+            
+            
+            // ********** second segment
+            
+            if (char == 'x' && text.endOfDial8){
+                text.endOfDial8 = false;
+                text.text = '';
+                nextLine(intro_pt1_speeches[8]);
+            }
+            if (char == 'x' && text.endOfDial9){
+                text.endOfDial9 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                nextLine(intro_pt1_speeches[9], 1050, 150, 'milo');
+            }
+            if (char == 'x' && text.endOfDial10){
+                text.endOfDial10 = false;
+                text.text = '';
+                nextLine(intro_pt1_speeches[10]);
+            }
+            if (char == 'x' && text.endOfDial11){
+                text.endOfDial11 = false;
+                text.text = '';
+                nextLine(intro_pt1_speeches[11]);
+            }
+            if (char == 'x' && text.endOfDial12){
+                text.endOfDial12 = false;
+                text.text = '';
+                nextLine(intro_pt1_speeches[12]);
+            }
+            if (char == 'x' && text.endOfDial13){
+                text.endOfDial13 = false;
+                text.text = '';
+                nextLine(intro_pt1_speeches[13]);
+            }
+            if (char == 'x' && text.endOfDial14){
+                text.endOfDial14 = false;
+                text.text = '';
+                border.loadTexture(null);
+                border.created = false;
+                player.movable = true;
+                player.animations._anims.right.speed = 15;
+                player.animations._anims.left.speed = 15;
+                
+                thirdStop = true;
             }
         }
         
@@ -126,8 +323,9 @@ theGame.prototype = {
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
         
         // Add music and sound.
-//        music = game.add.audio('introTest');
-//        music.play();
+        music = game.add.audio('intro1');
+        music.loop = true;
+        music.play();
         text1sound = game.add.audio('text1sound');
     },
     
@@ -142,18 +340,18 @@ theGame.prototype = {
         
         // Player controls (L, R, D, U)
         if (cursors.left.isDown && player.movable){
-            player.body.velocity.x = -100;
+            player.body.velocity.x = -leftRight_velo;
             player.animations.play('left');
             if (buddy.followed && ((buddy.x - player.x) > 100)){
-                buddy.body.velocity.x = -100;
+                buddy.body.velocity.x = -leftRight_velo;
             } else{
                 buddy.body.velocity.x = 0;
             }
         } else if (cursors.right.isDown && player.movable){
-            player.body.velocity.x = 100;
+            player.body.velocity.x = leftRight_velo;
             player.animations.play('right');
             if (buddy.followed && ((player.x - buddy.x) > 100)){
-                buddy.body.velocity.x = 100;
+                buddy.body.velocity.x = leftRight_velo;
             } else{
                 buddy.body.velocity.x = 0;
             }
@@ -164,11 +362,40 @@ theGame.prototype = {
         }
         
         
-        if (game.input.keyboard.isDown(Phaser.Keyboard.X) && text.endOfDialogue){
+        // SEGEMNETING THE PARTS !!!!!!!!!!!!!!!!
+        if (player.x > 875 && firstStop){
+            firstStop = false;
+            
+            player.movable = false;
+            nextLine(intro_pt1_speeches[3], 460, 150);
+        }
         
+        
+        if (player.x > 1150 && secondStop){
+            secondStop = false;
+            
+            player.movable = false;
+            nextLine(intro_pt1_speeches[7], 1200, 150, 'friend');
+        }
+        
+        
+        if (thirdStop){
+            thirdStop = false;
+            leftRight_velo = 200;
+        }
+        
+        
+        if(player.x > 1700){
+            music.stop();
+        }
+        
+        if (player.x > 1879){
+            sfx = game.add.audio('crash_sfx');
+            sfx.play();
+        }
         
         // Once player reaches a point in the map, pass to the next game point.        
-        if (player.x > 1600){
+        if (player.x > 1880){
             this.nextPart();
         }
         
@@ -176,13 +403,107 @@ theGame.prototype = {
         if (player.x > 1300){
             buddy.followed = true;
         }
+        
+        // dialogue functions
+        function nextLine(speech, xpos, ypos, clr){
+            if (!border.created){
+                // create border
+//                border = game.add.sprite(200, 200, 'border2');
+                border.loadTexture('border');
+                border.x = xpos;
+                border.y = ypos;
+                text = game.add.text(border.x+15, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                border.created = true;
+            }
+            if (clr == 'milo'){
+                text.fill = milo_speech_clr;
+            }
+            if (clr == 'friend'){
+                text.fill = friend_speech_clr;
+            }
+            if (clr == 'neutral'){
+                text.fill = '#000000';
+            }
+            
+            if (letterIndex === speech.length){
+                //  We're finished
+                letterIndex = 0;
+                dialogue_Num++;
+                
+                console.log('lByl v2');
+                
+                switch(dialogue_Num){
+                    case 1:
+                        text.endOfDial1 = true;
+                        break;
+                    case 2:
+                        text.endOfDial2 = true;
+                        break;
+                    case 3:
+                        text.endOfDial3 = true;
+                        break;
+                    case 4:
+                        text.endOfDial4 = true;
+                        break;
+                    case 5:
+                        text.endOfDial5 = true;
+                        break;
+                    case 6:
+                        text.endOfDial6 = true;
+                        break;
+                    case 7:
+                        text.endOfDial7 = true;
+                        break;
+                    case 8:
+                        text.endOfDial8 = true;
+                        break;
+                    case 9:
+                        text.endOfDial9 = true;
+                        break;
+                    case 10:
+                        text.endOfDial10 = true;
+                        break;
+                    case 11:
+                        text.endOfDial11 = true;
+                        break;
+                }
+                
+                return;
+            }
+            //  get the letter in the message
+            letter = speech[letterIndex];
+            //  flag variable
+            wordIndex = 0;
+            //  Call the 'nextWord' function to concat the message into the game.
+            game.time.events.repeat(letterDelay, letter.length, function(){nextWord(speech);}, this);
+            //  Advance to the next letter
+            letterIndex++;
+        }
+
+        function nextWord(speech2){
+            //  Add the next letter onto the text string
+            text.text = text.text.concat(letter[wordIndex]);
+            if (text1sound.isPlaying){
+                text1sound.restart();
+            } else{
+                text1sound.play();
+            }
+            //  Advance the word index to the next word in the line
+            wordIndex++;
+            //  Last word?
+            if (wordIndex === letter.length){
+                //  Get the next line after the lineDelay amount of ms has elapsed
+                game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
+            }
+        }
     },
     
     render: function(){
         game.debug.spriteInfo(player, 50, 50);
+        game.debug.pointer(game.input.activePointer);
     },
     
     nextPart: function(){
-        game.state.start('Part2');
+        game.state.start('intro_pt2');
     }
 }

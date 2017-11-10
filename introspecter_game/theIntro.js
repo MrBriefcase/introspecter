@@ -1,8 +1,12 @@
 var gameIntro = function(game){};
+var moveRight = true;
+var menu_bg;
 
 gameIntro.prototype = {
     create: function(){
         // Create functions to move to different states.
+        menu_bg = game.add.sprite(0, 0, 'menu_bg');
+        
         function playGame(){
             // ***** RETURN TO NORMAL WHEN DONE
             game.state.start('TheGame');
@@ -15,7 +19,24 @@ gameIntro.prototype = {
         };
         
         // Create the Play and Credits button.
-        var playButton = game.add.button(275, 150, 'playBtn', playGame, this);
-        var creditsButton = game.add.button(275, 450, 'credBtn', viewCredits, this);
+        var playButton = game.add.button(250, 300, 'playBtn', playGame, this);
+        var creditsButton = game.add.button(250, 450, 'credBtn', viewCredits, this);
+    },
+    
+    update: function(){
+        if (menu_bg.x > -400 && moveRight){
+            menu_bg.x -= 0.5;
+        } else{
+            moveRight = false;
+        }
+        if (menu_bg.x < 0 && !moveRight){
+            menu_bg.x += 0.5;
+        } else{
+            moveRight = true;
+        }
+    },
+    
+    render: function(){
+        game.debug.spriteInfo(menu_bg, 32, 32);
     }
 };

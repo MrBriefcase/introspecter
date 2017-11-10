@@ -64,6 +64,9 @@ part4.prototype = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
         // Set music and sounds
+        music = game.add.audio('audio_pt3');
+        music.loop = true;
+        music.play();
         text1sound = game.add.audio('text1sound');
         
         // Add choiceBG
