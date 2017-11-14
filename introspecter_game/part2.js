@@ -68,6 +68,7 @@ var dialogueScene3 = false;
 var endOfPart1 = false;
 
 var camSpot;
+var checkFruit;
 
 
 part2.prototype = {    
@@ -484,25 +485,37 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit');
             // create growing x instruction
-            text_2 = game.add.text(1175, 370, 'x', { font: "24px Questrial", fill: "#ffffff" })
+            text_2 = game.add.text(1175, 370, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            
+            checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
+            checkFruit.onDown.add(froo1);
         }
         function eatFruit2(){
             player.movable = false;
             console.log('player touched fruit2');
             // create growing x instruction
-            text_2 = game.add.text(1325, 370, 'x', { font: "24px Questrial", fill: "#ffffff" })
+            text_2 = game.add.text(1325, 370, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            
+            checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
+            checkFruit.onDown.add(froo2);
         }
         function eatFruit3(){
             player.movable = false;
             console.log('player touched fruit3');
             // create growing x instruction
-            text_2 = game.add.text(1475, 370, 'x', { font: "24px Questrial", fill: "#ffffff" })
+            text_2 = game.add.text(1475, 370, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            
+            checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
+            checkFruit.onDown.add(froo3);
         }
         function eatFruit4(){
             player.movable = false;
             console.log('player touched fruit4');
             // create growing x instruction
-            text_2 = game.add.text(1625, 370, 'x', { font: "24px Questrial", fill: "#ffffff" })
+            text_2 = game.add.text(1625, 370, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            
+            checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
+            checkFruit.onDown.add(froo4);
         }
         function eatFruit5(){
             player.movable = false;
@@ -553,15 +566,21 @@ part2.prototype = {
         //******
         // When X is pressed, during eating fruit, cycle through different frames until you get to the eaten fruit frame (fruits 1 - 5)
         //******
-        if (firstFruitEaten && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFirstFruit){
+        
+        
+//        if (firstFruitEaten && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFirstFruit){
+        function froo1(){
             fruitCounter++;
-            if (fruitCounter > 50 && fruitCounter < 100){
+            console.log('frtCt: ' + fruitCounter);
+            if (fruitCounter == 7){
                 // Change fruit texture
                 fruits[0].loadTexture('fruit1_2');
                 
-            } else if (fruitCounter >= 100 && fruitCounter < 150){
+            }
+            if (fruitCounter == 14){
                 fruits[0].loadTexture('fruit1_3');
-            } else if (fruitCounter >= 150 && fruitCounter < 200){
+            }
+            if (fruitCounter == 21){
                 fruits[0].loadTexture('fruit1_4');
 //            } else if (fruitCounter >= 200){
 //                fruits[0].loadTexture('fruit5');
@@ -569,6 +588,9 @@ part2.prototype = {
                 finishedFirstFruit = true;
                 fruitCounter = 0;
                 text_2.text = '';
+                
+//                checkFruit = null;
+                checkFruit.onDown.remove(froo1);
             }
             
             if (eatingSound.isPlaying){
@@ -577,15 +599,16 @@ part2.prototype = {
                 eatingSound.play();
             }
         }
-        if (fruitEaten2 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit2){
+//        if (fruitEaten2 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit2){
+        function froo2(){
             fruitCounter++;
-            if (fruitCounter > 50 && fruitCounter < 100){
+            if (fruitCounter == 7){
                 // Change fruit texture
                 fruits[1].loadTexture('fruit2_2');
                 
-            } else if (fruitCounter >= 100 && fruitCounter < 150){
+            } else if (fruitCounter == 14){
                 fruits[1].loadTexture('fruit2_3');
-            } else if (fruitCounter >= 150 && fruitCounter < 200){
+            } else if (fruitCounter == 21){
                 fruits[1].loadTexture('fruit2_4');
 //            } else if (fruitCounter >= 200){
 //                fruits[1].loadTexture('fruit5');
@@ -593,6 +616,8 @@ part2.prototype = {
                 finishedFruit2 = true;
                 fruitCounter = 0;
                 text_2.text = '';
+                
+                checkFruit.onDown.remove(froo2);
             }
             
             if (eatingSound.isPlaying){
@@ -601,15 +626,16 @@ part2.prototype = {
                 eatingSound.play();
             }
         }
-        if (fruitEaten3 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit3){
+//        if (fruitEaten3 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit3){
+        function froo3(){
             fruitCounter++;
-            if (fruitCounter > 50 && fruitCounter < 100){
+            if (fruitCounter == 7){
                 // Change fruit texture
                 fruits[2].loadTexture('fruit3_2');
                 
-            } else if (fruitCounter >= 100 && fruitCounter < 150){
+            } else if (fruitCounter == 14){
                 fruits[2].loadTexture('fruit3_3');
-            } else if (fruitCounter >= 150 && fruitCounter < 200){
+            } else if (fruitCounter == 21){
                 fruits[2].loadTexture('fruit3_4');
 //            } else if (fruitCounter >= 200){
 //                fruits[2].loadTexture('fruit5');
@@ -617,6 +643,8 @@ part2.prototype = {
                 finishedFruit3 = true;
                 fruitCounter = 0;
                 text_2.text = '';
+                
+                checkFruit.onDown.remove(froo3);
             }
             
             if (eatingSound.isPlaying){
@@ -625,15 +653,16 @@ part2.prototype = {
                 eatingSound.play();
             }
         }
-        if (fruitEaten4 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit4){
+//        if (fruitEaten4 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit4){
+        function froo4(){
             fruitCounter++;
-            if (fruitCounter > 50 && fruitCounter < 100){
+            if (fruitCounter == 7){
                 // Change fruit texture
                 fruits[3].loadTexture('fruit4_2');
                 
-            } else if (fruitCounter >= 100 && fruitCounter < 150){
+            } else if (fruitCounter == 14){
                 fruits[3].loadTexture('fruit4_3');
-            } else if (fruitCounter >= 150 && fruitCounter < 200){
+            } else if (fruitCounter == 21){
                 fruits[3].loadTexture('fruit4_4');
 //            } else if (fruitCounter >= 200){
 //                fruits[3].loadTexture('fruit5');
@@ -641,6 +670,8 @@ part2.prototype = {
                 finishedFruit4 = true;
                 fruitCounter = 0;
                 text_2.text = '';
+                
+                checkFruit.onDown.remove(froo4);
             }
             
             if (eatingSound.isPlaying){
@@ -770,7 +801,7 @@ part2.prototype = {
     },
     
     render: function(){
-        game.debug.spriteInfo(player, 50, 50);
+//        game.debug.spriteInfo(player, 50, 50);
         game.debug.pointer(game.input.activePointer);
     }
 }

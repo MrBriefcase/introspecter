@@ -499,7 +499,7 @@ theGame.prototype = {
     },
     
     render: function(){
-        game.debug.spriteInfo(player, 50, 50);
+//        game.debug.spriteInfo(player, 50, 50);
         game.debug.pointer(game.input.activePointer);
     },
     

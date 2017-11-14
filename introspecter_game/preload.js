@@ -19,7 +19,7 @@ preload.prototype = {
         game.load.image('blk_bg', './images/simple_blk_bg.png');
         
         // test spritesheets
-        game.load.spritesheet('char', './images/test_spritesheet.png', 50, 150);
+        game.load.spritesheet('char', './images/test_spritesheet_v2.png', 50, 150);
         game.load.spritesheet('char_kid', './images/kiddy_spritesheet.png', 19, 53);
         
         // Load buddy char. and border. and fruit.
