@@ -29,6 +29,11 @@ intro_pt3.prototype = {
             game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
         });
         
+        
+        // TWEEEEEEnnnnnnn
+        game.add.tween(game.world).to({ alpha: 1 }, 700, Phaser.Easing.Default, true, 0, 0, false);
+        
+        
         // text printing functions
         function nextLine(speech, xpos, ypos, clr){
             if (!border.created){
@@ -167,6 +172,7 @@ intro_pt3.prototype = {
                 text.text = '';
                 music.stop();
                 
+                game.add.tween(game.world).to({ alpha: 0 }, 1000, Phaser.Easing.Default, true, 0, 0, false);
                 game.time.events.add(Phaser.Timer.SECOND*2, function(){game.state.start('Part2');})
             }
         }

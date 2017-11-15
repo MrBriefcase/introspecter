@@ -10,7 +10,7 @@ var intro_pt2_speech = [
     "She was\nimportant\nto me...",
     "A best friend...",
     
-    "River..."
+    "River... I wish\nyou grew up\nwith me..."
 ];
 
 intro_pt2.prototype = {
@@ -25,15 +25,19 @@ intro_pt2.prototype = {
         ground.body.immovable = true;
         cursors = game.input.keyboard.createCursorKeys();
         var bg = game.add.sprite(0, 0, 'intro_bg');
-        bg.tint = 0x651a1a;
+        bg.tint = 0x673636;
+        
+        // tweeeen
+        var myTween = game.add.tween(game.world).to({ alpha: 1 }, 1000, Phaser.Easing.Default, false, 0, 0, false);
+        game.time.events.add(4000, function(){myTween.start();});
         
         border = game.add.sprite(200, 200, null);
         border.created = false;
         
         dialogue_Num = 0;
         
-        game.time.events.add(Phaser.Timer.SECOND*2, function(){
-            nextLine(intro_pt2_speech[0], 200, 200, 'milo');
+        game.time.events.add(Phaser.Timer.SECOND*3, function(){
+            nextLine(intro_pt2_speech[0], 400, 200, 'milo');
             game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
         });
         
@@ -200,14 +204,17 @@ intro_pt2.prototype = {
             }
             if (char == 'x' && text.endOfDial8){
                 text.endOfDial8 = false;
-                music.stop();
-                game.time.events.add(Phaser.Timer.SECOND*3, function(){game.state.start('intro_pt3');});
+//                music.stop();
+                
+                game.add.tween(music).to({ volume: 0 }, 1000, Phaser.Easing.Default, true, 0, 0, false);
+                game.add.tween(game.world).to({ alpha: 0 }, 2000, Phaser.Easing.Default, true, 0, 0, false);
+                game.time.events.add(Phaser.Timer.SECOND*3, function(){music.stop(); game.state.start('intro_pt3');});
             }
             
         }
         
         // Create player and its attributes.
-        player = game.add.sprite(300, 270, 'char');
+        player = game.add.sprite(450, 270, 'char');
         game.physics.arcade.enable(player);
         player.body.gravity.y = 400;
         player.body.collideWorldBounds = true;
@@ -217,10 +224,11 @@ intro_pt2.prototype = {
         player.movable = false;
         
         // Create buddy.
-        buddy = game.add.sprite(1850, 300, 'buddy');
+        buddy = game.add.sprite(1850, 300, 'buddy_adult');
         game.physics.arcade.enable(buddy);
         buddy.body.gravity.y = 400;
         buddy.body.collideWorldBounds = true;
+        buddy.alpha = 0.20;
         
         // Setup camera movement.
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);

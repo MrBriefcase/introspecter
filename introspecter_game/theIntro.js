@@ -9,9 +9,15 @@ gameIntro.prototype = {
         
         function playGame(){
             // ***** RETURN TO NORMAL WHEN DONE
-            game.state.start('TheGame');
+//            game.state.start('TheGame');
 //            game.state.start('Part2');
 //            game.state.start('Part4');
+            
+//            game.add.tween(menu_bg).to({ alpha: 0 }, 2000, Phaser.Easing.Default, true, 0, 0, false);
+//            game.add.tween(playButton).to({ alpha: 0 }, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            var tween = game.add.tween(game.world).to({ alpha: 0 }, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            tween.onComplete.add(function(){game.state.start('TheGame');}, this);
+            
         };
         
         function viewCredits(){
@@ -37,6 +43,6 @@ gameIntro.prototype = {
     },
     
     render: function(){
-        game.debug.spriteInfo(menu_bg, 32, 32);
+//        game.debug.spriteInfo(menu_bg, 32, 32);
     }
 };

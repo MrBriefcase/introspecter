@@ -86,7 +86,7 @@ part2.prototype = {
         // Create the bg image and later bg image. and ground.
         theGround = game.add.group();
         theGround.enableBody = true;
-        ground = theGround.create(0, 460, 'ground');
+        ground = theGround.create(0, 440, 'ground');
         ground.body.immovable = true;
         
         bg2 = game.add.sprite(0, 0, 'past_bg');
@@ -276,7 +276,11 @@ part2.prototype = {
                 black_bg.loadTexture(null);
                 border.created = false;
                 
-                game.time.events.add(Phaser.Timer.SECOND*1, function(){nextLine(dyingFruitSpeech[0], 300, 150, 'milo'); music = game.add.audio('audio_pt1'); music.loop = true; music.play();})
+                game.time.events.add(Phaser.Timer.SECOND*1, function(){nextLine(dyingFruitSpeech[0], 300, 150, 'milo'); 
+                    music = game.add.audio('audio_pt1'); 
+                    music.loop = true; 
+                    music.play();
+                });
             }
             
             // intro dialogue done, character in focus
@@ -544,7 +548,7 @@ part2.prototype = {
 //                player.movable = true;
             }, this);
             game.time.events.add(Phaser.Timer.SECOND*11, function(){
-                nextLine(dyingFruitSpeech[12], 1700, 180, 'milo');
+                nextLine(dyingFruitSpeech[12], 1700, 160, 'milo');
             }, this);
         }                        
         

@@ -41,6 +41,14 @@ var thirdStop = false;
 
 var leftRight_velo = 100;
 var sfx;
+var theGameFlag = true;
+var instructions;
+var press_x;
+var grow_press = 1;
+var grow_press_Right = true;
+
+var arrow_dir;
+var arrow_dir_show = true;
 
 WebFontConfig = {
     //  The Google Fonts we want to load (specify as many as you like in the array)
@@ -59,6 +67,7 @@ theGame.prototype = {
     create: function(){
         console.log('youre in the main game state');
         // Create the beginning sequence of the game
+        game.add.tween(game.world).to({ alpha: 1 }, 2000, Phaser.Easing.Default, true, 0, 0, false);
         
         // Setup world, which will setup the camera.
         game.world.setBounds(0, 0, 2400, 600);
@@ -86,10 +95,35 @@ theGame.prototype = {
         // Create text, letter by letter.
 //        text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
         
-        game.time.events.add(Phaser.Timer.SECOND*2, function(){
-            nextLine(intro_pt1_speeches[0], 200, 200, 'milo');
-            game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
-        });
+        
+        // ADD INSTRUCTIONS
+        instructions = game.add.sprite(150, 100, 'instructions');
+        press_x = game.add.sprite(425, 360, 'continue_x');
+        
+        game.input.keyboard.addCallbacks(this, null, null, introKeyPress);
+        
+        function introKeyPress(char){
+            if (char == 'x'){
+                game.input.keyboard.onPressCallback = null;
+                
+                // tween to alpha 0 intrusctions
+                game.add.tween(instructions).to({alpha:0}, 1000, Phaser.Easing.Default, true, 0, 0, false);
+                game.add.tween(press_x).to({alpha:0}, 1000, Phaser.Easing.Default, true, 0, 0, false);
+                
+                game.time.events.add(Phaser.Timer.SECOND*2, function(){
+                    nextLine(intro_pt1_speeches[0], 200, 200, 'milo');
+                    game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
+                });
+            }
+        }
+        
+        
+        
+        // GAME START **************
+//        game.time.events.add(Phaser.Timer.SECOND*2, function(){
+//            nextLine(intro_pt1_speeches[0], 200, 200, 'milo');
+//            game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
+//        });
         
         // functions get hoisted!!!
         function nextLine(speech, xpos, ypos, clr){
@@ -219,6 +253,10 @@ theGame.prototype = {
                 player.movable = true;
                 
                 firstStop = true;
+                
+                // display ARROW TUTORIAL
+                arrow_dir = game.add.sprite(650, 355, 'this_way');
+                arrow_dir.alpha = 0.6;
             }
             
             
@@ -236,7 +274,7 @@ theGame.prototype = {
                 text.text = '';
                 border.loadTexture(null);
                 border.created = false;
-                nextLine(intro_pt1_speeches[5], 750, 150, 'milo');
+                nextLine(intro_pt1_speeches[5], 750, 230, 'milo');
             }
             if (char == 'x' && text.endOfDial6){
                 text.endOfDial6 = false;
@@ -266,7 +304,7 @@ theGame.prototype = {
                 text.text = '';
                 border.loadTexture(null);
                 border.created = false;
-                nextLine(intro_pt1_speeches[9], 1050, 150, 'milo');
+                nextLine(intro_pt1_speeches[9], 1050, 230, 'milo');
             }
             if (char == 'x' && text.endOfDial10){
                 text.endOfDial10 = false;
@@ -313,11 +351,15 @@ theGame.prototype = {
         player.movable = false;
         
         // Create buddy.
-        buddy = game.add.sprite(1200, 300, 'buddy');
+        buddy = game.add.sprite(1200, 300, 'buddy_kid');
         game.physics.arcade.enable(buddy);
         buddy.body.gravity.y = 400;
         buddy.body.collideWorldBounds = true;
         buddy.followed = false;
+        // add buddy animations
+        buddy.animations.add('left', [3, 2, 1, 0], 15, true);
+        buddy.animations.add('right', [5, 6, 7, 8], 15, true);
+        buddy.scale.setTo(2, 2);
         
         // Setup camera movement.
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
@@ -338,12 +380,51 @@ theGame.prototype = {
         player.body.velocity.x = 0;
         buddy.body.velocity.x = 0;
         
+        // instructions!!!!!
+        if (press_x.alive){
+            if (grow_press < 1.15 && grow_press_Right){
+                grow_press += 0.005;
+                press_x.scale.setTo(grow_press, grow_press);
+            } else if(grow_press >= 1.15 && grow_press_Right){
+                grow_press_Right = false;
+            }
+            
+            if(grow_press > 0.85 && !grow_press_Right){
+                grow_press -= 0.005;
+                press_x.scale.setTo(grow_press, grow_press);
+            } else if(grow_press <= 0.85 && !grow_press_Right){
+                grow_press_Right = true;
+            }
+        }
+        if (arrow_dir != undefined){
+            if (grow_press < 1.10 && grow_press_Right){
+                grow_press += 0.005;
+                arrow_dir.scale.setTo(grow_press, grow_press);
+            } else if(grow_press >= 1.10 && grow_press_Right){
+                grow_press_Right = false;
+            }
+            
+            if(grow_press > 0.90 && !grow_press_Right){
+                grow_press -= 0.005;
+                arrow_dir.scale.setTo(grow_press, grow_press);
+            } else if(grow_press <= 0.90 && !grow_press_Right){
+                grow_press_Right = true;
+            }
+        }
+        
+        // DESTROY ARROW TUTORIAL
+        if (player.x > 480 && arrow_dir_show){
+            game.add.tween(arrow_dir).to({alpha:0}, 750, Phaser.Easing.Default, true, 0, 0, false);
+        }
+        
+        
         // Player controls (L, R, D, U)
         if (cursors.left.isDown && player.movable){
             player.body.velocity.x = -leftRight_velo;
             player.animations.play('left');
             if (buddy.followed && ((buddy.x - player.x) > 100)){
                 buddy.body.velocity.x = -leftRight_velo;
+                buddy.animations.play('left');
             } else{
                 buddy.body.velocity.x = 0;
             }
@@ -352,6 +433,7 @@ theGame.prototype = {
             player.animations.play('right');
             if (buddy.followed && ((player.x - buddy.x) > 100)){
                 buddy.body.velocity.x = leftRight_velo;
+                buddy.animations.play('right');
             } else{
                 buddy.body.velocity.x = 0;
             }
@@ -359,6 +441,8 @@ theGame.prototype = {
             // Stop and stand still
             player.animations.stop();
             player.frame = 4;
+            buddy.animations.stop();
+            buddy.frame = 4;
         }
         
         
@@ -367,7 +451,7 @@ theGame.prototype = {
             firstStop = false;
             
             player.movable = false;
-            nextLine(intro_pt1_speeches[3], 460, 150);
+            nextLine(intro_pt1_speeches[3], 460, 230);
         }
         
         
@@ -375,7 +459,7 @@ theGame.prototype = {
             secondStop = false;
             
             player.movable = false;
-            nextLine(intro_pt1_speeches[7], 1200, 150, 'friend');
+            nextLine(intro_pt1_speeches[7], 1200, 230, 'friend');
         }
         
         
@@ -385,17 +469,18 @@ theGame.prototype = {
         }
         
         
-        if(player.x > 1700){
-            music.stop();
-        }
-        
-        if (player.x > 1879){
-            sfx = game.add.audio('crash_sfx');
-            sfx.play();
-        }
+//        if(player.x > 1700){
+//            music.stop();
+//        }
+//        
+//        if (player.x > 1879){
+//            sfx = game.add.audio('crash_sfx');
+//            sfx.play();
+//        }
         
         // Once player reaches a point in the map, pass to the next game point.        
-        if (player.x > 1880){
+        if (player.x > 1880 && theGameFlag){
+            theGameFlag = false;
             this.nextPart();
         }
         
@@ -504,6 +589,19 @@ theGame.prototype = {
     },
     
     nextPart: function(){
-        game.state.start('intro_pt2');
+        // tween music to vol. 0
+        // twwen world alpha to 0
+        // play crash sfx
+        // delay start
+        
+//        game.add.tween(music).to({ volume: 0 }, 500, Phaser.Easing.Default, true, 0, 0, false);
+        
+        music.stop();
+        var tween = game.add.tween(game.world).to({ alpha: 0 }, 50, Phaser.Easing.Default, true, 0, 0, false);
+        
+        sfx = game.add.audio('crash_sfx');
+        sfx.play();
+        
+        tween.onComplete.add(function(){game.state.start('intro_pt2');}, this);
     }
 }

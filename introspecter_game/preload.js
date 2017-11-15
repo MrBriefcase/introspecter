@@ -5,14 +5,19 @@ preload.prototype = {
         // Load up all the necessary game assets
         
         // Play button and Credit button. and back button. Menu stuff
-        game.load.image('menu_bg', './images/MenuPage/MN_PG.png');
+        game.load.image('menu_bg', './images/MenuPage/MN_PG_v2.png');
         game.load.image('playBtn', './images/MenuPage/MenuPage_PlayBT.png');
         game.load.image('credBtn', './images/MenuPage/MenuPage_CreditBT.png');
         game.load.image('backBtn', './images/back_btn.png');
         
+        // instructions
+        game.load.image('instructions', './images/instructions_v2.png');
+        game.load.image('this_way', './images/go_right_v2.png');
+        game.load.image('continue_x', './images/press_x.png');
+        
         // Player sprite and 1st background. and ground.
         game.load.image('intro_bg', './images/intro_bg.png');
-        game.load.image('past_bg', './images/bg_1_to_3.png');
+        game.load.image('past_bg', './images/bg_1_to_3_v2.png');
         game.load.image('bg_1', './images/bg_proto.png');
         game.load.image('mainChar', './images/photo.jpg');
         game.load.image('ground', './images/ground.png');
@@ -21,9 +26,11 @@ preload.prototype = {
         // test spritesheets
         game.load.spritesheet('char', './images/test_spritesheet_v2.png', 50, 150);
         game.load.spritesheet('char_kid', './images/kiddy_spritesheet.png', 19, 53);
+        game.load.spritesheet('buddy_kid', './images/friend_spritesheet_21x54.png', 21, 54);
         
         // Load buddy char. and border. and fruit.
         game.load.image('buddy', './images/buddy.png');
+        game.load.image('buddy_adult', './images/kid_friend/adult_friend_front.png');
         game.load.image('border', './images/border_v5.png');
         game.load.image('border2', './images/border_v2.png');
         game.load.image('border_v3', './images/dialogue_box.png');
