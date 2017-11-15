@@ -2,6 +2,8 @@ var preload = function(game){};
 
 preload.prototype = {
     preload: function(){
+        var example = game.add.sprite(game.world.centerX, game.world.centerY, 'examp');
+        example.anchor.setTo(0.5, 0.5);
         // Load up all the necessary game assets
         
         // Play button and Credit button. and back button. Menu stuff
@@ -59,6 +61,7 @@ preload.prototype = {
         game.load.audio('intro2', './audio/music/02_A_Cold_Night.wav');
         game.load.audio('intro3', './audio/music/03_Cheer_Up.wav');
         game.load.audio('audio_pt1', './audio/music/04_FairytaleLand.wav');
+        game.load.audio('audio_pt1_v2', './audio/music/FairytaleLand_v2.wav');
         game.load.audio('audio_pt2', './audio/music/05_HERE_WE_GOOOO.wav');
         game.load.audio('audio_pt3', './audio/music/06_Classroom2v3.wav');
         game.load.audio('audio_ending', './audio/music/07_Werent_We.wav');
@@ -81,6 +84,11 @@ preload.prototype = {
         var ground;
         var theGround;
         var video;
+        
+        var loadingBar = this.add.sprite(100, 450, "Loading");            
+        loadingBar.anchor.setTo(0, 0);
+        // set the preloadBar sprite as a loader sprite.
+        game.load.setPreloadSprite(loadingBar);
     },
     
     create: function(){

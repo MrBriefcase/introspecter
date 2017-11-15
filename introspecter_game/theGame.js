@@ -414,6 +414,7 @@ theGame.prototype = {
         
         // DESTROY ARROW TUTORIAL
         if (player.x > 480 && arrow_dir_show){
+            arrow_dir_show = false;
             game.add.tween(arrow_dir).to({alpha:0}, 750, Phaser.Easing.Default, true, 0, 0, false);
         }
         

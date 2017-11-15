@@ -26,6 +26,7 @@ intro_pt2.prototype = {
         cursors = game.input.keyboard.createCursorKeys();
         var bg = game.add.sprite(0, 0, 'intro_bg');
         bg.tint = 0x673636;
+        arrow_dir_show = true;
         
         // tweeeen
         var myTween = game.add.tween(game.world).to({ alpha: 1 }, 1000, Phaser.Easing.Default, false, 0, 0, false);
@@ -162,6 +163,10 @@ intro_pt2.prototype = {
                 player.movable = true;
                 
                 firstStop = true;
+                
+                // display ARROW TUTORIAL
+                arrow_dir = game.add.sprite(650, 355, 'this_way');
+                arrow_dir.alpha = 0.6;
             }
             
             
@@ -279,6 +284,28 @@ intro_pt2.prototype = {
             nextLine(intro_pt2_speech[7], 1650, 175, 'milo');
         }
         
+        // ARROW INSTRUCTION
+        if (arrow_dir != undefined){
+            if (grow_press < 1.10 && grow_press_Right){
+                grow_press += 0.005;
+                arrow_dir.scale.setTo(grow_press, grow_press);
+            } else if(grow_press >= 1.10 && grow_press_Right){
+                grow_press_Right = false;
+            }
+            
+            if(grow_press > 0.90 && !grow_press_Right){
+                grow_press -= 0.005;
+                arrow_dir.scale.setTo(grow_press, grow_press);
+            } else if(grow_press <= 0.90 && !grow_press_Right){
+                grow_press_Right = true;
+            }
+        }
+        
+        // DESTROY ARROW TUTORIAL
+        if (player.x > 480 && arrow_dir_show){
+            arrow_dir_show = false;
+            game.add.tween(arrow_dir).to({alpha:0}, 750, Phaser.Easing.Default, true, 0, 0, false);
+        }
         
         
         // **** letter by letter functions

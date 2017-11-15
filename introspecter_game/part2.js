@@ -83,6 +83,11 @@ part2.prototype = {
         border.created = true;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
+        
+        // TWEEEN THE WORLD BACK
+//        game.add.tween(game.world).to({alpha:1}, 700, Phaser.Easing.Default, true, 0, 0, false);
+        game.world.alpha = 1;
+        
         // Create the bg image and later bg image. and ground.
         theGround = game.add.group();
         theGround.enableBody = true;
@@ -321,7 +326,7 @@ part2.prototype = {
                 text.text = '';
                 border.loadTexture(null);
                 border.created = false;
-                nextLine(dyingFruitSpeech[6], 790, 180, 'milo');
+                nextLine(dyingFruitSpeech[6], 790, 150, 'milo');
             }
             if (char == 'x' && text.endOfDial8){
                 text.endOfDial8 = false;
@@ -441,12 +446,17 @@ part2.prototype = {
             
             player.movable = false;
             black_bg.loadTexture('blk_bg');
-            text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
-            black_bg.bringToTop();
-            text.bringToTop();
+//            text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
+//            black_bg.bringToTop();
+//            text.bringToTop();
+            game.add.tween(bg2).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(player).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(bg).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(fruits[3]).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
+            border.created = true;
             
             game.time.events.add(Phaser.Timer.SECOND*2, function(){
-                nextLine(part2_ending_speech, 75, 150);
+                nextLine(part2_ending_speech, 1700, 150, 'ending');
             });
         }
         
@@ -489,7 +499,7 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit');
             // create growing x instruction
-            text_2 = game.add.text(1175, 370, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            text_2 = game.add.text(1175, 340, 'x', { font: "24px Questrial", fill: "#ffffff" });
             
             checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
             checkFruit.onDown.add(froo1);
@@ -498,7 +508,7 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit2');
             // create growing x instruction
-            text_2 = game.add.text(1325, 370, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            text_2 = game.add.text(1325, 340, 'x', { font: "24px Questrial", fill: "#ffffff" });
             
             checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
             checkFruit.onDown.add(froo2);
@@ -507,7 +517,7 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit3');
             // create growing x instruction
-            text_2 = game.add.text(1475, 370, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            text_2 = game.add.text(1475, 340, 'x', { font: "24px Questrial", fill: "#ffffff" });
             
             checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
             checkFruit.onDown.add(froo3);
@@ -516,7 +526,7 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit4');
             // create growing x instruction
-            text_2 = game.add.text(1625, 370, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            text_2 = game.add.text(1625, 340, 'x', { font: "24px Questrial", fill: "#ffffff" });
             
             checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
             checkFruit.onDown.add(froo4);
@@ -534,12 +544,16 @@ part2.prototype = {
             game.time.events.add(Phaser.Timer.SECOND*6, flashAndBG, this);
         }
         function flashAndBG(){
+            music.stop();
+            music = game.add.audio('audio_pt1_v2');
+            music.play();
+            
             game.camera.flash(0xff0000, Phaser.Timer.SECOND*6);
             game.time.events.add(Phaser.Timer.SECOND*0.25, function(){
                 bg.loadTexture('bg_1');
-                for (i=0; i<4; i++){
-                    fruits[i].sendToBack();
-                }
+//                for (i=0; i<4; i++){
+//                    fruits[i].sendToBack();
+//                }
             }, this);
             game.time.events.add(Phaser.Timer.SECOND*10, function(){
                 player.bringToTop();
@@ -705,6 +719,10 @@ part2.prototype = {
             }
             if (clr == 'neutral'){
                 text.fill = '#000000';
+            }
+            if (clr == 'ending'){
+                text.fill = '#ffffff';
+                text.fontSize = 48;
             }
             
             if (letterIndex === speech.length){
