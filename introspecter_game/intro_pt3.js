@@ -190,6 +190,6 @@ intro_pt3.prototype = {
     },
     
     render: function(){
-        game.debug.pointer(game.input.activePointer);
+//        game.debug.pointer(game.input.activePointer);
     }
 }

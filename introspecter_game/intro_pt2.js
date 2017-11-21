@@ -412,6 +412,6 @@ intro_pt2.prototype = {
     },
     
     render: function(){
-        game.debug.pointer(game.input.activePointer);
+//        game.debug.pointer(game.input.activePointer);
     }
 }

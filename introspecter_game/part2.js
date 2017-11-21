@@ -56,6 +56,8 @@ var fruitCounter = 0;
 
 //var content = "Where am I?";
 var text_2;
+var text_3;
+var mashing_tutorial;
 var bg, bg2;
 var growBigger = true;
 var border, border_2, border_3;
@@ -267,7 +269,7 @@ part2.prototype = {
         
         // setup intro stuff
         black_bg = game.add.sprite(0, 0, 'blk_bg');
-        
+
         game.time.events.add(Phaser.Timer.SECOND*2, function(){
             text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
             nextLine(part2_intro_speech, 75, 300);
@@ -312,6 +314,11 @@ part2.prototype = {
                 player.movable = true;
                 
                 firstStop = true;
+
+                // display ARROW TUTORIAL
+                arrow_dir = game.add.sprite(620, 310, 'this_way');
+                arrow_dir.alpha = 0.6;
+                arrow_dir_show = true;
             }
             
             // *** first segment
@@ -355,7 +362,7 @@ part2.prototype = {
                 text.text = '';
                 border.loadTexture(null);
                 border.created = false;
-                nextLine(dyingFruitSpeech[10], 1280, 180, 'milo');
+                nextLine(dyingFruitSpeech[10], 1280, 150, 'milo');
             }
             if (char == 'x' && text.endOfDial12){
                 text.endOfDial12 = false;
@@ -459,6 +466,28 @@ part2.prototype = {
                 nextLine(part2_ending_speech, 1700, 150, 'ending');
             });
         }
+
+        if (player.x > 550 && arrow_dir_show){
+            arrow_dir_show = false;
+            game.add.tween(arrow_dir).to({alpha:0}, 750, Phaser.Easing.Default, true, 0, 0, false);
+        }
+
+        // animate arrow instruction
+        if (arrow_dir != undefined){
+            if (grow_press < 1.10 && grow_press_Right){
+                grow_press += 0.005;
+                arrow_dir.scale.setTo(grow_press, grow_press);
+            } else if(grow_press >= 1.10 && grow_press_Right){
+                grow_press_Right = false;
+            }
+
+            if(grow_press > 0.90 && !grow_press_Right){
+                grow_press -= 0.005;
+                arrow_dir.scale.setTo(grow_press, grow_press);
+            } else if(grow_press <= 0.90 && !grow_press_Right){
+                grow_press_Right = true;
+            }
+        }
         
         // Reset player velocity
         player.body.velocity.x = 0;
@@ -500,6 +529,10 @@ part2.prototype = {
             console.log('player touched fruit');
             // create growing x instruction
             text_2 = game.add.text(1175, 340, 'x', { font: "24px Questrial", fill: "#ffffff" });
+
+            text_3 = game.add.text(1170, 300, 'Mash "X"', { font: "20px Questrial", fill: "#ffffff" });
+            mashing_tutorial = game.add.tween(text_3).to({alpha: 0}, 1000, Phaser.Easing.Default, false, 0, 0, false);
+            game.time.events.add(4000, function(){mashing_tutorial.start();});
             
             checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
             checkFruit.onDown.add(froo1);
@@ -546,6 +579,7 @@ part2.prototype = {
         function flashAndBG(){
             music.stop();
             music = game.add.audio('audio_pt1_v2');
+            music.loop = true;
             music.play();
             
             game.camera.flash(0xff0000, Phaser.Timer.SECOND*6);
@@ -824,6 +858,6 @@ part2.prototype = {
     
     render: function(){
 //        game.debug.spriteInfo(player, 50, 50);
-        game.debug.pointer(game.input.activePointer);
+//        game.debug.pointer(game.input.activePointer);
     }
 }
