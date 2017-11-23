@@ -44,5 +44,6 @@ gameIntro.prototype = {
     
     render: function(){
 //        game.debug.spriteInfo(menu_bg, 32, 32);
+        game.debug.pointer(game.input.activePointer);
     }
 };

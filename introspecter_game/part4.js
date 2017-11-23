@@ -18,9 +18,14 @@ var chooseGrow = true;
 var positiveChoice = 0;
 var negativeChoice = 0;
 var neutralChoice = 0;
+var posBar, negBar, neutBar;
+var updateProgressBar = false;
+var processEndOfDialogue = false;
 
-var negativeWords = ['worthless', 'garbage', 'trash'];
-var positiveWords = ['happy', 'perservere', 'doable'];
+var negativeWords = ['WORTHLESS', 'GARBAGE', 'TRASH', 'DISAPPOINT', 'FAILURE', 'RUDE', 'ROTTEN', 'BORING', 'TERRIBLE',
+    'PESSIMISTIC', 'DISHONEST', 'AWFUL', 'GLOOMY', 'CYNICAL', 'QUITTER'];
+var positiveWords = ['HAPPY', 'PERSERVERE', 'DOABLE', 'CONFIDENT', 'GENUINE', 'HONEST', 'TRUTHFUL', 'EMPATHETIC',
+    'ENERGETIC', 'EXPRESSIVE', 'TRUSTING', 'IMPRESSIVE', 'DETERMINED', 'OUTSPOKEN', 'OUTSPOKEN'];
 
 var choice_intro_speech = [
     "But ", "still ", "you ", "had ", "a ", "choice. "
@@ -38,22 +43,24 @@ var choice_speech = [
 ];
 
 var posi_speech = [
-    "Yea! No matter where I was...",
-    "I could still control my attitude!",
-    "I could still be whoever I choose to be!"
+    "Yea! No\nmatter where\nI was...",
+    "I could\nstill control\nmy attitude!",
+    "I could still\nbe whoever I\nchoose to be!"
 ];
 
 var nega_speech = [
     "Noo...",
-    "I hate everything...",
-    "There is no purpose to any of this..."
+    "I hate\neverything...",
+    "There is\nno purpose to\nany of this..."
 ];
 
 var neut_speech = [
-    "hahaaha, who am I kidding?",
-    "I missed all my opportunities...",
-    "I'm an apathetic piece of shit."
+    "hahaaha, who\nam I\nkidding?",
+    "I missed\nall my\nopportunities...",
+    "I'm an\napathetic\npiece of shit."
 ];
+
+var holdEndDialogue;
 
 
 part4.prototype = {
@@ -266,7 +273,7 @@ part4.prototype = {
 
                 // start CHOOSE tutorial
                 game.time.events.add(2000, function(){
-                    createTypeableWord("CHOOSE", 350, 350);
+                    createTypeableWord("CHOOSE", 350, 400);
                     game.input.keyboard.addCallbacks(this, null, null, keyPress);
                 });
             }
@@ -442,6 +449,7 @@ part4.prototype = {
 
                 game.time.events.add(Phaser.Timer.SECOND*3, function(){
                     text.text = '';
+                    border.created = false;
                     border.destroy();
 
                     destroyWord(typeableWords[0]);
@@ -481,6 +489,122 @@ part4.prototype = {
     
     update: function(){
         // Relevant functions
+        function nextLine(speech, xpos, ypos, clr){
+            if (!border.created){
+                // create border
+                border = game.add.sprite(200, 200, 'border');
+                border.loadTexture('border');
+                border.x = xpos;
+                border.y = ypos;
+                border.scale.setTo(1.5, 1.5);
+                text = game.add.text(border.x+20, border.y+15, '', { font: "36px Questrial", fill: "#ffffff" });
+                border.created = true;
+            }
+            if (clr == 'milo'){
+                text.fill = milo_speech_clr;
+            }
+            if (clr == 'friend'){
+                text.fill = friend_speech_clr;
+            }
+            if (clr == 'neutral'){
+                text.fill = '#000000';
+            }
+
+            if (letterIndex === speech.length){
+                //  We're finished
+                letterIndex = 0;
+                dialogue_Num++;
+
+                console.log('lByl v1');
+
+                switch(dialogue_Num){
+                    case 1:
+                        text.endOfDial1 = true;
+                        break;
+                    case 2:
+                        text.endOfDial2 = true;
+                        break;
+                    case 3:
+                        text.endOfDial3 = true;
+                        break;
+                    case 4:
+                        text.endOfDial4 = true;
+                        break;
+                    case 5:
+                        text.endOfDial5 = true;
+                        break;
+                    case 6:
+                        text.endOfDial6 = true;
+                        break;
+                    case 7:
+                        text.endOfDial7 = true;
+                        break;
+                    case 8:
+                        text.endOfDial8 = true;
+                        break;
+                    case 9:
+                        text.endOfDial9 = true;
+                        break;
+                    case 10:
+                        text.endOfDial10 = true;
+                        break;
+                    case 11:
+                        text.endOfDial11 = true;
+                        break;
+                    case 12:
+                        text.endOfDial12 = true;
+                        break;
+                    case 13:
+                        text.endOfDial13 = true;
+                        break;
+                    case 14:
+                        text.endOfDial14 = true;
+                        break;
+                    case 15:
+                        text.endOfDial15 = true;
+                        break;
+                    case 16:
+                        text.endOfDial16 = true;
+                        break;
+                    case 17:
+                        text.endOfDial17 = true;
+                        break;
+                    case 18:
+                        text.endOfDial18 = true;
+                        break;
+                    case 19:
+                        text.endOfDial19 = true;
+                        break;
+                }
+
+                return;
+            }
+            //  get the letter in the message
+            letter = speech[letterIndex];
+            //  flag variable
+            wordIndex = 0;
+            //  Call the 'nextWord' function to concat the message into the game.
+            game.time.events.repeat(letterDelay, letter.length, function(){nextWord(speech);}, this);
+            //  Advance to the next letter
+            letterIndex++;
+        }
+
+        function nextWord(speech2){
+            //  Add the next letter onto the text string
+            text.text = text.text.concat(letter[wordIndex]);
+            if (text1sound.isPlaying){
+                text1sound.restart();
+            } else{
+                text1sound.play();
+            }
+            //  Advance the word index to the next word in the line
+            wordIndex++;
+            //  Last word?
+            if (wordIndex === letter.length){
+                //  Get the next line after the lineDelay amount of ms has elapsed
+                game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
+            }
+        }
 //         function nextLine(){
 //             if (letterIndex === content.length){
 //                 //  We're finished
@@ -678,6 +802,32 @@ part4.prototype = {
         
         // Slows down the text motion.
         slowItDown++;
+
+        // end dialogue key press function
+        function dialogueKeyPress(char) {
+            if(char == 'x' && text.endOfDial7) {
+                text.endOfDial7 = false;
+                text.text = '';
+                nextLine(holdEndDialogue[1]);
+            }
+            if(char == 'x' && text.endOfDial8) {
+                text.endOfDial8 = false;
+                text.text = '';
+                nextLine(holdEndDialogue[2]);
+            }
+            if(char == 'x' && text.endOfDial9) {
+                text.endOfDial9 = false;
+
+                console.log('GO TO THE END!!!');
+                // TRANSITION TO NEXT SCENE
+                // NEEDS WORK ***************
+                // NEEDS WORK ***************
+                // NEEDS WORK ***************
+                // NEEDS WORK ***************
+                // NEEDS WORK ***************
+            }
+        }
+
         
         // function nextDialogue(){
         //     // Get rid of choices.
@@ -893,7 +1043,10 @@ part4.prototype = {
 //            console.log('fn called');
             var negOrPos = Math.round(Math.random());
             var yRandPos = Math.round(Math.random()*400) + 100;
-            var randIndex = Math.round(Math.random()*2);
+            // only for 3 words.
+            // make it for 20 words.
+            // colourize to differentiate
+            var randIndex = Math.round(Math.random()*14);
             if (negOrPos == 0){
                 createTypeableWord_v2(negativeWords[randIndex], 800, yRandPos);
                 // attach neg or pos identifier to last appended word.
@@ -917,11 +1070,17 @@ part4.prototype = {
             //      - type enough + words (positive)
             //      - type enough - words (negative)
             //      - miss enough words (neutral)
-            createTypeableWord_v2('type this as fast as you can!', 1200, 300);
+            // createTypeableWord_v2('type this as fast as you can!', 1200, 300);
             
             // looped event:
             // game.time.events.loop(delay, fn, this);
 
+
+            // ***** Create the sprites that display count progress.
+            posBar = game.add.sprite(10, 10, 'pos_bar');
+            negBar = game.add.sprite(40, 10, 'neg_bar');
+            neutBar = game.add.sprite(70, 10, 'neut_bar');
+            updateProgressBar = true;
 
             // ************* MAIN LOOP MECHANIC IS HERE *************
             wordsLoop = game.time.events.loop(Phaser.Timer.SECOND*1.5, createRandomWord, this);
@@ -929,7 +1088,47 @@ part4.prototype = {
             game.input.keyboard.addCallbacks(this, null, null, keyPressV2);
             // *****************************************************************
         }
-        
+
+        if(updateProgressBar) {
+            // update progress bars proportionally to their respective count.
+            posBar.scale.setTo(1, positiveChoice/20);
+            negBar.scale.setTo(1, negativeChoice/20);
+            neutBar.scale.setTo(1, neutralChoice/20);
+        }
+
+
+        if(processEndOfDialogue) {
+            processEndOfDialogue = false;
+            // do the end dialogue stuff.
+            game.add.tween(posBar).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(negBar).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(neutBar).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+
+            if(positiveChoice == 20) {
+                // process positive dialogue.
+                holdEndDialogue = posi_speech;
+                game.time.events.add(2500, function(){
+                    nextLine(holdEndDialogue[0], 250, 150, 'milo');
+                    game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
+                });
+
+            } else if(negativeChoice == 20) {
+                // process negative dialogue.
+                holdEndDialogue = nega_speech;
+                game.time.events.add(2500, function(){
+                    nextLine(holdEndDialogue[0], 250, 150, 'milo');
+                    game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
+                });
+
+            } else {
+                // process neutral dialogue.
+                holdEndDialogue = neut_speech;
+                game.time.events.add(2500, function(){
+                    nextLine(holdEndDialogue[0], 250, 150, 'milo');
+                    game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
+                });
+            }
+        }
         
         // main loop for typing mini game
         
@@ -978,10 +1177,14 @@ part4.prototype = {
 
                                 destroyWord(typeableWords[i], i);
 
-                                if (positiveChoice == 25 || negativeChoice == 25 || neutralChoice == 25) {
+                                if (positiveChoice == 20 || negativeChoice == 20 || neutralChoice == 20) {
                                     // MOVE ONTO THE NEXT STAGE *******************
                                     // ********************************************
                                     console.log('You-ve reached a far point!');
+
+                                    game.input.keyboard.onPressCallback = null;
+                                    game.time.events.remove(wordsLoop);
+                                    processEndOfDialogue = true;
 
                                 }
                             }
@@ -1104,9 +1307,13 @@ part4.prototype = {
                 neutralChoice++;
 
                 // check if neutral count is 25 or whatver number
-                if(neutralChoice == 25) {
+                if(neutralChoice == 20) {
                     // Doing end of minigame stuff
                     console.log('You-ve reached a far point');
+
+                    game.input.keyboard.onPressCallback = null;
+                    game.time.events.remove(wordsLoop);
+                    processEndOfDialogue = true;
                 }
 
                 console.log('neutral ct: ' + neutralChoice);

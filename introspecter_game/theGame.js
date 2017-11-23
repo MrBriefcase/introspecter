@@ -49,6 +49,8 @@ var grow_press_Right = true;
 
 var arrow_dir;
 var arrow_dir_show = true;
+var car;
+var carCheck = false;
 
 WebFontConfig = {
     //  The Google Fonts we want to load (specify as many as you like in the array)
@@ -86,7 +88,10 @@ theGame.prototype = {
         
         // Create background
         game.add.sprite(0, 0, 'intro_bg');
-        
+
+        // create the car
+        car = game.add.sprite(2400, 240, 'car');
+        game.physics.arcade.enable(car);
         
         // Create border.
         border = game.add.sprite(200, 200, null);
@@ -482,6 +487,16 @@ theGame.prototype = {
         // Once player reaches a point in the map, pass to the next game point.        
         if (player.x > 1880 && theGameFlag){
             theGameFlag = false;
+            carCheck = true;
+
+            car.body.gravity.x = -1000;
+            // this.nextPart();
+        }
+
+        // Check CAR and BUDDY x position
+        if(buddy.x > car.x && carCheck) {
+            carCheck = false;
+
             this.nextPart();
         }
         

@@ -29,8 +29,11 @@ preload.prototype = {
         game.load.spritesheet('char', './images/test_spritesheet_v2.png', 50, 150);
         game.load.spritesheet('char_kid', './images/kiddy_spritesheet.png', 19, 53);
         game.load.spritesheet('buddy_kid', './images/friend_spritesheet_21x54.png', 21, 54);
+
+        // various assets
+        game.load.image('car', './images/car_placeholder.png');
         
-        // Load buddy char. and border. and fruit.
+        // Load buddy char. and border. and fruit. and dead bodies.
         game.load.image('buddy', './images/buddy.png');
         game.load.image('buddy_adult', './images/kid_friend/adult_friend_front.png');
         game.load.image('border', './images/border_v5.png');
@@ -52,7 +55,11 @@ preload.prototype = {
         game.load.image('fruit4_2', './images/fruit4_2.png');
         game.load.image('fruit4_3', './images/fruit4_3.png');
         game.load.image('fruit4_4', './images/fruit4_4.png');
-        
+        game.load.image('dead_body_1', './images/dead_body_1.png');
+        game.load.image('dead_body_2', './images/dead_body_2.png');
+        game.load.image('dead_body_3', './images/dead_body_3.png');
+        game.load.image('dead_body_4', './images/dead_body_4.png');
+
 //        game.load.image('fruit5', './images/fruit5.png');
         
         // Load up music and sounds.
@@ -69,7 +76,12 @@ preload.prototype = {
         game.load.audio('text1sound', './audio/text_sound1.wav');
         game.load.audio('bite_sfx', './audio/sound_fx/bite.wav');
         game.load.audio('crash_sfx', './audio/sound_fx/crash.mp3');
-        
+
+        // CHOICE part assets
+        game.load.image('pos_bar', './images/pos_bar.png');
+        game.load.image('neg_bar', './images/neg_bar.png');
+        game.load.image('neut_bar', './images/neut_bar.png');
+
         // Load test videos.
         game.load.video('jump_boy', './jump_boy.mp4');
         

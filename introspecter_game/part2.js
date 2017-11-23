@@ -588,6 +588,10 @@ part2.prototype = {
 //                for (i=0; i<4; i++){
 //                    fruits[i].sendToBack();
 //                }
+                fruits[0].loadTexture('dead_body_1');
+                fruits[1].loadTexture('dead_body_2');
+                fruits[2].loadTexture('dead_body_3');
+                fruits[3].loadTexture('dead_body_4');
             }, this);
             game.time.events.add(Phaser.Timer.SECOND*10, function(){
                 player.bringToTop();
