@@ -1,11 +1,13 @@
 var gameIntro = function(game){};
 var moveRight = true;
 var menu_bg;
+var title_logo;
 
 gameIntro.prototype = {
     create: function(){
         // Create functions to move to different states.
         menu_bg = game.add.sprite(0, 0, 'menu_bg');
+        title_logo = game.add.sprite(100, 75, 'introspecter');
         
         function playGame(){
             // ***** RETURN TO NORMAL WHEN DONE

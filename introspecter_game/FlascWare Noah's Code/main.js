@@ -22,9 +22,6 @@ function preload() {
         charr.anchor.setTo(.5,1);
         charr.scale.setTo(1, 1);
         
-        
-        
-        
         friend = this.friend = this.game.add.sprite(this.game.world.centerX, 360,'friend');
         friend.anchor.setTo(.5,1);
         friend.scale.setTo(1, 1);

@@ -8,7 +8,7 @@ var intro_pt1_speeches = [
     "Today's a\ngreat day!",
     "I'm gonna have\nso much fun with\nmy best friend!",
     
-    "You and River\nbe careful\nplaying!",
+    "You and Shiloh\nbe careful\nplaying!",
     "Look both ways\nbefore crossing\nthe street!",
     
     "Yeah mom!",

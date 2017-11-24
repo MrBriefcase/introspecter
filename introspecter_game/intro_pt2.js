@@ -10,7 +10,7 @@ var intro_pt2_speech = [
     "She was\nimportant\nto me...",
     "A best friend...",
     
-    "River... I wish\nyou grew up\nwith me..."
+    "Shiloh... I wish\nyou grew up\nwith me..."
 ];
 
 intro_pt2.prototype = {

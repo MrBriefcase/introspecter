@@ -21,7 +21,7 @@ var part2_ending_speech = "But still you had a choice?";
 var dyingFruitSpeech = [
     "What the...",
     "Alright, I'll\ndig deep.",
-    "For you, River.",
+    "For you, Shiloh.",
     "It's all in my\nhead, right?",
     
     "Hey!",

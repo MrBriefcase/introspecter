@@ -11,6 +11,7 @@ preload.prototype = {
         game.load.image('playBtn', './images/MenuPage/MenuPage_PlayBT.png');
         game.load.image('credBtn', './images/MenuPage/MenuPage_CreditBT.png');
         game.load.image('backBtn', './images/back_btn.png');
+        game.load.image('introspecter', './images/title_logo.png');
         
         // instructions
         game.load.image('instructions', './images/instructions_v2.png');
@@ -30,8 +31,9 @@ preload.prototype = {
         game.load.spritesheet('char_kid', './images/kiddy_spritesheet.png', 19, 53);
         game.load.spritesheet('buddy_kid', './images/friend_spritesheet_21x54.png', 21, 54);
 
-        // various assets
+        // various assets (intro, pt2)
         game.load.image('car', './images/car_placeholder.png');
+        game.load.image('part2_bg', './images/Part2_BG.png');
         
         // Load buddy char. and border. and fruit. and dead bodies.
         game.load.image('buddy', './images/buddy.png');
@@ -59,8 +61,6 @@ preload.prototype = {
         game.load.image('dead_body_2', './images/dead_body_2.png');
         game.load.image('dead_body_3', './images/dead_body_3.png');
         game.load.image('dead_body_4', './images/dead_body_4.png');
-
-//        game.load.image('fruit5', './images/fruit5.png');
         
         // Load up music and sounds.
         game.load.audio('introTest', ['./audio/Cosmic_Disaster_OST.wav']);
@@ -85,7 +85,7 @@ preload.prototype = {
         // Load test videos.
         game.load.video('jump_boy', './jump_boy.mp4');
         
-        // Setup variables.
+        // Setup some variables.
         var buddy;
         var border;
         var player;

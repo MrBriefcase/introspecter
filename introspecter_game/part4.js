@@ -805,26 +805,27 @@ part4.prototype = {
 
         // end dialogue key press function
         function dialogueKeyPress(char) {
-            if(char == 'x' && text.endOfDial7) {
+            if(char == 'x' && text.endOfDial8) {
                 text.endOfDial7 = false;
+                text.endOfDial8 = false;
                 text.text = '';
                 nextLine(holdEndDialogue[1]);
             }
-            if(char == 'x' && text.endOfDial8) {
-                text.endOfDial8 = false;
+            if(char == 'x' && text.endOfDial9) {
+                text.endOfDial9 = false;
                 text.text = '';
                 nextLine(holdEndDialogue[2]);
             }
-            if(char == 'x' && text.endOfDial9) {
-                text.endOfDial9 = false;
+            if(char == 'x' && text.endOfDial10) {
+                text.endOfDial10 = false;
 
                 console.log('GO TO THE END!!!');
                 // TRANSITION TO NEXT SCENE
-                // NEEDS WORK ***************
-                // NEEDS WORK ***************
-                // NEEDS WORK ***************
-                // NEEDS WORK ***************
-                // NEEDS WORK ***************
+                game.add.tween(game.world).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+                game.time.events.add(2000, function(){
+                    music.stop();
+                    game.state.start('CreditsVid');
+                });
             }
         }
 
