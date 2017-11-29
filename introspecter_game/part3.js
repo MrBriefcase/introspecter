@@ -70,7 +70,7 @@ part3.prototype = {
                 border.loadTexture('border');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "24px dpcomic", fill: "#000000" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -89,6 +89,7 @@ part3.prototype = {
                 dialogue_Num++;
 
                 console.log('lByl v1');
+                x_continue = game.add.text(border.x+border.width-30, border.y+border.height-35, 'x', { font: "20px dpcomic", fill: "#000000" });
 
                 switch(dialogue_Num){
                     case 1:
@@ -184,11 +185,13 @@ part3.prototype = {
             if(char == 'x' && text.endOfDial1) {
                 text.endOfDial1 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(protect_speech[1]);
             }
             if(char == 'x' && text.endOfDial2) {
                 text.endOfDial2 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.destroy();
 
                 charr.immovable = false;
@@ -322,6 +325,22 @@ part3.prototype = {
 
         }
         game.physics.arcade.collide(charr, mush);
+
+        // Size adjustment for x-continue.
+        // test code ******
+        slowItDown_2++;
+        if(x_continue != undefined && slowItDown_2%5 == 0) {
+            if(x_continue.fontSize <= 21 && textGrow) {
+                x_continue.fontSize++;
+            } else if(x_continue.fontSize > 21) {
+                textGrow = false;
+            }
+            if(x_continue.fontSize >= 15 && !textGrow) {
+                x_continue.fontSize--;
+            } else if (x_continue.fontSize < 15) {
+                textGrow = true;
+            }
+        }
     },
     
     render: function(){

@@ -49,7 +49,7 @@ intro_pt2.prototype = {
                 border.loadTexture('border');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "24px dpcomic", fill: "#000000" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -68,6 +68,7 @@ intro_pt2.prototype = {
                 dialogue_Num++;
                 
                 console.log('lByl v1');
+                x_continue = game.add.text(border.x+border.width-30, border.y+border.height-35, 'x', { font: "20px dpcomic", fill: "#000000" });
                 
                 switch(dialogue_Num){
                     case 1:
@@ -147,17 +148,20 @@ intro_pt2.prototype = {
             if (char == 'x' && text.endOfDial1){
                 text.endOfDial1 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt2_speech[1]);
             }
             if (char == 'x' && text.endOfDial2){
                 text.endOfDial2 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt2_speech[2]);
             }
             if (char == 'x' && text.endOfDial3){
                 text.endOfDial3 = false;
                 
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -176,12 +180,14 @@ intro_pt2.prototype = {
             if (char == 'x' && text.endOfDial4){
                 text.endOfDial4 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt2_speech[4]);
             }
             if (char == 'x' && text.endOfDial5){
                 text.endOfDial5 = false;
                 
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -195,12 +201,14 @@ intro_pt2.prototype = {
             if (char == 'x' && text.endOfDial6){
                 text.endOfDial6 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt2_speech[6]);
             }
             if (char == 'x' && text.endOfDial7){
                 text.endOfDial7 = false;
                 
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -316,7 +324,7 @@ intro_pt2.prototype = {
                 border.loadTexture('border');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "24px dpcomic", fill: "#000000" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -335,6 +343,7 @@ intro_pt2.prototype = {
                 dialogue_Num++;
                 
                 console.log('lByl v1');
+                x_continue = game.add.text(border.x+border.width-30, border.y+border.height-35, 'x', { font: "20px dpcomic", fill: "#000000" });
                 
                 switch(dialogue_Num){
                     case 1:
@@ -407,6 +416,22 @@ intro_pt2.prototype = {
             if (wordIndex === letter.length){
                 //  Get the next line after the lineDelay amount of ms has elapsed
                 game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
+            }
+        }
+
+        // Size adjustment for x-continue.
+        // test code ******
+        slowItDown_2++;
+        if(x_continue != undefined && slowItDown_2%5 == 0) {
+            if(x_continue.fontSize <= 21 && textGrow) {
+                x_continue.fontSize++;
+            } else if(x_continue.fontSize > 21) {
+                textGrow = false;
+            }
+            if(x_continue.fontSize >= 15 && !textGrow) {
+                x_continue.fontSize--;
+            } else if (x_continue.fontSize < 15) {
+                textGrow = true;
             }
         }
     },

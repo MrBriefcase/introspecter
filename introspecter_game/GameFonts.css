@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'yoster';
+    src: url('./Fonts/yoster-island/yoster.ttf');
+}
+
+@font-face {
+    font-family: 'Parisienne-Regular';
+    src: url('./Fonts/parisienne/Parisienne-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'dpcomic';
+    src: url('./Fonts/dpcomic/dpcomic.ttf')
+}
+
+@font-face {
+    font-family: 'orange-kid';
+    src: url('./Fonts/orange-kid/orange-kid.ttf')
+}
+@font-face {
+    font-family: 'saturno';
+    src: url('./Fonts/senor-saturno/saturno.ttf')
+}

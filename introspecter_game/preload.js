@@ -1,11 +1,27 @@
 var preload = function(game){};
 
+WebFontConfig = {
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+        families: ['Questrial']
+    },
+
+    //  Custom fonts specified in a css file.
+    custom: {
+        families: ['yoster', 'Parisienne-Regular', 'dpcomic', 'orange-kid', 'saturno'],
+        urls: ['./GameFonts.css']
+    }
+};
+
 preload.prototype = {
     preload: function(){
         var example = game.add.sprite(game.world.centerX, game.world.centerY, 'examp');
         example.anchor.setTo(0.5, 0.5);
         // Load up all the necessary game assets
-        
+
+        // Load up the webfont script
+        game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+
         // Play button and Credit button. and back button. Menu stuff
         game.load.image('menu_bg', './images/MenuPage/MN_PG_v2.png');
         game.load.image('playBtn', './images/MenuPage/MenuPage_PlayBT.png');

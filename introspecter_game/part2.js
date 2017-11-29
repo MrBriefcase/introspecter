@@ -1,21 +1,13 @@
 var part2 = function(game){};
 
 var black_bg;
-var black_bg2;
 var fourthStop = false;
 
-var fruit_y = 1000;
 var fruit1, fruit2, fruit3, fruit4;
 var fruits = [fruit1, fruit2, fruit3, fruit4];
 
-//var part2_intro_speech = [
-//    "You ", "were ", "never ", "a ", "good ", "person. "
-//];
 var part2_intro_speech = "You were never\na good person.";
 
-//var part2_ending_speech = [
-//    "But ", "still ", "you ", "had ", "a ", "choice? "
-//];
 var part2_ending_speech = "But still you had a choice?";
 
 var dyingFruitSpeech = [
@@ -51,23 +43,14 @@ var finishedFruit3 = false;
 var fruitEaten4 = false;
 var finishedFruit4 = false;
 var fruitEaten5 = false;
-var finishedFruit5 = false;
 var fruitCounter = 0;
 
-//var content = "Where am I?";
 var text_2;
 var text_3;
 var mashing_tutorial;
 var bg, bg2;
 var growBigger = true;
-var border, border_2, border_3;
-var borders, borders_2, borders_3;
-var dialogueFocus = false;
-
-var dialogueNum = 0;
-var dialogueScene2 = false;
-var dialogueScene3 = false;
-var endOfPart1 = false;
+var border;
 
 var camSpot;
 var checkFruit;
@@ -87,7 +70,7 @@ part2.prototype = {
         
         
         // TWEEEN THE WORLD BACK
-//        game.add.tween(game.world).to({alpha:1}, 700, Phaser.Easing.Default, true, 0, 0, false);
+        // game.add.tween(game.world).to({alpha:1}, 700, Phaser.Easing.Default, true, 0, 0, false);
         game.world.alpha = 1;
         
         // Create the bg image and later bg image. and ground.
@@ -114,13 +97,6 @@ part2.prototype = {
         player.animations.add('right', [4, 5, 6], 10, true);
         
         // Create fruits (1, 2, 3, 4).
-//        for (i=0; i<4; i++){
-//            fruit_y += 150;
-//            fruits[i] = game.add.sprite(fruit_y, 300, 'fruit');
-//            game.physics.arcade.enable(fruits[i]);
-//            fruits[i].body.gravity.y = 400;
-//            fruits[i].body.collideWorldBounds = true;
-//        }
         fruits[0] = game.add.sprite(1150, 300, 'fruit1_1');
         game.physics.arcade.enable(fruits[0]);
         fruits[0].body.gravity.y = 400;
@@ -153,7 +129,7 @@ part2.prototype = {
                 border.loadTexture('border');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "24px dpcomic", fill: "#000000" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -172,6 +148,7 @@ part2.prototype = {
                 dialogue_Num++;
                 
                 console.log('lByl v1');
+                x_continue = game.add.text(border.x+border.width-30, border.y+border.height-35, 'x', { font: "20px dpcomic", fill: "#000000" });
                 
                 switch(dialogue_Num){
                     case 1:
@@ -261,18 +238,14 @@ part2.prototype = {
                 game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
             }
         }
-        
-        // setup music
-//        music = game.add.audio('audio_pt2');
-//        music.loop = true;
-//        music.play();
+
         
         // setup intro stuff
         black_bg = game.add.sprite(0, 0, 'blk_bg');
 
         game.time.events.add(Phaser.Timer.SECOND*2, function(){
-            text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
-            nextLine(part2_intro_speech, 75, 300);
+            text = game.add.text(border.x+20, border.y+15, '', { font: "62px dpcomic", fill: "#ffffff" });
+            nextLine(part2_intro_speech, 100, 150);
             game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
         });
         
@@ -280,6 +253,7 @@ part2.prototype = {
             if (char == 'x' && text.endOfDial1){
                 text.endOfDial1 = false;
                 text.text = '';
+                x_continue.text = '';
                 black_bg.loadTexture(null);
                 border.created = false;
                 
@@ -294,21 +268,25 @@ part2.prototype = {
             if (char == 'x' && text.endOfDial2){
                 text.endOfDial2 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[1]);
             }
             if (char == 'x' && text.endOfDial3){
                 text.endOfDial3 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[2]);
             }
             if (char == 'x' && text.endOfDial4){
                 text.endOfDial4 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[3]);
             }
             if (char == 'x' && text.endOfDial5){
                 text.endOfDial5 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -326,11 +304,13 @@ part2.prototype = {
             if (char == 'x' && text.endOfDial6){
                 text.endOfDial6 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[5]);
             }
             if (char == 'x' && text.endOfDial7){
                 text.endOfDial7 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 nextLine(dyingFruitSpeech[6], 790, 150, 'milo');
@@ -338,11 +318,13 @@ part2.prototype = {
             if (char == 'x' && text.endOfDial8){
                 text.endOfDial8 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[7]);
             }
             if (char == 'x' && text.endOfDial9){
                 text.endOfDial9 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -355,11 +337,13 @@ part2.prototype = {
             if (char == 'x' && text.endOfDial10){
                 text.endOfDial10 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[9]);
             }
             if (char == 'x' && text.endOfDial11){
                 text.endOfDial11 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 nextLine(dyingFruitSpeech[10], 1280, 150, 'milo');
@@ -367,11 +351,13 @@ part2.prototype = {
             if (char == 'x' && text.endOfDial12){
                 text.endOfDial12 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[11]);
             }
             if (char == 'x' && text.endOfDial13){
                 text.endOfDial13 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -384,21 +370,25 @@ part2.prototype = {
             if (char == 'x' && text.endOfDial14){
                 text.endOfDial14 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[13]);
             }
             if (char == 'x' && text.endOfDial15){
                 text.endOfDial15 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[14]);
             }
             if (char == 'x' && text.endOfDial16){
                 text.endOfDial16 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(dyingFruitSpeech[15]);
             }
             if (char == 'x' && text.endOfDial17){
                 text.endOfDial17 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -429,7 +419,7 @@ part2.prototype = {
         game.physics.arcade.collide(fruits[2], theGround);
         game.physics.arcade.collide(fruits[3], theGround);
         // Perform function when player touches fruits.
-//        game.physics.arcade.overlap(player, fruits[0], eatFruit, null, this);
+        // game.physics.arcade.overlap(player, fruits[0], eatFruit, null, this);
         if (player.x > 1100 && !firstFruitEaten){
             firstFruitEaten = true;
             eatFruit();
@@ -447,15 +437,13 @@ part2.prototype = {
             eatFruit5();
         } else if (player.x > 2100 && fourthStop){
             // Advance to part 3 of the game.
-//            dialogueScene3 = true;
-//            endOfPart1 = true;
             fourthStop = false;
             
             player.movable = false;
             black_bg.loadTexture('blk_bg');
-//            text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
-//            black_bg.bringToTop();
-//            text.bringToTop();
+            // text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
+            // black_bg.bringToTop();
+            // text.bringToTop();
             game.add.tween(bg2).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
             game.add.tween(player).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
             game.add.tween(bg).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
@@ -528,9 +516,9 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit');
             // create growing x instruction
-            text_2 = game.add.text(1175, 340, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            text_2 = game.add.text(1175, 340, 'x', { font: "24px dpcomic", fill: "#ffffff" });
 
-            text_3 = game.add.text(1170, 300, 'Mash "X"', { font: "20px Questrial", fill: "#ffffff" });
+            text_3 = game.add.text(1170, 300, 'Mash "X"', { font: "20px dpcomic", fill: "#ffffff" });
             mashing_tutorial = game.add.tween(text_3).to({alpha: 0}, 1000, Phaser.Easing.Default, false, 0, 0, false);
             game.time.events.add(4000, function(){mashing_tutorial.start();});
             
@@ -541,7 +529,7 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit2');
             // create growing x instruction
-            text_2 = game.add.text(1325, 340, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            text_2 = game.add.text(1325, 340, 'x', { font: "24px dpcomic", fill: "#ffffff" });
             
             checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
             checkFruit.onDown.add(froo2);
@@ -550,7 +538,7 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit3');
             // create growing x instruction
-            text_2 = game.add.text(1475, 340, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            text_2 = game.add.text(1475, 340, 'x', { font: "24px dpcomic", fill: "#ffffff" });
             
             checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
             checkFruit.onDown.add(froo3);
@@ -559,7 +547,7 @@ part2.prototype = {
             player.movable = false;
             console.log('player touched fruit4');
             // create growing x instruction
-            text_2 = game.add.text(1625, 340, 'x', { font: "24px Questrial", fill: "#ffffff" });
+            text_2 = game.add.text(1625, 340, 'x', { font: "24px dpcomic", fill: "#ffffff" });
             
             checkFruit = game.input.keyboard.addKey(Phaser.Keyboard.X);
             checkFruit.onDown.add(froo4);
@@ -567,10 +555,9 @@ part2.prototype = {
         function eatFruit5(){
             player.movable = false;
             console.log('finished eating');
-//            game.camera.follow(null);
+
+            // camera cutscene
             game.time.events.add(Phaser.Timer.SECOND, moveCamera, this);
-            // create growing x instruction
-            // text_2 = game.add.text(1775, 450, 'x', { font: "24px Old School Adventures", fill: "#ffffff" })
         }
         function moveCamera(){
             game.camera.follow(camSpot, Phaser.Camera.FOLLOW_LOCKON, 0.005, 0.005);
@@ -585,9 +572,8 @@ part2.prototype = {
             game.camera.flash(0xff0000, Phaser.Timer.SECOND*6);
             game.time.events.add(Phaser.Timer.SECOND*0.25, function(){
                 bg.loadTexture('bg_1');
-//                for (i=0; i<4; i++){
-//                    fruits[i].sendToBack();
-//                }
+
+                // change fruits to dead bodies.
                 fruits[0].loadTexture('dead_body_1');
                 fruits[1].loadTexture('dead_body_2');
                 fruits[2].loadTexture('dead_body_3');
@@ -597,7 +583,6 @@ part2.prototype = {
                 player.bringToTop();
                 text.bringToTop();
                 game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
-//                player.movable = true;
             }, this);
             game.time.events.add(Phaser.Timer.SECOND*11, function(){
                 nextLine(dyingFruitSpeech[12], 1700, 160, 'milo');
@@ -623,8 +608,7 @@ part2.prototype = {
         // When X is pressed, during eating fruit, cycle through different frames until you get to the eaten fruit frame (fruits 1 - 5)
         //******
         
-        
-//        if (firstFruitEaten && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFirstFruit){
+
         function froo1(){
             fruitCounter++;
             console.log('frtCt: ' + fruitCounter);
@@ -638,14 +622,12 @@ part2.prototype = {
             }
             if (fruitCounter == 21){
                 fruits[0].loadTexture('fruit1_4');
-//            } else if (fruitCounter >= 200){
-//                fruits[0].loadTexture('fruit5');
+
                 player.movable = true;
                 finishedFirstFruit = true;
                 fruitCounter = 0;
                 text_2.text = '';
-                
-//                checkFruit = null;
+
                 checkFruit.onDown.remove(froo1);
             }
             
@@ -655,7 +637,7 @@ part2.prototype = {
                 eatingSound.play();
             }
         }
-//        if (fruitEaten2 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit2){
+
         function froo2(){
             fruitCounter++;
             if (fruitCounter == 7){
@@ -666,8 +648,7 @@ part2.prototype = {
                 fruits[1].loadTexture('fruit2_3');
             } else if (fruitCounter == 21){
                 fruits[1].loadTexture('fruit2_4');
-//            } else if (fruitCounter >= 200){
-//                fruits[1].loadTexture('fruit5');
+
                 player.movable = true;
                 finishedFruit2 = true;
                 fruitCounter = 0;
@@ -682,7 +663,7 @@ part2.prototype = {
                 eatingSound.play();
             }
         }
-//        if (fruitEaten3 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit3){
+
         function froo3(){
             fruitCounter++;
             if (fruitCounter == 7){
@@ -693,8 +674,7 @@ part2.prototype = {
                 fruits[2].loadTexture('fruit3_3');
             } else if (fruitCounter == 21){
                 fruits[2].loadTexture('fruit3_4');
-//            } else if (fruitCounter >= 200){
-//                fruits[2].loadTexture('fruit5');
+
                 player.movable = true;
                 finishedFruit3 = true;
                 fruitCounter = 0;
@@ -709,7 +689,7 @@ part2.prototype = {
                 eatingSound.play();
             }
         }
-//        if (fruitEaten4 && game.input.keyboard.downDuration(Phaser.Keyboard.X, 120) && !finishedFruit4){
+
         function froo4(){
             fruitCounter++;
             if (fruitCounter == 7){
@@ -720,8 +700,7 @@ part2.prototype = {
                 fruits[3].loadTexture('fruit4_3');
             } else if (fruitCounter == 21){
                 fruits[3].loadTexture('fruit4_4');
-//            } else if (fruitCounter >= 200){
-//                fruits[3].loadTexture('fruit5');
+
                 player.movable = true;
                 finishedFruit4 = true;
                 fruitCounter = 0;
@@ -743,10 +722,10 @@ part2.prototype = {
             if (!border.created){
                 // create border
                 border = game.add.sprite(200, 200, 'border');
-                border.loadTexture('border_v3');
+                border.loadTexture('border');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "24px dpcomic", fill: "#000000" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -769,6 +748,7 @@ part2.prototype = {
                 dialogue_Num++;
                 
                 console.log('lByl v1');
+                x_continue = game.add.text(border.x+border.width-30, border.y+border.height-35, 'x', { font: "20px dpcomic", fill: "#000000" });
                 
                 switch(dialogue_Num){
                     case 1:
@@ -858,10 +838,26 @@ part2.prototype = {
                 game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
             }
         }
+
+        // Size adjustment for x-continue.
+        // test code ******
+        slowItDown_2++;
+        if(x_continue != undefined && slowItDown_2%5 == 0) {
+            if(x_continue.fontSize <= 21 && textGrow) {
+                x_continue.fontSize++;
+            } else if(x_continue.fontSize > 21) {
+                textGrow = false;
+            }
+            if(x_continue.fontSize >= 15 && !textGrow) {
+                x_continue.fontSize--;
+            } else if (x_continue.fontSize < 15) {
+                textGrow = true;
+            }
+        }
     },
     
     render: function(){
-//        game.debug.spriteInfo(player, 50, 50);
-//        game.debug.pointer(game.input.activePointer);
+        // game.debug.spriteInfo(player, 50, 50);
+        // game.debug.pointer(game.input.activePointer);
     }
 }

@@ -14,6 +14,7 @@ var ending_speech = [
 ];
 
 var ending_ending_speech = "I CAN BE";
+var playAgain;
 
 
 creditsVid.prototype = {
@@ -37,7 +38,7 @@ creditsVid.prototype = {
         bg = game.add.sprite(0, 0, 'intro_bg');
 
         // Create player and its attributes.
-        player = game.add.sprite(450, 270, 'char');
+        player = game.add.sprite(300, 270, 'char');
         game.physics.arcade.enable(player);
         player.body.gravity.y = 400;
         player.body.collideWorldBounds = true;
@@ -52,6 +53,9 @@ creditsVid.prototype = {
         buddy.body.gravity.y = 400;
         buddy.body.collideWorldBounds = true;
         buddy.alpha = 0.20;
+
+        // Create black bg
+        black_bg = game.add.sprite(0, 0, 'blk_bg');
 
         // Setup camera movement.
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
@@ -69,7 +73,7 @@ creditsVid.prototype = {
                 border.loadTexture('border');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "24px dpcomic", fill: "#000000" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -92,6 +96,7 @@ creditsVid.prototype = {
                 dialogue_Num++;
 
                 console.log('lByl v1');
+                x_continue = game.add.text(border.x+border.width-30, border.y+border.height-35, 'x', { font: "20px dpcomic", fill: "#000000" });
 
                 switch(dialogue_Num){
                     case 1:
@@ -187,11 +192,13 @@ creditsVid.prototype = {
             if(char == 'x' && text.endOfDial1) {
                 text.endOfDial1 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(ending_intro_speech[1]);
             }
             if(char == 'x' && text.endOfDial2) {
                 text.endOfDial2 = false;
                 text.text = '';
+                x_continue.text = '';
                 black_bg.loadTexture(null);
                 border.created = false;
                 firstStop = true;
@@ -206,11 +213,13 @@ creditsVid.prototype = {
             if(char == 'x' && text.endOfDial3) {
                 text.endOfDial3 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(ending_speech[1])
             }
             if(char == 'x' && text.endOfDial4) {
                 text.endOfDial4 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.destroy();
                 border.created = false;
 
@@ -223,12 +232,14 @@ creditsVid.prototype = {
             if(char == 'x' && text.endOfDial5) {
                 text.endOfDial5 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(ending_speech[3]);
             }
 
             if(char == 'x' && text.endOfDial6) {
                 text.endOfDial6 = false;
                 text.text = '';
+                x_continue.text = '';
 
                 black_bg.loadTexture('blk_bg');
                 game.add.tween(player).to({alpha:0}, 3000, Phaser.Easing.Default, true, 0, 0, false);
@@ -241,17 +252,33 @@ creditsVid.prototype = {
                     nextLine(ending_ending_speech, 1700, 150, 'ending');
                 });
                 game.time.events.add(Phaser.Timer.SECOND*8, function(){
-                    game.add.tween(game.world).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
+                    game.add.tween(text).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
                     console.log('The game is complete.');
                 });
+                game.time.events.add(Phaser.Timer.SECOND*10, function(){
+                    game.add.text(1870, 450, 'The End', { font: '48px Parisienne-Regular', fill: '#ffffff' })
+                });
+                game.time.events.add(Phaser.Timer.SECOND*13, function(){
+                    // NEEDS WORK ***** change to button later.
+                    playAgain = game.add.text(1880, 540, 'Play Again?', {font: '24px orange-kid', fill: '#ffffff'});
+                    playAgain.inputEnabled = true;
+                    playAgain.input.useHandCursor = true;
+                    playAgain.events.onInputDown.add(function(){
+                        var tween = game.add.tween(game.world).to({alpha:0}, 1000, Phaser.Easing.Default, true, 0, 0, false);
+                        tween.onComplete.add(function() {
+                            music.stop();
+                            game.state.start('GameIntro');
+                        }, this);
+                    }, this);
+                })
             }
         }
 
         // intro setup.
-        black_bg = game.add.sprite(0, 0, 'blk_bg');
+        // black_bg = game.add.sprite(40, 0, 'blk_bg');
 
         game.time.events.add(Phaser.Timer.SECOND*2, function(){
-            text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
+            text = game.add.text(border.x+20, border.y+15, '', { font: "62px dpcomic", fill: "#ffffff" });
             nextLine(ending_intro_speech[0], 75, 300);
             game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
         });
@@ -302,7 +329,7 @@ creditsVid.prototype = {
                 border.loadTexture('border');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "24px dpcomic", fill: "#000000" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -321,6 +348,7 @@ creditsVid.prototype = {
                 dialogue_Num++;
 
                 console.log('lByl v1');
+                x_continue = game.add.text(border.x+border.width-30, border.y+border.height-35, 'x', { font: "20px dpcomic", fill: "#000000" });
 
                 switch(dialogue_Num){
                     case 1:
@@ -410,9 +438,25 @@ creditsVid.prototype = {
                 game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
             }
         }
+
+        // Size adjustment for x-continue.
+        // test code ******
+        slowItDown_2++;
+        if(x_continue != undefined && slowItDown_2%5 == 0) {
+            if(x_continue.fontSize <= 21 && textGrow) {
+                x_continue.fontSize++;
+            } else if(x_continue.fontSize > 21) {
+                textGrow = false;
+            }
+            if(x_continue.fontSize >= 15 && !textGrow) {
+                x_continue.fontSize--;
+            } else if (x_continue.fontSize < 15) {
+                textGrow = true;
+            }
+        }
     },
 
     render: function(){
-
+        game.debug.pointer(game.input.activePointer);
     }
 };

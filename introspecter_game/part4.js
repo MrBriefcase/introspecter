@@ -7,13 +7,10 @@ var rotateRight = true;
 var tutorialChoose = true;
 var slowItDown = 0;
 var typeableWords = [];
-//var correct = [];
 
 var choiceBG;
 var typingMiniGame = false;
 var wordsLoop;
-
-var chooseGrow = true;
 
 var positiveChoice = 0;
 var negativeChoice = 0;
@@ -22,14 +19,13 @@ var posBar, negBar, neutBar;
 var updateProgressBar = false;
 var processEndOfDialogue = false;
 
+//instruction variables.
+var instruct_1;
+
 var negativeWords = ['WORTHLESS', 'GARBAGE', 'TRASH', 'DISAPPOINT', 'FAILURE', 'RUDE', 'ROTTEN', 'BORING', 'TERRIBLE',
     'PESSIMISTIC', 'DISHONEST', 'AWFUL', 'GLOOMY', 'CYNICAL', 'QUITTER'];
 var positiveWords = ['HAPPY', 'PERSERVERE', 'DOABLE', 'CONFIDENT', 'GENUINE', 'HONEST', 'TRUTHFUL', 'EMPATHETIC',
     'ENERGETIC', 'EXPRESSIVE', 'TRUSTING', 'IMPRESSIVE', 'DETERMINED', 'OUTSPOKEN', 'OUTSPOKEN'];
-
-var choice_intro_speech = [
-    "But ", "still ", "you ", "had ", "a ", "choice. "
-];
 
 var choice_speech = [
     "I had a few\nchoices after\nhighschool.",
@@ -95,19 +91,6 @@ part4.prototype = {
         
         // Create dialogue and relevant materials.
         dialogue_Num = 0;
-        // borders = game.add.group();
-        // var content = 'Milo.';
-        // game.time.events.add(1000, createText, this);
-
-        // Appropriate functions
-        // function createText(){
-        //     dialogueFocus = true;
-        //     border = borders.create(200, 100, 'border2');
-        //     text = game.add.text(border.x+50, border.y+50, '', { font: "24px Old School Adventures", fill: "#ffffff" });
-        //     nextLine();
-        // }
-
-
 
 
         function nextLine(speech, xpos, ypos, clr){
@@ -118,7 +101,7 @@ part4.prototype = {
                 border.x = xpos;
                 border.y = ypos;
                 border.scale.setTo(1.5, 1.5);
-                text = game.add.text(border.x+20, border.y+15, '', { font: "36px Questrial", fill: "#ffffff" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "36px dpcomic", fill: "#ffffff" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -137,6 +120,7 @@ part4.prototype = {
                 dialogue_Num++;
 
                 console.log('lByl v1');
+                x_continue = game.add.text(border.x+border.width-35, border.y+border.height-45, 'x', { font: "20px dpcomic", fill: "#000000" });
 
                 switch(dialogue_Num){
                     case 1:
@@ -241,15 +225,20 @@ part4.prototype = {
             if (char == 'x' && text.endOfDial1){
                 text.endOfDial1 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(choice_speech[1]);
             }
             if (char == 'x' && text.endOfDial2){
                 text.endOfDial2 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(choice_speech[2]);
             }
             if (char == 'x' && text.endOfDial3){
                 text.endOfDial3 = false;
+
+                // NEEDS WORK***** Create text instruction. ("Click your choice.")
+                instruct_1 = game.add.text(220, 360, 'Click your choice.', {font:'64px orange-kid', fill:'#ffffff'});
 
                 // display choices
                 game.time.events.add(Phaser.Timer.SECOND*2, addChoices, this);
@@ -259,20 +248,26 @@ part4.prototype = {
             if (char == 'x' && text.endOfDial4){
                 text.endOfDial4 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(choice_speech[4]);
             }
             if (char == 'x' && text.endOfDial5){
                 text.endOfDial5 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(choice_speech[5]);
             }
             if (char == 'x' && text.endOfDial6){
                 text.endOfDial6 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(choice_speech[6]);
 
                 // start CHOOSE tutorial
                 game.time.events.add(2000, function(){
+                    // NEEDS WORK ***** create text instruction. ("Type the words.")
+                    instruct_1 = game.add.text(220, 360, 'Type the words.', {font:'36px orange-kid', fill:'#ffffff'});
+
                     createTypeableWord("CHOOSE", 350, 400);
                     game.input.keyboard.addCallbacks(this, null, null, keyPress);
                 });
@@ -280,45 +275,11 @@ part4.prototype = {
         }
 
 
-        // function nextLine(){
-        //     if (letterIndex === content.length){
-        //         //  We're finished
-        //         letterIndex = 0;
-        //         text.endOfDialogue = true;
-        //         return;
-        //     }
-        //     //  get the letter in the message
-        //     letter = content[letterIndex];
-        //     //  flag variable
-        //     wordIndex = 0;
-        //     //  Call the 'nextWord' function to concat the message into the game.
-        //     game.time.events.repeat(letterDelay, letter.length, nextWord, this);
-        //     //  Advance to the next letter
-        //     letterIndex++;
-        // }
-        //
-        // function nextWord(){
-        //     //  Add the next letter onto the text string
-        //     text.text = text.text.concat(letter[wordIndex]);
-        //     if (text1sound.isPlaying){
-        //         text1sound.restart();
-        //     } else{
-        //         text1sound.play();
-        //     }
-        //     //  Advance the word index to the next word in the line
-        //     wordIndex++;
-        //     //  Last word?
-        //     if (wordIndex === letter.length){
-        //         //  Get the next line after the lineDelay amount of ms has elapsed
-        //         game.time.events.add(letterDelay, nextLine, this);
-        //     }
-        // }
-
         function addChoices(){
-            choice1 = game.add.text(100, 155, 'Go to UBC', { font: "32px Questrial", fill: "#ffffff"});
-            choice2 = game.add.text(670, 155, 'Go to SFU', { font: "32px Questrial", fill: "#ffffff"});
-            choice3 = game.add.text(100, 450, 'Go to BCIT', { font: "32px Questrial", fill: "#ffffff"});
-            choice4 = game.add.text(670, 450, 'Study music', { font: "32px Questrial", fill: "#ffffff"});
+            choice1 = game.add.text(100, 155, 'Go to UBC', { font: "48px dpcomic", fill: "#ffffff"});
+            choice2 = game.add.text(670, 155, 'Go to SFU', { font: "48px dpcomic", fill: "#ffffff"});
+            choice3 = game.add.text(100, 450, 'Go to BCIT', { font: "48px dpcomic", fill: "#ffffff"});
+            choice4 = game.add.text(670, 450, 'Study music', { font: "48px dpcomic", fill: "#ffffff"});
 
             choice1.anchor.x = 0.5;
             choice1.anchor.y = 0.5;
@@ -374,7 +335,9 @@ part4.prototype = {
             // dialogueNum is: 1
             // content = "It didn't really\nmatter, did it?";
 
+            instruct_1.text = '';
             text.text = '';
+            x_continue.text = '';
             game.time.events.add(Phaser.Timer.SECOND*2, function(){
                 nextLine(choice_speech[3]);
             }, this);
@@ -388,10 +351,10 @@ part4.prototype = {
             var xHold = xPos;
 
             for (var i = 0; i < word.length; i++){
-                typeThisWord[i] = game.add.text(xHold, yPos, word[i], { font: "12px Questrial", fill: "#ffffff" });
+                typeThisWord[i] = game.add.text(xHold, yPos, word[i], { font: "42px dpcomic", fill: "#ffffff" });
                 typeThisWord[i].typed = false;
                 typeThisWord[i].isCurrChar = false;
-                xHold += 15;
+                xHold += 20;
             }
             typeThisWord[0].isCurrChar = true;
             typeableWords.push(typeThisWord);
@@ -448,7 +411,9 @@ part4.prototype = {
                 // start WORD TYPING MINIGAME
 
                 game.time.events.add(Phaser.Timer.SECOND*3, function(){
+                    instruct_1.text = '';
                     text.text = '';
+                    x_continue.text = '';
                     border.created = false;
                     border.destroy();
 
@@ -460,12 +425,6 @@ part4.prototype = {
 
                     typingMiniGame = true;
                 }, this);
-
-//                game.time.events.add(Phaser.Timer.SECONDS*5, function(){
-//                    console.log('code reaches here!!!!'); // NEVER REACHES HERE!!!!!!NOOOOO
-//
-//                    choiceBG.loadTexture('bg_1');
-//                }, this);
             }
         }
 
@@ -497,7 +456,7 @@ part4.prototype = {
                 border.x = xpos;
                 border.y = ypos;
                 border.scale.setTo(1.5, 1.5);
-                text = game.add.text(border.x+20, border.y+15, '', { font: "36px Questrial", fill: "#ffffff" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "36px dpcomic", fill: "#ffffff" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -516,6 +475,7 @@ part4.prototype = {
                 dialogue_Num++;
 
                 console.log('lByl v1');
+                x_continue = game.add.text(border.x+border.width-35, border.y+border.height-45, 'x', { font: "20px dpcomic", fill: "#000000" });
 
                 switch(dialogue_Num){
                     case 1:
@@ -605,152 +565,55 @@ part4.prototype = {
                 game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
             }
         }
-//         function nextLine(){
-//             if (letterIndex === content.length){
-//                 //  We're finished
-//                 letterIndex = 0;
-//                 switch (dialogueNum){
-//                     case 1:
-//                         text.dialogueAfterChoice = true;
-//                         break;
-//                     case 2:
-//                         text.dialogueAfterChoice2 = true;
-//                         break;
-//                     case 3:
-//                         text.dialogueAfterChoice3 = true;
-//                         break;
-// //                    case 4:
-// //                        text.dialogueAfterChoice4 = true;
-// //                        break;
-//                     default:
-//                         break;
-//                 }
-//                 return;
-//             }
-//             //  get the letter in the message
-//             letter = content[letterIndex];
-//             //  flag variable
-//             wordIndex = 0;
-//             //  Call the 'nextWord' function to concat the message into the game.
-//             game.time.events.repeat(letterDelay, letter.length, nextWord, this);
-//             //  Advance to the next letter
-//             letterIndex++;
-//         }
-//
-//         function nextWord(){
-//             //  Add the next letter onto the text string
-//             text.text = text.text.concat(letter[wordIndex]);
-//             if (text1sound.isPlaying){
-//                 text1sound.restart();
-//             } else{
-//                 text1sound.play();
-//             }
-//             //  Advance the word index to the next word in the line
-//             wordIndex++;
-//             //  Last word?
-//             if (wordIndex === letter.length){
-//                 //  Get the next line after the lineDelay amount of ms has elapsed
-//                 game.time.events.add(letterDelay, nextLine, this);
-//             }
-//         }
-        
-        // function addChoices(){
-        //     choice1 = game.add.text(100, 155, 'Go to UBC', { font: "18px Questrial", fill: "#ffffff"});
-        //     choice2 = game.add.text(670, 155, 'Go to SFU', { font: "18px Questrial", fill: "#ffffff"});
-        //     choice3 = game.add.text(100, 450, 'Go to BCIT', { font: "18px Questrial", fill: "#ffffff"});
-        //     choice4 = game.add.text(670, 450, 'Study music', { font: "18px Questrial", fill: "#ffffff"});
-        //
-        //     choice1.anchor.x = 0.5;
-        //     choice1.anchor.y = 0.5;
-        //     choice2.anchor.x = 0.5;
-        //     choice2.anchor.y = 0.5;
-        //     choice3.anchor.x = 0.5;
-        //     choice3.anchor.y = 0.5;
-        //     choice4.anchor.x = 0.5;
-        //     choice4.anchor.y = 0.5;
-        //
-        //     choice1.angle = 5;
-        //     choice2.angle = -6;
-        //     choice3.angle = 4;
-        //     choice4.angle = -3;
-        //
-        //     choice1.inputEnabled = true;
-        //     choice2.inputEnabled = true;
-        //     choice3.inputEnabled = true;
-        //     choice4.inputEnabled = true;
-        //
-        //     choice1.input.useHandCursor = true;
-        //     choice2.input.useHandCursor = true;
-        //     choice3.input.useHandCursor = true;
-        //     choice4.input.useHandCursor = true;
-        //
-        //     choice1.events.onInputDown.add(nextDialogue, this);
-        //     choice2.events.onInputDown.add(nextDialogue, this);
-        //     choice3.events.onInputDown.add(nextDialogue, this);
-        //     choice4.events.onInputDown.add(nextDialogue, this);
-        //
-        //     swayChoices = true;
-        // }
-        
-        
-        
-        // Update text box when X is pressed.
-        // if (game.input.keyboard.isDown(Phaser.Keyboard.X) && text.endOfDialogue){
-        //     text.endOfDialogue = false;
-        //     content = "What would you like\nto do after\nhighschool?";
-        //     text.text = '';
-        //     nextLine();
-        //
-        //     // Display the choices that you have
-        //     game.time.events.add(Phaser.Timer.SECOND*4, addChoices, this);
-        // }
+
+
         
         // Swaying motion of text
         if (swayChoices && (slowItDown%4 == 0)){
             console.log('loop entered');
             
             // Size adjustment
-            if (choice1.fontSize <= 21 && textGrow){
+            if (choice1.fontSize <= 48 && textGrow){
                 choice1.fontSize++;
-            } else if (choice1.fontSize > 21){
+            } else if (choice1.fontSize > 48){
                 textGrow = false;
             }
-            if (choice1.fontSize >= 15 && !textGrow){
+            if (choice1.fontSize >= 36 && !textGrow){
                 choice1.fontSize--;
-            } else if (choice1.fontSize < 15){
+            } else if (choice1.fontSize < 36){
                 textGrow = true;
             }
             
-            if (choice2.fontSize <= 21 && textGrow){
+            if (choice2.fontSize <= 48 && textGrow){
                 choice2.fontSize++;
-            } else if (choice2.fontSize > 21){
+            } else if (choice2.fontSize > 48){
                 textGrow = false;
             }
-            if (choice2.fontSize >= 15 && !textGrow){
+            if (choice2.fontSize >= 36 && !textGrow){
                 choice2.fontSize--;
-            } else if (choice2.fontSize < 15){
+            } else if (choice2.fontSize < 36){
                 textGrow = true;
             }
             
-            if (choice3.fontSize <= 21 && textGrow){
+            if (choice3.fontSize <= 48 && textGrow){
                 choice3.fontSize++;
-            } else if (choice3.fontSize > 21){
+            } else if (choice3.fontSize > 48){
                 textGrow = false;
             }
-            if (choice3.fontSize >= 15 && !textGrow){
+            if (choice3.fontSize >= 36 && !textGrow){
                 choice3.fontSize--;
-            } else if (choice3.fontSize < 15){
+            } else if (choice3.fontSize < 36){
                 textGrow = true;
             }
             
-            if (choice4.fontSize <= 21 && textGrow){
+            if (choice4.fontSize <= 48 && textGrow){
                 choice4.fontSize++;
-            } else if (choice4.fontSize > 21){
+            } else if (choice4.fontSize > 48){
                 textGrow = false;
             }
-            if (choice4.fontSize >= 15 && !textGrow){
+            if (choice4.fontSize >= 36 && !textGrow){
                 choice4.fontSize--;
-            } else if (choice4.fontSize < 15){
+            } else if (choice4.fontSize < 36){
                 textGrow = true;
             }
             
@@ -809,11 +672,13 @@ part4.prototype = {
                 text.endOfDial7 = false;
                 text.endOfDial8 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(holdEndDialogue[1]);
             }
             if(char == 'x' && text.endOfDial9) {
                 text.endOfDial9 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(holdEndDialogue[2]);
             }
             if(char == 'x' && text.endOfDial10) {
@@ -821,101 +686,20 @@ part4.prototype = {
 
                 console.log('GO TO THE END!!!');
                 // TRANSITION TO NEXT SCENE
-                game.add.tween(game.world).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
-                game.time.events.add(2000, function(){
+                var tween = game.add.tween(game.world).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+                tween.onComplete.add(function(){
                     music.stop();
                     game.state.start('CreditsVid');
-                });
+                }, this);
+                // game.time.events.add(2000, function(){
+                //     music.stop();
+                //     game.state.start('CreditsVid');
+                // });
             }
         }
 
         
-        // function nextDialogue(){
-        //     // Get rid of choices.
-        //     console.log('nextDialogue works!');
-        //     swayChoices = false;
-        //     choice1.destroy();
-        //     choice2.destroy();
-        //     choice3.destroy();
-        //     choice4.destroy();
-        //
-        //     // Print out the next batch of dialogue.
-        //     // when printing new text:
-        //     //
-        //     //      - disable FLAG
-        //     //      - dialogueNum++
-        //     //      - change the message
-        //     //      - clear the text var
-        //     //      - call the function
-        //     // dialogueNum++;
-        //     // dialogueNum is: 1
-        //     // content = "It didn't really\nmatter, did it?";
-        //
-        //     text.text = '';
-        //     game.time.events.add(Phaser.Timer.SECOND*2, nextLine, this);
-        // }
-        
-        // Setup the background fade in. and more dialogue.
-        // if (game.input.keyboard.isDown(Phaser.Keyboard.X) && text.dialogueAfterChoice){
-        //     // Print out more dialogue
-        //     text.dialogueAfterChoice = false;
-        //     dialogueNum++;
-        //     // dialogueNum is: 2
-        //     content = 'You were forced\nto take over\nthe family business...';
-        //     text.text = '';
-        //     nextLine();
-        // }
-        // if (game.input.keyboard.isDown(Phaser.Keyboard.X) && text.dialogueAfterChoice2){
-        //     // Print out more dialogue
-        //     text.dialogueAfterChoice2 = false;
-        //     dialogueNum++;
-        //     // dialogueNum is: 3
-        //     content = 'However...';
-        //     text.text = '';
-        //     nextLine();
-        // }
-        //
-        //
-        //
-        //
-        // if (game.input.keyboard.isDown(Phaser.Keyboard.X) && text.dialogueAfterChoice3){
-        //     // Print out more dialogue
-        //     text.dialogueAfterChoice3 = false;
-        //     dialogueNum++;
-        //     // dialogueNum is: 4
-        //     content = 'Even then,\nyou made your\nown choice.';
-        //     text.text = '';
-        //     nextLine();
-        //
-        //     // text.dialogueAfterChoice4 is: true
-        //
-        //     // Display the CHOOSEEEEEEEEEEEEE INSTRUCTION
-        //     game.time.events.add(Phaser.Timer.SECOND*3, function(){
-        //         createTypeableWord('CHOOSE', 350, 350);
-        //     }, this);
-        // }
-        
-        
-        
-        
-        
-        // function createTypeableWord(typeThis, xPos, yPos){
-        //     var word = typeThis;
-        //     var typeThisWord = [];
-        //
-        //     var xHold = xPos;
-        //
-        //     for (var i = 0; i < word.length; i++){
-        //         typeThisWord[i] = game.add.text(xHold, yPos, word[i], { font: "12px Old School Adventures", fill: "#ffffff" });
-        //         typeThisWord[i].typed = false;
-        //         typeThisWord[i].isCurrChar = false;
-        //         xHold += 15;
-        //     }
-        //     typeThisWord[0].isCurrChar = true;
-        //     typeableWords.push(typeThisWord);
-        //
-        //     console.log('create typeable word fn works!');
-        // }
+
         
         // Alternate version with added gravity.
         // used for the majority of words.
@@ -926,114 +710,19 @@ part4.prototype = {
             var xHold = xPos;
             
             for (var i = 0; i < word.length; i++){
-                typeThisWord[i] = game.add.text(xHold, yPos, word[i], { font: "24px Questrial", fill: "#ffffff" });
+                typeThisWord[i] = game.add.text(xHold, yPos, word[i], { font: "32px dpcomic", fill: "#ffffff" });
                 typeThisWord[i].typed = false;
                 typeThisWord[i].isCurrChar = false;
                 game.physics.arcade.enable(typeThisWord[i]);
                 typeThisWord[i].body.gravity.x = -50;
-                xHold += 15;
+                xHold += 20;
             }
             typeThisWord[0].isCurrChar = true;
             typeableWords.push(typeThisWord);
             
             console.log('create typeable word fn works!');
         }
-        
-        
-        
-        
-        // Make the CHOOSE instruction typeable and each letter grow and shrink ****** IMPORTANT
-        // to indicate it needs to be typed.
-//         if (typeableWords.length == 1 && tutorialChoose){
-//             tutorialChoose = false;
-// //            growShrink(typeableWords[0]);
-// //            console.log('code reaches here');
-// //            // Create correct-letter array for the CHOOSE word.
-// //            for (var i = 0; i < typeableWords[0].length; i++){
-// //                typeableWords[0][i].typed = false;
-// //                typeableWords[0][i].isCurrChar = false;
-// //            }
-// //            console.log('code reaches after there');
-//
-//             // Set .isCurrChar for sequential buton pressing.
-// //            typeableWords[0][0].isCurrChar = true;
-//
-//             // Catch all key inputs.
-//             game.input.keyboard.addCallbacks(this, null, null, keyPress);
-//
-//         }
-        
-        
-        
-        
-        
-        // All important keyPress function (will modify after functionality works)
-        // function keyPress(char){
-        //     console.log('keypress works');
-        //     console.log('char: ' + char);
-        //
-        //     // Loop through CHOOSE and when match, change colour
-        //     // .isCurrChar ****** SOLUTION TO MY FUTURE PROBLEM(type in sequential order)
-        //     for (var i = 0; i < typeableWords[0].length; i++){
-        //         if (typeableWords[0][i].typed == false && typeableWords[0][i].isCurrChar){
-        //             // check (char == this letter) ? change colour : ---
-        //             if (typeableWords[0][i].text.toLowerCase() == char){
-        //                 console.log('typed the correct key');
-        //
-        //                 // Change text color
-        //                 typeableWords[0][i].fill = '#5683ff';
-        //
-        //                 // why does doing this change alll to true????!!!****FIXED
-        //                 typeableWords[0][i].typed = true;
-        //
-        //                 // next letter is the curr char.
-        //                 if (i != typeableWords[0].length - 1){
-        //                     typeableWords[0][i].isCurrChar = false;
-        //                     typeableWords[0][i+1].isCurrChar = true;
-        //                 }
-        //
-        //                 break;
-        //             } else {
-        //                 // restart word.
-        //                 restartWord(typeableWords[0]);
-        //             }
-        //         } else{
-        //             continue;
-        //         }
-        //     }
-        //
-        //     // if all CHOOSE is typed then move on. (only need to check the last character)
-        //     if (typeableWords[0][5].typed && tutorialChoose){
-        //         tutorialChoose = false;
-        //         // delete key catcher
-        //         game.input.keyboard.onPressCallback = null;
-        //
-        //         // delay delete CHOOSE, Text box
-        //         // v    v   v   v   v
-        //         // fade in new BG
-        //         // v    v   v   v   v
-        //         // start WORD TYPING MINIGAME
-        //
-        //         game.time.events.add(Phaser.Timer.SECOND*3, function(){
-        //             text.text = '';
-        //             border.destroy();
-        //
-        //             destroyWord(typeableWords[0]);
-        //             typeableWords.splice(0, 1);
-        //
-        //             choiceBG.loadTexture('bg_1');
-        //             // ****** NEED TO IMPLEMENT FADE
-        //
-        //             typingMiniGame = true;
-        //         }, this);
-                
-//                game.time.events.add(Phaser.Timer.SECONDS*5, function(){
-//                    console.log('code reaches here!!!!'); // NEVER REACHES HERE!!!!!!NOOOOO
-//                    
-//                    choiceBG.loadTexture('bg_1');
-//                }, this);
-//             }
-//         }
+
         
         
         
@@ -1134,12 +823,11 @@ part4.prototype = {
         // main loop for typing mini game
         
         // This check actually goes at the end of every keyPress.
-//        if (positiveChoice == 10 || negativeChoice == 10 || neutralChoice == 10)
-        
+        // if (positiveChoice == 10 || negativeChoice == 10 || neutralChoice == 10)
+
         
         
         // keyPress for the mini game portion
-        
         // I only just realized that i should have used objects 10/31/17
         
         function keyPressV2(char){
@@ -1250,41 +938,8 @@ part4.prototype = {
             }
             word[0].isCurrChar = true;
         }
-        
-        // Function to GROW and SHRINK typeable words. Pass in typeable word.
-        // ************NEEDS ATTENTION
-        // While loop runs too many times for some reason
-        // and slows down the game and prevents updating. *NEED FIX
-        function growShrink(str){
-            var word = str;
-            
-            for (var i = 0; i < word.length; i++){
-                str[i].typed = false;
-            }
-            for (var i = 0; i < word.length; i++){
-                
-                // Grow and shrink
-                // Old whileloop was here.
-                console.log('gets here');
-                
-                if (str[0].fontSize <= 16 && chooseGrow){
-                    str[0].fontSize++;
-                } else if (str[0].fontSize > 16){
-                    chooseGrow = false;
-                }
-                if (str[0].fontSize >= 8 && !chooseGrow){
-                    str[0].fontSize--;
-                } else if (str[0].fontSize < 8){
-                    chooseGrow = true;
-                }
-                
-                // Check for keypress.
-                if (game.input.keyboard.isDown(Phaser.KeyCode.C)){
-                    console.log('onto the next key');
-                }
-                
-            }
-        }
+
+        // redacted grow_shrink.
 
         // CHECK if typeablewords are out of world bounds *********
         // When out of world bounds DESTROY word. (and update neutral count).
@@ -1321,7 +976,21 @@ part4.prototype = {
             }
         }
 
-//        console.log('update has run this times');
+        // Size adjustment for x-continue.
+        // test code ******
+        slowItDown_2++;
+        if(x_continue != undefined && slowItDown_2%5 == 0) {
+            if(x_continue.fontSize <= 21 && textGrow) {
+                x_continue.fontSize++;
+            } else if(x_continue.fontSize > 21) {
+                textGrow = false;
+            }
+            if(x_continue.fontSize >= 15 && !textGrow) {
+                x_continue.fontSize--;
+            } else if (x_continue.fontSize < 15) {
+                textGrow = true;
+            }
+        }
     },
     
     render: function(){

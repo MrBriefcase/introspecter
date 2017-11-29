@@ -30,7 +30,6 @@ var friend_speech_clr = '#f5a0a0';
 var letter = [];
 var wordIndex = 0;
 var letterIndex = 0;
-var wordDelay = 120;
 var letterDelay = 20;
 
 var dialogue_Num = 0;
@@ -51,19 +50,13 @@ var arrow_dir;
 var arrow_dir_show = true;
 var car;
 var carCheck = false;
-
-WebFontConfig = {
-    //  The Google Fonts we want to load (specify as many as you like in the array)
-    google: {
-      families: ['Questrial']
-    }
-};
+var x_continue;
+var slowItDown_2 = 0;
 
 
 theGame.prototype = {
     preload: function(){
-        // Load up the webfont script
-        game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+
     },
     
     create: function(){
@@ -97,10 +90,6 @@ theGame.prototype = {
         border = game.add.sprite(200, 200, null);
         border.created = false;
         
-        // Create text, letter by letter.
-//        text = game.add.text(border.x+20, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
-        
-        
         // ADD INSTRUCTIONS
         instructions = game.add.sprite(150, 100, 'instructions');
         press_x = game.add.sprite(425, 360, 'continue_x');
@@ -121,14 +110,7 @@ theGame.prototype = {
                 });
             }
         }
-        
-        
-        
-        // GAME START **************
-//        game.time.events.add(Phaser.Timer.SECOND*2, function(){
-//            nextLine(intro_pt1_speeches[0], 200, 200, 'milo');
-//            game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
-//        });
+
         
         // functions get hoisted!!!
         function nextLine(speech, xpos, ypos, clr){
@@ -138,7 +120,7 @@ theGame.prototype = {
                 border.loadTexture('border');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+15, border.y+15, '', { font: "22px Questrial", fill: "#000000" });
+                text = game.add.text(border.x+15, border.y+15, '', { font: "22px dpcomic", fill: "#000000" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -157,6 +139,8 @@ theGame.prototype = {
                 dialogue_Num++;
                 
                 console.log('lByl v1');
+                // **** experimental code *****
+                x_continue = game.add.text(border.x+border.width-30, border.y+border.height-35, 'x', { font: "20px dpcomic", fill: "#000000" });
                 
                 switch(dialogue_Num){
                     case 1:
@@ -240,11 +224,13 @@ theGame.prototype = {
                 // refresh dialogue or clear text box.
                 text.endOfDial1 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt1_speeches[1]);
             }
             if (char == 'x' && text.endOfDial2){
                 text.endOfDial2 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt1_speeches[2]);
             }
             
@@ -253,6 +239,7 @@ theGame.prototype = {
                 text.endOfDial3 = false;
                 
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -271,12 +258,14 @@ theGame.prototype = {
             if (char == 'x' && text.endOfDial4){
                 text.endOfDial4 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt1_speeches[4]);
             }
             if (char == 'x' && text.endOfDial5){
                 // milos turn
                 text.endOfDial5 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 nextLine(intro_pt1_speeches[5], 750, 230, 'milo');
@@ -284,11 +273,13 @@ theGame.prototype = {
             if (char == 'x' && text.endOfDial6){
                 text.endOfDial6 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt1_speeches[6]);
             }
             if (char == 'x' && text.endOfDial7){
                 text.endOfDial7 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -302,11 +293,13 @@ theGame.prototype = {
             if (char == 'x' && text.endOfDial8){
                 text.endOfDial8 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt1_speeches[8]);
             }
             if (char == 'x' && text.endOfDial9){
                 text.endOfDial9 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 nextLine(intro_pt1_speeches[9], 1050, 230, 'milo');
@@ -314,26 +307,31 @@ theGame.prototype = {
             if (char == 'x' && text.endOfDial10){
                 text.endOfDial10 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt1_speeches[10]);
             }
             if (char == 'x' && text.endOfDial11){
                 text.endOfDial11 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt1_speeches[11]);
             }
             if (char == 'x' && text.endOfDial12){
                 text.endOfDial12 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt1_speeches[12]);
             }
             if (char == 'x' && text.endOfDial13){
                 text.endOfDial13 = false;
                 text.text = '';
+                x_continue.text = '';
                 nextLine(intro_pt1_speeches[13]);
             }
             if (char == 'x' && text.endOfDial14){
                 text.endOfDial14 = false;
                 text.text = '';
+                x_continue.text = '';
                 border.loadTexture(null);
                 border.created = false;
                 player.movable = true;
@@ -422,6 +420,22 @@ theGame.prototype = {
             arrow_dir_show = false;
             game.add.tween(arrow_dir).to({alpha:0}, 750, Phaser.Easing.Default, true, 0, 0, false);
         }
+
+        // Size adjustment for x-continue.
+        // test code ******
+        slowItDown_2++;
+        if(x_continue != undefined && slowItDown_2%5 == 0) {
+            if(x_continue.fontSize <= 21 && textGrow) {
+                x_continue.fontSize++;
+            } else if(x_continue.fontSize > 21) {
+                textGrow = false;
+            }
+            if(x_continue.fontSize >= 15 && !textGrow) {
+                x_continue.fontSize--;
+            } else if (x_continue.fontSize < 15) {
+                textGrow = true;
+            }
+        }
         
         
         // Player controls (L, R, D, U)
@@ -473,16 +487,7 @@ theGame.prototype = {
             thirdStop = false;
             leftRight_velo = 200;
         }
-        
-        
-//        if(player.x > 1700){
-//            music.stop();
-//        }
-//        
-//        if (player.x > 1879){
-//            sfx = game.add.audio('crash_sfx');
-//            sfx.play();
-//        }
+
         
         // Once player reaches a point in the map, pass to the next game point.        
         if (player.x > 1880 && theGameFlag){
@@ -513,7 +518,7 @@ theGame.prototype = {
                 border.loadTexture('border');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+15, border.y+15, '', { font: "24px Questrial", fill: "#000000" });
+                text = game.add.text(border.x+15, border.y+15, '', { font: "24px dpcomic", fill: "#000000" });
                 border.created = true;
             }
             if (clr == 'milo'){
@@ -532,6 +537,8 @@ theGame.prototype = {
                 dialogue_Num++;
                 
                 console.log('lByl v2');
+                // test code ***********
+                x_continue = game.add.text(border.width-30, border.height-30, 'x', { font: "20px dpcomic", fill: "#000000" });
                 
                 switch(dialogue_Num){
                     case 1:
@@ -610,14 +617,15 @@ theGame.prototype = {
         // play crash sfx
         // delay start
         
-//        game.add.tween(music).to({ volume: 0 }, 500, Phaser.Easing.Default, true, 0, 0, false);
-        
+        // game.add.tween(music).to({ volume: 0 }, 500, Phaser.Easing.Default, true, 0, 0, false);
+
         music.stop();
         var tween = game.add.tween(game.world).to({ alpha: 0 }, 50, Phaser.Easing.Default, true, 0, 0, false);
         
         sfx = game.add.audio('crash_sfx');
         sfx.play();
-        
+
+        // Much cleaner way of tweening.
         tween.onComplete.add(function(){game.state.start('intro_pt2');}, this);
     }
 }

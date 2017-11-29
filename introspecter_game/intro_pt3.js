@@ -41,7 +41,7 @@ intro_pt3.prototype = {
 //                border = game.add.sprite(200, 200, 'border2');
                 border.x = xpos;
                 border.y = ypos;
-                text = game.add.text(border.x+20, border.y+15, '', { font: "62px Questrial", fill: "#ffffff" });
+                text = game.add.text(border.x+20, border.y+15, '', { font: "62px dpcomic", fill: "#ffffff" });
                 border.created = true;
             }
             if (clr == 'milo'){
