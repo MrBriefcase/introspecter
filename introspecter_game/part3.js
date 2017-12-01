@@ -27,6 +27,9 @@ part3.prototype = {
         // Noah's part to complete.
         console.log('youre in part 3');
 
+        //set bounds to 800 x 600
+        game.world.setBounds(0, 0, 800, 600);
+
         // pre dialogue setup
         dialogue_Num = 0;
         border.created = false;
@@ -34,32 +37,35 @@ part3.prototype = {
         //game.physics.startSystem(Phaser.Physics.ARCADE);
         background = game.add.sprite(0, 0, 'part2_bg');
 
-        charr = game.add.sprite(30, 360, 'char');
-        charr.anchor.setTo(.5,1);
-        charr.scale.setTo(1, 1);
-        charr.immovable = true;
+        player = game.add.sprite(30, 360, 'char');
+        player.anchor.setTo(.5,1);
+        player.scale.setTo(1, 1);
+        player.immovable = true;
+        // Add player animations
+        player.animations.add('left', [0, 1, 2], 5, true);
+        player.animations.add('right', [4, 5, 6], 5, true);
 
         friend = game.add.sprite(400, 360,'buddy_kid');
         friend.anchor.setTo(.5,1);
-        friend.scale.setTo(1, 1);
+        friend.scale.setTo(2, 2);
 
         mush = game.add.sprite(700, 360, 'fruit1_1');
         mush.anchor.setTo(.5,1);
         mush.scale.setTo(.5);
-        game.physics.enable([charr, mush], Phaser.Physics.ARCADE);
+        game.physics.enable([player, mush], Phaser.Physics.ARCADE);
         mush.body.immovable = true;
 
         mush2 = game.add.sprite(-100, 360, 'fruit2_1');
         mush2.anchor.setTo(.5,1);
         mush2.scale.setTo(.5);
-        game.physics.enable([charr, mush2], Phaser.Physics.ARCADE);
+        game.physics.enable([player, mush2], Phaser.Physics.ARCADE);
 
         mush3 = game.add.sprite(700, 360, 'fruit3_1');
         mush3.anchor.setTo(.5,1);
         mush3.scale.setTo(.5);
-        game.physics.enable([charr, mush3], Phaser.Physics.ARCADE);
+        game.physics.enable([player, mush3], Phaser.Physics.ARCADE);
 
-        game.camera.follow(charr, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+        game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
         // Process dialogue.
         // **** letter by letter functions
@@ -194,7 +200,7 @@ part3.prototype = {
                 x_continue.text = '';
                 border.destroy();
 
-                charr.immovable = false;
+                player.immovable = false;
             }
         }
 
@@ -208,21 +214,28 @@ part3.prototype = {
     },
     
     update: function(){
-        if(charr.x >= 200){
+
+        // when player moves past a certain point, trigger mush movement!
+        if(player.x >= 200){
             mush.body.velocity.x = -50;
             place = false;
         }
 
         // resets charr velocity, so he doesn't get stuck in movement.
-        charr.body.velocity.x = 0;
+        player.body.velocity.x = 0;
 
-        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !charr.immovable)
-        {
-            charr.x -= 4;
+        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !player.immovable)
+        {player
+            player.x -= 4;
+            player.animations.play('left');
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !charr.immovable)
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !player.immovable)
         {
-            charr.x += 4;
+            player.x += 4;
+            player.animations.play('right');
+        } else {
+            player.animations.stop();
+            player.frame = 3;
         }
 //        if(charr.overlap(mush)){
 //            charr.tint = 0xff00ff;
@@ -272,7 +285,7 @@ part3.prototype = {
 
 
         }
-        if (charr.overlap(mush) && game.input.keyboard.isDown(Phaser.Keyboard.X)) {
+        if (player.overlap(mush) && game.input.keyboard.isDown(Phaser.Keyboard.X)) {
             num++;
             console.log(num);
             if(num >= 30 && num <= 59){
@@ -290,7 +303,7 @@ part3.prototype = {
 
 
         }
-        if (charr.overlap(mush2) && game.input.keyboard.isDown(Phaser.Keyboard.X)) {
+        if (player.overlap(mush2) && game.input.keyboard.isDown(Phaser.Keyboard.X)) {
             num3++;
             console.log(num3);
             if(num3 >= 30 && num3 <= 59){
@@ -308,7 +321,7 @@ part3.prototype = {
 
 
         }
-        if (charr.overlap(mush3) && game.input.keyboard.isDown(Phaser.Keyboard.X)) {
+        if (player.overlap(mush3) && game.input.keyboard.isDown(Phaser.Keyboard.X)) {
             num4++;
             console.log(num4);
             if(num4 >= 30 && num4 <= 59){
@@ -324,7 +337,7 @@ part3.prototype = {
 
 
         }
-        game.physics.arcade.collide(charr, mush);
+        game.physics.arcade.collide(player, mush);
 
         // Size adjustment for x-continue.
         // test code ******

@@ -94,14 +94,17 @@ preload.prototype = {
         game.load.audio('crash_sfx', './audio/sound_fx/crash.mp3');
 
         // CHOICE part assets
-        game.load.image('pos_bar', './images/pos_bar.png');
-        game.load.image('neg_bar', './images/neg_bar.png');
-        game.load.image('neut_bar', './images/neut_bar.png');
+        game.load.image('pos_bar', './images/choice_assets/pos_fill.png');
+        game.load.image('neg_bar', './images/choice_assets/neg_fill.png');
+        game.load.image('neut_bar', './images/choice_assets/neut_fill.png');
+        game.load.image('bar_border', './images/choice_assets/border_outline.png');
+        game.load.image('choice_instructions', './images/choice_assets/choices_instruction.png');
 
         // Load test videos.
         game.load.video('jump_boy', './jump_boy.mp4');
         
         // Setup some variables.
+        // i think these are accessible in the create() of other parts.
         var buddy;
         var border;
         var player;

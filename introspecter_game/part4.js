@@ -16,6 +16,8 @@ var positiveChoice = 0;
 var negativeChoice = 0;
 var neutralChoice = 0;
 var posBar, negBar, neutBar;
+var border_bar1, border_bar2, border_bar3;
+
 var updateProgressBar = false;
 var processEndOfDialogue = false;
 
@@ -767,9 +769,15 @@ part4.prototype = {
 
 
             // ***** Create the sprites that display count progress.
-            posBar = game.add.sprite(10, 10, 'pos_bar');
-            negBar = game.add.sprite(40, 10, 'neg_bar');
-            neutBar = game.add.sprite(70, 10, 'neut_bar');
+
+            border_bar1 = game.add.sprite(150,48, 'bar_border');
+            border_bar2 = game.add.sprite(150, 98, 'bar_border');
+            border_bar3 = game.add.sprite(150, 148, 'bar_border');
+
+            // the fill
+            posBar = game.add.sprite(150, 48, 'pos_bar');
+            negBar = game.add.sprite(150, 98, 'neg_bar');
+            neutBar = game.add.sprite(150, 148, 'neut_bar');
             updateProgressBar = true;
 
             // ************* MAIN LOOP MECHANIC IS HERE *************
@@ -781,9 +789,9 @@ part4.prototype = {
 
         if(updateProgressBar) {
             // update progress bars proportionally to their respective count.
-            posBar.scale.setTo(1, positiveChoice/20);
-            negBar.scale.setTo(1, negativeChoice/20);
-            neutBar.scale.setTo(1, neutralChoice/20);
+            posBar.scale.setTo(positiveChoice/20, 1);
+            negBar.scale.setTo(negativeChoice/20, 1);
+            neutBar.scale.setTo(neutralChoice/20, 1);
         }
 
 

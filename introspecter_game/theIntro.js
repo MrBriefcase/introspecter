@@ -14,7 +14,7 @@ gameIntro.prototype = {
 
     create: function(){
         // Tween ***** NEEDS WORK (finish tween)
-        // game.add.tween(game.world)
+        game.add.tween(game.world).to({alpha:1}, 1000, Phaser.Easing.Default, true, 0, 0, false);
 
         // Create functions to move to different states.
         menu_bg = game.add.sprite(0, 0, 'menu_bg');
@@ -91,7 +91,7 @@ gameIntro.prototype = {
             "c += (noise(gl_FragCoord.xy) - 0.5) * (0.09);",
 
 
-            "gl_FragColor = vec4( 0.1, c, 0.2, 0.7 );",
+            "gl_FragColor = vec4( 0.1, c, 0.3, 0.05 );",
             "}"
         ];
         filter = new Phaser.Filter(game, null, fragmentSrc);
@@ -105,20 +105,21 @@ gameIntro.prototype = {
 
         // fullscreen
         // Stretch to fill
-        game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-        game.input.onDown.add(gofull, this);
-        function gofull() {
 
-            if (game.scale.isFullScreen)
-            {
-                game.scale.stopFullScreen();
-            }
-            else
-            {
-                game.scale.startFullScreen(false);
-            }
-
-        }
+        // game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+        // game.input.onDown.add(gofull, this);
+        // function gofull() {
+        //
+        //     if (game.scale.isFullScreen)
+        //     {
+        //         game.scale.stopFullScreen();
+        //     }
+        //     else
+        //     {
+        //         game.scale.startFullScreen(false);
+        //     }
+        //
+        // }
     },
     
     update: function(){
