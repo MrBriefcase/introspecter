@@ -15,11 +15,15 @@ var ending_speech = [
 
 var ending_ending_speech = "I CAN BE";
 var playAgain;
+var tweenToColour = true;
 
 
 creditsVid.prototype = {
     create: function(){
         console.log("You've reached the end.");
+
+        // reset variables
+        tweenToColour = true;
 
         // tween the world to full visibility.
         game.add.tween(game.world).to({alpha:1}, 5000, Phaser.Easing.Default, true, 0, 0, false);
@@ -27,7 +31,7 @@ creditsVid.prototype = {
         // Create ground and make it collideable.
         theGround = game.add.group();
         theGround.enableBody = true;
-        ground = theGround.create(0, 485, 'ground');
+        ground = theGround.create(0, 515, 'ground');
         ground.body.immovable = true;
 
         // Setup controls. and pre dialogue setup.
@@ -35,10 +39,16 @@ creditsVid.prototype = {
         dialogue_Num = 0;
 
         // Create background
-        bg = game.add.sprite(0, 0, 'intro_bg');
+        bg = game.add.sprite(0, 0, 'ending_bg');
+
+        // pixel filter the world
+        filter.sizeX = 5;
+        filter.sizeY = 5;
+        bg.filters = [ filter ];
 
         // Create player and its attributes.
         player = game.add.sprite(300, 270, 'char');
+        player.tint = '0x000000';
         game.physics.arcade.enable(player);
         player.body.gravity.y = 400;
         player.body.collideWorldBounds = true;
@@ -313,6 +323,16 @@ creditsVid.prototype = {
             nextLine(ending_speech[0], 750, 180, 'milo');
         }
 
+        if(player.x > 1650 && tweenToColour) {
+            tweenToColour = false;
+
+            // ****** Trouble tweening tint.
+            // game.add.tween(player).to({tint: 0x000000}, 1000, Phaser.Easing.Default, true, 0, 0, false);
+
+            // SOLUTION
+            tweenTint(player, 0x000000, 0xffffff, 5000);
+        }
+
         // FINAL dialogue at x=1750
         if(player.x > 1750 && secondStop) {
             secondStop = false;
@@ -455,9 +475,25 @@ creditsVid.prototype = {
                 textGrow = true;
             }
         }
+
+        function tweenTint(obj, startColor, endColor, time) {
+            // create an object to tween with our step value at 0
+            var colorBlend = {step: 0};
+            // create the tween on this object and tween its step property to 100
+            var colorTween = game.add.tween(colorBlend).to({step: 100}, time);
+            // run the interpolateColor function every time the tween updates, feeding it the
+            // updated value of our tween each time, and set the result as our tint
+            colorTween.onUpdateCallback(function() {
+                 obj.tint = Phaser.Color.interpolateColor(startColor, endColor, 100, colorBlend.step);
+            });
+            // set the object to the start color straight away
+            obj.tint = startColor;
+            // start the tween
+            colorTween.start();
+        }
     },
 
     render: function(){
-        game.debug.pointer(game.input.activePointer);
+        // game.debug.pointer(game.input.activePointer);
     }
 };

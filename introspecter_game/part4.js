@@ -23,6 +23,8 @@ var pos_txt, neg_txt, neut_txt;
 var updateProgressBar = false;
 var processEndOfDialogue = false;
 
+var gMan;
+
 //instruction variables.
 var instruct_1;
 
@@ -88,6 +90,13 @@ part4.prototype = {
         player.body.collideWorldBounds = true;
         player.movable = false;
         player.frame = 3;
+
+        // Create alt character
+        gMan = game.add.sprite(375, 225, 'new_protagonist');
+        gMan.alpha = 0;
+        game.physics.arcade.enable(gMan);
+        gMan.body.gravity.y = 400;
+        gMan.body.collideWorldBounds = true;
         
         // Create keyboard controls and camera
         cursors = game.input.keyboard.createCursorKeys();
@@ -260,6 +269,11 @@ part4.prototype = {
                 text.text = '';
                 x_continue.text = '';
                 nextLine(choice_speech[5]);
+
+                game.time.events.add(1000, function(){
+                    game.add.tween(player).to({alpha:0}, Phaser.Timer.SECOND, Phaser.Easing.Default, true, 0, 0, false);
+                    game.add.tween(gMan).to({alpha:1}, Phaser.Timer.SECOND, Phaser.Easing.Default, true, 0, 0, false);
+                });
             }
             if (char == 'x' && text.endOfDial6){
                 text.endOfDial6 = false;

@@ -93,7 +93,10 @@ theGame.prototype = {
         // Create border.
         border = game.add.sprite(200, 200, null);
         border.created = false;
-        
+
+        // reset dialogue_Num
+        dialogue_Num = 0;
+
         // ADD INSTRUCTIONS
         instructions = game.add.sprite(150, 100, 'instructions');
         press_x = game.add.sprite(425, 360, 'continue_x');

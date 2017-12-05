@@ -18,6 +18,7 @@ gameIntro.prototype = {
 
     create: function(){
         // Tween ***** NEEDS WORK (finish tween)
+        game.world.alpha = 0;
         game.add.tween(game.world).to({alpha:1}, 1000, Phaser.Easing.Default, true, 0, 0, false);
 
         // Create functions to move to different states.

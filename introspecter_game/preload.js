@@ -54,6 +54,7 @@ preload.prototype = {
         game.load.image('ground', './images/ground.png');
         game.load.image('blk_bg', './images/simple_blk_bg.png');
         game.load.image('pt1_bg_red', './images/bg_1_to_3_v3.png');
+        game.load.image('new_protagonist', './images/new_protagonist.png');
         
         // test spritesheets
         game.load.spritesheet('char', './images/test_spritesheet_v2.png', 50, 150);
@@ -127,7 +128,10 @@ preload.prototype = {
         game.load.image('choice_instructions', './images/choice_assets/choices_instruction.png');
 
         // Load test videos.
-        game.load.video('jump_boy', './jump_boy.mp4');
+        game.load.video('intro_vid', './videos/beginning_intro.mp4');
+
+        // Ending background
+        game.load.image('ending_bg', './images/ending_bg.png');
         
         // Setup some variables.
         // i think these are accessible in the create() of other parts.
@@ -151,6 +155,6 @@ preload.prototype = {
     
     create: function(){
         // Pass the state to the intro screen (menu).
-        game.state.start('GameIntro');
+        game.state.start('introVideo');
     }
 };
