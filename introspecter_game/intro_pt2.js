@@ -24,8 +24,9 @@ intro_pt2.prototype = {
         ground = theGround.create(0, 485, 'ground');
         ground.body.immovable = true;
         cursors = game.input.keyboard.createCursorKeys();
-        var bg = game.add.sprite(0, 0, 'intro_bg');
+        var bg = game.add.sprite(0, 0, 'intro_pt2_bg');
         bg.tint = 0x673636;
+        bg.filters = [ filter ];
         arrow_dir_show = true;
         
         // tweeeen

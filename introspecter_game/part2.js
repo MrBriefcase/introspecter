@@ -58,6 +58,8 @@ var border;
 var camSpot;
 var checkFruit;
 
+var blood_texture;
+
 
 part2.prototype = {    
     create: function(){
@@ -665,6 +667,12 @@ part2.prototype = {
                 // bg.filters = [ filter ];
                 // play_filter = true;
 
+                // Add the blood texture fixed to camera
+                blood_texture = game.add.sprite(0, 0, 'camera_blood');
+                blood_texture.alpha = 0.7;
+                blood_texture.fixedToCamera = true;
+                blood_texture.bringToTop();
+
                 // change fruits to dead bodies.
                 fruits[0].loadTexture('dead_body_1');
                 fruits[1].loadTexture('dead_body_2');
@@ -674,6 +682,7 @@ part2.prototype = {
             game.time.events.add(Phaser.Timer.SECOND*10, function(){
                 player.bringToTop();
                 text.bringToTop();
+                blood_texture.bringToTop();
                 game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
             }, this);
             game.time.events.add(Phaser.Timer.SECOND*11, function(){

@@ -271,7 +271,7 @@ part4.prototype = {
                 game.time.events.add(2000, function(){
                     // NEEDS WORK ***** create text instruction. ("Type the words.")
                     x_continue.text = '';
-                    instruct_1 = game.add.text(290, 360, 'Type the words.', {font:'36px orange-kid', fill:'#ffffff'});
+                    instruct_1 = game.add.text(310, 360, 'Type the words.', {font:'36px orange-kid', fill:'#ffffff'});
 
                     createTypeableWord("CHOOSE", 350, 400);
                     game.input.keyboard.addCallbacks(this, null, null, keyPress);

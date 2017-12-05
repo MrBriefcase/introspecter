@@ -54,6 +54,7 @@ var x_continue;
 var slowItDown_2 = 0;
 
 var textBox_tween1, textBox_tween2, textBox_tween3, textBox_tween4;
+var intro_pt1_bg;
 
 
 theGame.prototype = {
@@ -81,8 +82,9 @@ theGame.prototype = {
         // Setup controls.
         cursors = game.input.keyboard.createCursorKeys();
         
-        // Create background
-        game.add.sprite(0, 0, 'intro_bg');
+        // Create background & setup filter for it.
+        intro_pt1_bg = game.add.sprite(0, 0, 'intro_bg');
+        intro_pt1_bg.filters = [filter];
 
         // create the car
         car = game.add.sprite(2400, 240, 'car');

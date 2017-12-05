@@ -56,6 +56,7 @@ creditsVid.prototype = {
 
         // Create black bg
         black_bg = game.add.sprite(0, 0, 'blk_bg');
+        black_bg.alpha = 1;
 
         // Setup camera movement.
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);

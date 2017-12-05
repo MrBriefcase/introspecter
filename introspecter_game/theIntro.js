@@ -125,11 +125,11 @@ gameIntro.prototype = {
 
             if(star_ct == 10) {
                 twink4.alpha = 0;
-                console.log('reaches here');
+                // console.log('reaches here');
             }
             if(star_ct == 11) {
                 twink3.alpha = 0;
-                console.log('reaches here');
+                // console.log('reaches here');
             }
             if(star_ct == 12) {
                 twink2.alpha = 0;

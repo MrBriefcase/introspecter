@@ -46,7 +46,8 @@ preload.prototype = {
         game.load.image('continue_x', './images/press_x.png');
         
         // Player sprite and 1st background. and ground.
-        game.load.image('intro_bg', './images/intro_bg.png');
+        game.load.image('intro_bg', './images/intro_bg_v2.png');
+        game.load.image('intro_pt2_bg', './images/intro_bg_v3.png');
         game.load.image('past_bg', './images/bg_1_to_3_v2.png');
         game.load.image('bg_1', './images/bg_proto.png');
         game.load.image('mainChar', './images/photo.jpg');
@@ -64,11 +65,16 @@ preload.prototype = {
         game.load.image('part2_bg', './images/Part2_BG_v3.png');
         game.load.image('pt2_tint', './images/part2_BG_tint.png');
         game.load.image('pt2_buddy', './images/pt2_buddy.png');
+        game.load.image('didnt_help', './images/failed_to_save.png');
         game.load.image('mon_1', './images/pt2_monster/monster_1.png');
         game.load.image('mon_2', './images/pt2_monster/monster_2.png');
         game.load.image('mon_3', './images/pt2_monster/monster_3.png');
         game.load.image('mon_4', './images/pt2_monster/monster_4.png');
         game.load.image('mon_5', './images/pt2_monster/monster_5.png');
+        game.load.image('mon_1_rev', './images/pt2_monster/monster_1_rev.png');
+        game.load.image('mon_2_rev', './images/pt2_monster/monster_2_rev.png');
+        game.load.image('mon_3_rev', './images/pt2_monster/monster_3_rev.png');
+        game.load.image('mon_4_rev', './images/pt2_monster/monster_4_rev.png');
 
         // Load buddy char. and border. and fruit. and dead bodies.
         game.load.image('buddy', './images/buddy.png');
@@ -96,6 +102,7 @@ preload.prototype = {
         game.load.image('dead_body_2', './images/dead_body_2_v2.png');
         game.load.image('dead_body_3', './images/dead_body_3_v2.png');
         game.load.image('dead_body_4', './images/dead_body_4_v2.png');
+        game.load.image('camera_blood', './images/blood_texture_v2.png');
         
         // Load up music and sounds.
         game.load.audio('introTest', ['./audio/Cosmic_Disaster_OST.wav']);
