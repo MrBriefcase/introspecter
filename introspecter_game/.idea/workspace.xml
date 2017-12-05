@@ -17,18 +17,8 @@
       <file leaf-file-name="theGame.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/theGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4944">
-              <caret line="443" column="43" lean-forward="false" selection-start-line="443" selection-start-column="12" selection-end-line="443" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="intro_pt2.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/intro_pt2.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="263" column="51" lean-forward="false" selection-start-line="263" selection-start-column="51" selection-end-line="263" selection-end-column="51" />
+            <state relative-caret-position="6227">
+              <caret line="487" column="41" lean-forward="false" selection-start-line="487" selection-start-column="41" selection-end-line="487" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -37,7 +27,7 @@
       <file leaf-file-name="intro_pt3.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/intro_pt3.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
+            <state relative-caret-position="645">
               <caret line="43" column="88" lean-forward="false" selection-start-line="43" selection-start-column="88" selection-end-line="43" selection-end-column="88" />
               <folding />
             </state>
@@ -47,8 +37,8 @@
       <file leaf-file-name="part2.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="773">
-              <caret line="255" column="37" lean-forward="false" selection-start-line="255" selection-start-column="37" selection-end-line="255" selection-end-column="37" />
+            <state relative-caret-position="-3844">
+              <caret line="665" column="38" lean-forward="false" selection-start-line="665" selection-start-column="38" selection-end-line="665" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -57,7 +47,7 @@
       <file leaf-file-name="part3.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part3.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
+            <state relative-caret-position="-97">
               <caret line="307" column="30" lean-forward="false" selection-start-line="307" selection-start-column="30" selection-end-line="307" selection-end-column="30" />
               <folding />
             </state>
@@ -67,28 +57,48 @@
       <file leaf-file-name="part4.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part4.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="778" column="45" lean-forward="false" selection-start-line="778" selection-start-column="45" selection-end-line="778" selection-end-column="45" />
+            <state relative-caret-position="258">
+              <caret line="707" column="51" lean-forward="false" selection-start-line="707" selection-start-column="51" selection-end-line="707" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="preload.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/preload.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="92" column="65" lean-forward="true" selection-start-line="92" selection-start-column="65" selection-end-line="92" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="creditsVid.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="creditsVid.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/creditsVid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4020">
-              <caret line="268" column="41" lean-forward="false" selection-start-line="268" selection-start-column="41" selection-end-line="268" selection-end-column="41" />
+            <state relative-caret-position="188">
+              <caret line="30" column="37" lean-forward="false" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="credits.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/credits.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="preload.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/preload.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="440">
+              <caret line="47" column="67" lean-forward="false" selection-start-line="47" selection-start-column="67" selection-end-line="47" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="boot.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/boot.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="39" lean-forward="false" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -97,8 +107,8 @@
       <file leaf-file-name="theIntro.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/theIntro.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="42" lean-forward="false" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
+            <state relative-caret-position="423">
+              <caret line="250" column="77" lean-forward="false" selection-start-line="250" selection-start-column="77" selection-end-line="250" selection-end-column="77" />
               <folding />
             </state>
           </provider>
@@ -110,7 +120,6 @@
     <findStrings>
       <find>keypress</find>
       <find>start</find>
-      <find>null</find>
       <find>tween</find>
       <find>car</find>
       <find>NEEDS WORK</find>
@@ -130,24 +139,32 @@
       <find>black_bg</find>
       <find>camera</find>
       <find>charr</find>
+      <find>type the wor</find>
+      <find>[4]</find>
+      <find>[9]</find>
+      <find>null</find>
+      <find>intro</find>
+      <find>bg_1</find>
+      <find>Type the word</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/FlascWare Noah's Code/main.js" />
-        <option value="$PROJECT_DIR$/credits.js" />
         <option value="$PROJECT_DIR$/GameFonts.css" />
         <option value="$PROJECT_DIR$/prototype_v1.html" />
-        <option value="$PROJECT_DIR$/theGame.js" />
         <option value="$PROJECT_DIR$/intro_pt2.js" />
         <option value="$PROJECT_DIR$/intro_pt3.js" />
-        <option value="$PROJECT_DIR$/part2.js" />
-        <option value="$PROJECT_DIR$/creditsVid.js" />
         <option value="$PROJECT_DIR$/part3.js" />
+        <option value="$PROJECT_DIR$/boot.js" />
+        <option value="$PROJECT_DIR$/credits.js" />
+        <option value="$PROJECT_DIR$/theGame.js" />
+        <option value="$PROJECT_DIR$/preload.js" />
+        <option value="$PROJECT_DIR$/part2.js" />
         <option value="$PROJECT_DIR$/theIntro.js" />
         <option value="$PROJECT_DIR$/part4.js" />
-        <option value="$PROJECT_DIR$/preload.js" />
+        <option value="$PROJECT_DIR$/creditsVid.js" />
       </list>
     </option>
   </component>
@@ -201,7 +218,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
-    <property name="SearchEverywhereHistoryKey" value="preload&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/preload.js&#10;pro&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/prototype_v1.html&#10;part4&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/part4.js&#10;intro&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/intro_pt3.js&#10;proto&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/prototype_v1.html&#10;prot&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/prototype_v1.html&#10;creditsVid&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/creditsVid.js&#10;credits&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/credits.js&#10;part2&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/part2.js&#10;theinto&#9;null&#9;null&#10;theg&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/theGame.js&#10;part3&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/part3.js&#10;m&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/FlascWare Noah's Code/main.js&#10;the&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/theGame.js&#10;prelo&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/preload.js" />
+    <property name="SearchEverywhereHistoryKey" value="boot&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/boot.js&#10;cred&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/credits.js&#10;credits&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/creditsVid.js&#10;preload&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/preload.js&#10;pro&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/prototype_v1.html&#10;part4&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/part4.js&#10;intro&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/intro_pt3.js&#10;proto&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/prototype_v1.html&#10;prot&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/prototype_v1.html&#10;creditsVid&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/creditsVid.js&#10;part2&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/part2.js&#10;theinto&#9;null&#9;null&#10;theg&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/theGame.js&#10;part3&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/part3.js&#10;m&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/FlascWare Noah's Code/main.js&#10;the&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/theGame.js&#10;prelo&#9;FILE&#9;file:///Users/darencapacio/Desktop/introspecter_game/preload.js" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -242,12 +259,13 @@
       <workItem from="1511904200902" duration="166000" />
       <workItem from="1511904450839" duration="8581000" />
       <workItem from="1511974816431" duration="188000" />
-      <workItem from="1512003260238" duration="4375000" />
+      <workItem from="1512003260238" duration="4479000" />
+      <workItem from="1512200228240" duration="19532000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72712000" />
+    <option name="totallyTimeSpent" value="92348000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -581,20 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/boot.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="59" lean-forward="false" selection-start-line="13" selection-start-column="59" selection-end-line="13" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/credits.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="5" lean-forward="false" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GameFonts.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -609,25 +613,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/creditsVid.js">
+    <entry file="file://$PROJECT_DIR$/intro_pt2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4020">
-          <caret line="268" column="41" lean-forward="false" selection-start-line="268" selection-start-column="41" selection-end-line="268" selection-end-column="41" />
+        <state relative-caret-position="3945">
+          <caret line="263" column="51" lean-forward="false" selection-start-line="263" selection-start-column="51" selection-end-line="263" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/intro_pt2.js">
+    <entry file="file://$PROJECT_DIR$/intro_pt3.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="263" column="51" lean-forward="false" selection-start-line="263" selection-start-column="51" selection-end-line="263" selection-end-column="51" />
+        <state relative-caret-position="645">
+          <caret line="43" column="88" lean-forward="false" selection-start-line="43" selection-start-column="88" selection-end-line="43" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/credits.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/boot.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="39" lean-forward="false" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="47" column="67" lean-forward="false" selection-start-line="47" selection-start-column="67" selection-end-line="47" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/theGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6227">
+          <caret line="487" column="41" lean-forward="false" selection-start-line="487" selection-start-column="41" selection-end-line="487" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/theIntro.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="250" column="77" lean-forward="false" selection-start-line="250" selection-start-column="77" selection-end-line="250" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/part3.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
+        <state relative-caret-position="-97">
           <caret line="307" column="30" lean-forward="false" selection-start-line="307" selection-start-column="30" selection-end-line="307" selection-end-column="30" />
           <folding />
         </state>
@@ -635,48 +679,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/part2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="773">
-          <caret line="255" column="37" lean-forward="false" selection-start-line="255" selection-start-column="37" selection-end-line="255" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/intro_pt3.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="43" column="88" lean-forward="false" selection-start-line="43" selection-start-column="88" selection-end-line="43" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/theGame.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4944">
-          <caret line="443" column="43" lean-forward="false" selection-start-line="443" selection-start-column="12" selection-end-line="443" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/theIntro.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="42" lean-forward="false" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
+        <state relative-caret-position="-3844">
+          <caret line="665" column="38" lean-forward="false" selection-start-line="665" selection-start-column="38" selection-end-line="665" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/part4.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="778" column="45" lean-forward="false" selection-start-line="778" selection-start-column="45" selection-end-line="778" selection-end-column="45" />
+        <state relative-caret-position="258">
+          <caret line="707" column="51" lean-forward="false" selection-start-line="707" selection-start-column="51" selection-end-line="707" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/preload.js">
+    <entry file="file://$PROJECT_DIR$/creditsVid.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="92" column="65" lean-forward="true" selection-start-line="92" selection-start-column="65" selection-end-line="92" selection-end-column="65" />
+        <state relative-caret-position="188">
+          <caret line="30" column="37" lean-forward="false" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
           <folding />
         </state>
       </provider>

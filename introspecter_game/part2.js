@@ -45,6 +45,9 @@ var finishedFruit4 = false;
 var fruitEaten5 = false;
 var fruitCounter = 0;
 
+var play_filter = false;
+var fSrc, customUniforms;
+
 var text_2;
 var text_3;
 var mashing_tutorial;
@@ -119,6 +122,29 @@ part2.prototype = {
         
         // Create camera movement.
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+
+        // Filter src.
+        // fSrc = [
+        //
+        //     "precision mediump float;",
+        //
+        //     "uniform float     time;",
+        //     "uniform vec2      resolution;",
+        //     "uniform sampler2D iChannel0;",
+        //
+        //     "void main( void ) {",
+        //
+        //     "vec2 uv = gl_FragCoord.xy / resolution.xy;",
+        //     "uv.y *= -1.0;",
+        //     "uv.y += (sin((uv.x + (time * 0.5)) * 10.0) * 0.1) + (sin((uv.x + (time * 0.2)) * 32.0) * 0.01);",
+        //     "vec4 texColor = texture2D(iChannel0, uv);",
+        //     "gl_FragColor = texColor;",
+        //
+        //     "}"
+        // ];
+        // customUniforms = {
+        //     iChannel0: { type: 'sampler2D', value: bg.texture, textureData: { repeat: false } }
+        // };
         
         
         // **** letter by letter functions
@@ -306,6 +332,19 @@ part2.prototype = {
                 text.text = '';
                 x_continue.text = '';
                 nextLine(dyingFruitSpeech[5]);
+
+                game.add.tween(border).to({ x:border.x+6 }, 100, function (k) {
+                    return wiggle(k, 0.5, 0.2);
+                }, true, 0, 5, false);
+                game.add.tween(border).to({  y:border.y+6 }, 100, function (k) {
+                    return wiggle(k, 0.2, 0.5);
+                }, true, 0, 5, false);
+                game.add.tween(text).to({ x:text.x+6 }, 100, function (k) {
+                    return wiggle(k, 0.5, 0.2);
+                }, true, 0, 5, false);
+                game.add.tween(text).to({  y:text.y+6 }, 100, function (k) {
+                    return wiggle(k, 0.2, 0.5);
+                }, true, 0, 5, false);
             }
             if (char == 'x' && text.endOfDial7){
                 text.endOfDial7 = false;
@@ -339,6 +378,19 @@ part2.prototype = {
                 text.text = '';
                 x_continue.text = '';
                 nextLine(dyingFruitSpeech[9]);
+
+                game.add.tween(border).to({ x:border.x+6 }, 100, function (k) {
+                    return wiggle(k, 0.5, 0.2);
+                }, true, 0, 5, false);
+                game.add.tween(border).to({  y:border.y+6 }, 100, function (k) {
+                    return wiggle(k, 0.2, 0.5);
+                }, true, 0, 5, false);
+                game.add.tween(text).to({ x:text.x+6 }, 100, function (k) {
+                    return wiggle(k, 0.5, 0.2);
+                }, true, 0, 5, false);
+                game.add.tween(text).to({  y:text.y+6 }, 100, function (k) {
+                    return wiggle(k, 0.2, 0.5);
+                }, true, 0, 5, false);
             }
             if (char == 'x' && text.endOfDial11){
                 text.endOfDial11 = false;
@@ -407,6 +459,14 @@ part2.prototype = {
         
         // Sounds and music
         eatingSound = game.add.audio('bite_sfx');
+
+        // wiggle function
+        function wiggle(aProgress, aPeriod1, aPeriod2) {
+            var current1 = aProgress * Math.PI * 2 * aPeriod1;
+            var current2 = aProgress * (Math.PI * 2 * aPeriod2 + Math.PI / 2);
+
+            return Math.sin(current1) * Math.cos(current2);
+        }
     },
     
     
@@ -499,6 +559,18 @@ part2.prototype = {
             player.movable = false;
             
             nextLine(dyingFruitSpeech[4], 500, 180, 'neutral');
+            game.add.tween(border).to({ x:border.x+6 }, 100, function (k) {
+                return wiggle(k, 0.5, 0.2);
+            }, true, 0, 5, false);
+            game.add.tween(border).to({  y:border.y+6 }, 100, function (k) {
+                return wiggle(k, 0.2, 0.5);
+            }, true, 0, 5, false);
+            game.add.tween(text).to({ x:text.x+6 }, 100, function (k) {
+                return wiggle(k, 0.5, 0.2);
+            }, true, 0, 5, false);
+            game.add.tween(text).to({  y:text.y+6 }, 100, function (k) {
+                return wiggle(k, 0.2, 0.5);
+            }, true, 0, 5, false);
         }
         
         if (player.x > 1360 && secondStop){
@@ -506,6 +578,19 @@ part2.prototype = {
             player.movable = false;
             
             nextLine(dyingFruitSpeech[8], 975, 180, 'neutral');
+
+            game.add.tween(border).to({ x:border.x+6 }, 100, function (k) {
+                return wiggle(k, 0.5, 0.2);
+            }, true, 0, 5, false);
+            game.add.tween(border).to({  y:border.y+6 }, 100, function (k) {
+                return wiggle(k, 0.2, 0.5);
+            }, true, 0, 5, false);
+            game.add.tween(text).to({ x:text.x+6 }, 100, function (k) {
+                return wiggle(k, 0.5, 0.2);
+            }, true, 0, 5, false);
+            game.add.tween(text).to({  y:text.y+6 }, 100, function (k) {
+                return wiggle(k, 0.2, 0.5);
+            }, true, 0, 5, false);
         }
         
         
@@ -571,7 +656,14 @@ part2.prototype = {
             
             game.camera.flash(0xff0000, Phaser.Timer.SECOND*6);
             game.time.events.add(Phaser.Timer.SECOND*0.25, function(){
-                bg.loadTexture('bg_1');
+                // New bg
+                bg.loadTexture('pt1_bg_red');
+
+                // // sine wave filter.
+                // filter = new Phaser.Filter(game, customUniforms, fSrc);
+                // filter.set
+                // bg.filters = [ filter ];
+                // play_filter = true;
 
                 // change fruits to dead bodies.
                 fruits[0].loadTexture('dead_body_1');
@@ -630,7 +722,7 @@ part2.prototype = {
 
                 checkFruit.onDown.remove(froo1);
             }
-            
+
             if (eatingSound.isPlaying){
                 eatingSound.restart();
             } else{
@@ -854,6 +946,19 @@ part2.prototype = {
                 textGrow = true;
             }
         }
+
+        // wiggle function
+        function wiggle(aProgress, aPeriod1, aPeriod2) {
+            var current1 = aProgress * Math.PI * 2 * aPeriod1;
+            var current2 = aProgress * (Math.PI * 2 * aPeriod2 + Math.PI / 2);
+
+            return Math.sin(current1) * Math.cos(current2);
+        }
+
+        // filter updating.
+        // if(play_filter) {
+        //     filter.update();
+        // }
     },
     
     render: function(){

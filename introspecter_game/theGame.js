@@ -53,6 +53,8 @@ var carCheck = false;
 var x_continue;
 var slowItDown_2 = 0;
 
+var textBox_tween1, textBox_tween2, textBox_tween3, textBox_tween4;
+
 
 theGame.prototype = {
     preload: function(){
@@ -472,6 +474,25 @@ theGame.prototype = {
             
             player.movable = false;
             nextLine(intro_pt1_speeches[3], 460, 230);
+
+            // function wiggle(aProgress, aPeriod1, aPeriod2) {
+            //     var current1 = aProgress * Math.PI * 2 * aPeriod1;
+            //     var current2 = aProgress * (Math.PI * 2 * aPeriod2 + Math.PI / 2);
+            //
+            //     return Math.sin(current1) * Math.cos(current2);
+            // }
+            game.add.tween(border).to({ x:border.x+6 }, 100, function (k) {
+                return wiggle(k, 0.5, 0.2);
+            }, true, 0, 5, false);
+            game.add.tween(border).to({  y:border.y+6 }, 100, function (k) {
+                return wiggle(k, 0.2, 0.5);
+            }, true, 0, 5, false);
+            game.add.tween(text).to({ x:text.x+10 }, 6, function (k) {
+                return wiggle(k, 0.5, 0.2);
+            }, true, 0, 5, false);
+            game.add.tween(text).to({  y:text.y+10 }, 6, function (k) {
+                return wiggle(k, 0.2, 0.5);
+            }, true, 0, 5, false);
         }
         
         
@@ -603,6 +624,14 @@ theGame.prototype = {
                 //  Get the next line after the lineDelay amount of ms has elapsed
                 game.time.events.add(letterDelay, function(){nextLine(speech2);}, this);
             }
+        }
+
+        // Function for wiggling text.
+        function wiggle(aProgress, aPeriod1, aPeriod2) {
+            var current1 = aProgress * Math.PI * 2 * aPeriod1;
+            var current2 = aProgress * (Math.PI * 2 * aPeriod2 + Math.PI / 2);
+
+            return Math.sin(current1) * Math.cos(current2);
         }
     },
     

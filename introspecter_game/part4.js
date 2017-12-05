@@ -17,6 +17,8 @@ var negativeChoice = 0;
 var neutralChoice = 0;
 var posBar, negBar, neutBar;
 var border_bar1, border_bar2, border_bar3;
+var type_intstruction;
+var pos_txt, neg_txt, neut_txt;
 
 var updateProgressBar = false;
 var processEndOfDialogue = false;
@@ -268,7 +270,8 @@ part4.prototype = {
                 // start CHOOSE tutorial
                 game.time.events.add(2000, function(){
                     // NEEDS WORK ***** create text instruction. ("Type the words.")
-                    instruct_1 = game.add.text(220, 360, 'Type the words.', {font:'36px orange-kid', fill:'#ffffff'});
+                    x_continue.text = '';
+                    instruct_1 = game.add.text(290, 360, 'Type the words.', {font:'36px orange-kid', fill:'#ffffff'});
 
                     createTypeableWord("CHOOSE", 350, 400);
                     game.input.keyboard.addCallbacks(this, null, null, keyPress);
@@ -278,9 +281,11 @@ part4.prototype = {
 
 
         function addChoices(){
-            choice1 = game.add.text(100, 155, 'Go to UBC', { font: "48px dpcomic", fill: "#ffffff"});
+            x_continue.text = '';
+
+            choice1 = game.add.text(125, 155, 'Go to UBC', { font: "48px dpcomic", fill: "#ffffff"});
             choice2 = game.add.text(670, 155, 'Go to SFU', { font: "48px dpcomic", fill: "#ffffff"});
-            choice3 = game.add.text(100, 450, 'Go to BCIT', { font: "48px dpcomic", fill: "#ffffff"});
+            choice3 = game.add.text(125, 450, 'Go to BCIT', { font: "48px dpcomic", fill: "#ffffff"});
             choice4 = game.add.text(670, 450, 'Study music', { font: "48px dpcomic", fill: "#ffffff"});
 
             choice1.anchor.x = 0.5;
@@ -419,14 +424,23 @@ part4.prototype = {
                     border.created = false;
                     border.destroy();
 
+                    // pop-up type instruction
+                    type_instruction = game.add.sprite(0, 0, 'choice_instructions');
+
                     destroyWord(typeableWords[0]);
                     typeableWords.splice(0, 1);
 
                     choiceBG.loadTexture('bg_1');
                     // ****** NEED TO IMPLEMENT FADE
 
-                    typingMiniGame = true;
+                    // starts the mini game.
+                    // typingMiniGame = true;
                 }, this);
+
+                game.time.events.add(Phaser.Timer.SECOND*5, function(){
+                    game.add.tween(type_instruction).to({alpha:0}, 1500, Phaser.Easing.Default, true, 0, 0, false);
+                    typingMiniGame = true;
+                });
             }
         }
 
@@ -770,14 +784,20 @@ part4.prototype = {
 
             // ***** Create the sprites that display count progress.
 
-            border_bar1 = game.add.sprite(150,48, 'bar_border');
-            border_bar2 = game.add.sprite(150, 98, 'bar_border');
-            border_bar3 = game.add.sprite(150, 148, 'bar_border');
+            // The text
+            pos_txt = game.add.text(60, 50, 'POSITIVE', {font: '18px orange-kid', fill: '#000000'});
+            neg_txt = game.add.text(60, 100, 'NEGATIVE', {font: '18px orange-kid', fill: '#000000'});
+            neut_txt = game.add.text(60, 150, 'NEUTRAL', {font: '18px orange-kid', fill: '#000000'});
 
             // the fill
             posBar = game.add.sprite(150, 48, 'pos_bar');
             negBar = game.add.sprite(150, 98, 'neg_bar');
             neutBar = game.add.sprite(150, 148, 'neut_bar');
+
+            border_bar1 = game.add.sprite(150,48, 'bar_border');
+            border_bar2 = game.add.sprite(150, 98, 'bar_border');
+            border_bar3 = game.add.sprite(150, 148, 'bar_border');
+
             updateProgressBar = true;
 
             // ************* MAIN LOOP MECHANIC IS HERE *************
@@ -798,9 +818,16 @@ part4.prototype = {
         if(processEndOfDialogue) {
             processEndOfDialogue = false;
             // do the end dialogue stuff.
+            // destroy choices UI.
             game.add.tween(posBar).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
             game.add.tween(negBar).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
             game.add.tween(neutBar).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(border_bar1).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(border_bar2).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(border_bar3).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(pos_txt).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(neg_txt).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+            game.add.tween(neut_txt).to({alpha:0}, 2000, Phaser.Easing.Default, true, 0, 0, false);
 
             if(positiveChoice == 20) {
                 // process positive dialogue.
@@ -881,6 +908,12 @@ part4.prototype = {
 
                                     game.input.keyboard.onPressCallback = null;
                                     game.time.events.remove(wordsLoop);
+
+                                    // destroy all typeable words.
+                                    for(var k = 0; k < typeableWords.length; k++) {
+                                        destroyWord(typeableWords[k], k);
+                                    }
+
                                     processEndOfDialogue = true;
 
                                 }
@@ -1002,6 +1035,6 @@ part4.prototype = {
     },
     
     render: function(){
-        game.debug.pointer(game.input.activePointer);
+        // game.debug.pointer(game.input.activePointer);
     }
 }

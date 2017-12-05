@@ -4,13 +4,14 @@ var boot = function(game){};
 boot.prototype = {
     preload: function(){
         game.load.image('examp', './images/white_logo.png');
-        game.load.image('Loading', './images/loader_bar.png');
+        game.load.image('load_overlay', './images/load_overlay.png');
+        game.load.image('Loading', './images/load_bar.png');
     },
     
     create: function(){
         var example = game.add.sprite(game.world.centerX, game.world.centerY, 'examp');
         example.anchor.setTo(0.5, 0.5);
-        
+
         // Preserves hard edges!!! (to maintain pixel look)
         game.stage.smoothed = false;
         

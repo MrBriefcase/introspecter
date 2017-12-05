@@ -22,7 +22,7 @@ creditsVid.prototype = {
         console.log("You've reached the end.");
 
         // tween the world to full visibility.
-        game.add.tween(game.world).to({alpha:1}, 2000, Phaser.Easing.Default, true, 0, 0, false);
+        game.add.tween(game.world).to({alpha:1}, 5000, Phaser.Easing.Default, true, 0, 0, false);
 
         // Create ground and make it collideable.
         theGround = game.add.group();

@@ -23,11 +23,15 @@ preload.prototype = {
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 
         // Play button and Credit button. and back button. Menu stuff
-        game.load.image('menu_bg', './images/MenuPage/MN_PG_v2.png');
-        game.load.image('playBtn', './images/MenuPage/MenuPage_PlayBT.png');
-        game.load.image('credBtn', './images/MenuPage/MenuPage_CreditBT.png');
+        game.load.image('menu_bg', './images/MenuPage/MN_PG_v3.png');
+        game.load.image('playBtn', './images/MenuPage/play_btn_v2.png');
+        game.load.image('credBtn', './images/MenuPage/credit_btn_v3.png');
         game.load.image('backBtn', './images/back_btn.png');
-        game.load.image('introspecter', './images/title_logo.png');
+        game.load.image('introspecter', './images/title_logo_v4.png');
+        game.load.image('bg_texture', './images/MenuPage/bg_texture_v3.png');
+        game.load.image('star1', './images/MenuPage/twinkle_1.png');
+        game.load.image('star2', './images/MenuPage/twinkle_2.png');
+        game.load.image('star3', './images/MenuPage/twinkle_3.png');
         
         // instructions
         game.load.image('instructions', './images/instructions_v2.png');
@@ -41,6 +45,7 @@ preload.prototype = {
         game.load.image('mainChar', './images/photo.jpg');
         game.load.image('ground', './images/ground.png');
         game.load.image('blk_bg', './images/simple_blk_bg.png');
+        game.load.image('pt1_bg_red', './images/bg_1_to_3_v3.png');
         
         // test spritesheets
         game.load.spritesheet('char', './images/test_spritesheet_v2.png', 50, 150);
@@ -48,7 +53,7 @@ preload.prototype = {
         game.load.spritesheet('buddy_kid', './images/friend_spritesheet_21x54.png', 21, 54);
 
         // various assets (intro, pt2)
-        game.load.image('car', './images/car_placeholder.png');
+        game.load.image('car', './images/car.png');
         game.load.image('part2_bg', './images/Part2_BG.png');
         
         // Load buddy char. and border. and fruit. and dead bodies.
@@ -60,23 +65,23 @@ preload.prototype = {
         game.load.image('fruit1_1', './images/fruit1_1.png');
         game.load.image('fruit1_2', './images/fruit1_2.png');
         game.load.image('fruit1_3', './images/fruit1_3.png');
-        game.load.image('fruit1_4', './images/fruit1_4.png');
+        game.load.image('fruit1_4', './images/fruit1_4_v2.png');
         game.load.image('fruit2_1', './images/fruit2_1.png');
         game.load.image('fruit2_2', './images/fruit2_2.png');
         game.load.image('fruit2_3', './images/fruit2_3.png');
-        game.load.image('fruit2_4', './images/fruit2_4.png');
+        game.load.image('fruit2_4', './images/fruit2_4_v2.png');
         game.load.image('fruit3_1', './images/fruit3_1.png');
         game.load.image('fruit3_2', './images/fruit3_2.png');
         game.load.image('fruit3_3', './images/fruit3_3.png');
-        game.load.image('fruit3_4', './images/fruit3_4.png');
+        game.load.image('fruit3_4', './images/fruit3_4_v2.png');
         game.load.image('fruit4_1', './images/fruit4_1.png');
         game.load.image('fruit4_2', './images/fruit4_2.png');
         game.load.image('fruit4_3', './images/fruit4_3.png');
-        game.load.image('fruit4_4', './images/fruit4_4.png');
-        game.load.image('dead_body_1', './images/dead_body_1.png');
-        game.load.image('dead_body_2', './images/dead_body_2.png');
-        game.load.image('dead_body_3', './images/dead_body_3.png');
-        game.load.image('dead_body_4', './images/dead_body_4.png');
+        game.load.image('fruit4_4', './images/fruit4_4_v2.png');
+        game.load.image('dead_body_1', './images/dead_body_1_v2.png');
+        game.load.image('dead_body_2', './images/dead_body_2_v2.png');
+        game.load.image('dead_body_3', './images/dead_body_3_v2.png');
+        game.load.image('dead_body_4', './images/dead_body_4_v2.png');
         
         // Load up music and sounds.
         game.load.audio('introTest', ['./audio/Cosmic_Disaster_OST.wav']);
@@ -115,9 +120,10 @@ preload.prototype = {
         var ground;
         var theGround;
         var video;
-        
-        var loadingBar = this.add.sprite(100, 450, "Loading");            
+
+        var loadingBar = this.add.sprite(50, 450, "Loading");
         loadingBar.anchor.setTo(0, 0);
+        game.add.sprite(50, 450, 'load_overlay');
         // set the preloadBar sprite as a loader sprite.
         game.load.setPreloadSprite(loadingBar);
     },
