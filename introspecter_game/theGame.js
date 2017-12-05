@@ -487,10 +487,10 @@ theGame.prototype = {
             game.add.tween(border).to({  y:border.y+6 }, 100, function (k) {
                 return wiggle(k, 0.2, 0.5);
             }, true, 0, 5, false);
-            game.add.tween(text).to({ x:text.x+10 }, 6, function (k) {
+            game.add.tween(text).to({ x:text.x+6 }, 100, function (k) {
                 return wiggle(k, 0.5, 0.2);
             }, true, 0, 5, false);
-            game.add.tween(text).to({  y:text.y+10 }, 6, function (k) {
+            game.add.tween(text).to({  y:text.y+6 }, 100, function (k) {
                 return wiggle(k, 0.2, 0.5);
             }, true, 0, 5, false);
         }

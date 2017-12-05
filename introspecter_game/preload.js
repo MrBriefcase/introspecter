@@ -26,13 +26,20 @@ preload.prototype = {
         game.load.image('menu_bg', './images/MenuPage/MN_PG_v3.png');
         game.load.image('playBtn', './images/MenuPage/play_btn_v2.png');
         game.load.image('credBtn', './images/MenuPage/credit_btn_v3.png');
-        game.load.image('backBtn', './images/back_btn.png');
+        game.load.image('backBtn', './images/credits_page/back_btn_v3.png');
         game.load.image('introspecter', './images/title_logo_v4.png');
         game.load.image('bg_texture', './images/MenuPage/bg_texture_v3.png');
         game.load.image('star1', './images/MenuPage/twinkle_1.png');
         game.load.image('star2', './images/MenuPage/twinkle_2.png');
         game.load.image('star3', './images/MenuPage/twinkle_3.png');
-        
+
+        // Credits assets.
+        game.load.image('cred_pg', './images/credits_page/credits_page.png');
+        game.load.image('noah_pic', './images/credits_page/noah_pic.png');
+        game.load.image('jenny_pic', './images/credits_page/jenny_pic.png');
+        game.load.image('judy_pic', './images/credits_page/judy_pic.png');
+        game.load.image('dar_pic', './images/credits_page/dar_pic.png');
+
         // instructions
         game.load.image('instructions', './images/instructions_v2.png');
         game.load.image('this_way', './images/go_right_v2.png');
@@ -54,8 +61,15 @@ preload.prototype = {
 
         // various assets (intro, pt2)
         game.load.image('car', './images/car.png');
-        game.load.image('part2_bg', './images/Part2_BG.png');
-        
+        game.load.image('part2_bg', './images/Part2_BG_v3.png');
+        game.load.image('pt2_tint', './images/part2_BG_tint.png');
+        game.load.image('pt2_buddy', './images/pt2_buddy.png');
+        game.load.image('mon_1', './images/pt2_monster/monster_1.png');
+        game.load.image('mon_2', './images/pt2_monster/monster_2.png');
+        game.load.image('mon_3', './images/pt2_monster/monster_3.png');
+        game.load.image('mon_4', './images/pt2_monster/monster_4.png');
+        game.load.image('mon_5', './images/pt2_monster/monster_5.png');
+
         // Load buddy char. and border. and fruit. and dead bodies.
         game.load.image('buddy', './images/buddy.png');
         game.load.image('buddy_adult', './images/kid_friend/adult_friend_front.png');

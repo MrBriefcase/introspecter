@@ -18,6 +18,7 @@ var protect_ending_speech = [
 ];
 
 var background, charr, friend, mush, mush2, mush3;
+var pt2_tint;
 var num = 0, num2 = 0, num3 = 0, num4 = 0;
 var alive = true, alive2 = true, alive3 = true;
 var place = true;
@@ -36,33 +37,39 @@ part3.prototype = {
 
         //game.physics.startSystem(Phaser.Physics.ARCADE);
         background = game.add.sprite(0, 0, 'part2_bg');
+        pt2_tint = game.add.sprite(0, 0, 'pt2_tint');
+        pt2_tint.alpha = 0;
+        game.add.tween(pt2_tint).to( { alpha: 1 }, 1000, Phaser.Easing.Linear.InOut, true, 0, -1, true);
 
-        player = game.add.sprite(30, 360, 'char');
+        player = game.add.sprite(30, 460, 'char');
         player.anchor.setTo(.5,1);
         player.scale.setTo(1, 1);
         player.immovable = true;
+        game.physics.arcade.enable(player);
+        player.body.collideWorldBounds = true;
+
         // Add player animations
         player.animations.add('left', [0, 1, 2], 5, true);
         player.animations.add('right', [4, 5, 6], 5, true);
 
-        friend = game.add.sprite(400, 360,'buddy_kid');
+        friend = game.add.sprite(400, 460,'pt2_buddy');
         friend.anchor.setTo(.5,1);
-        friend.scale.setTo(2, 2);
+        friend.scale.setTo(1.5, 1.5);
 
-        mush = game.add.sprite(700, 360, 'fruit1_1');
+        mush = game.add.sprite(700, 460, 'mon_1');
         mush.anchor.setTo(.5,1);
-        mush.scale.setTo(.5);
+        mush.scale.setTo(2);
         game.physics.enable([player, mush], Phaser.Physics.ARCADE);
         mush.body.immovable = true;
 
-        mush2 = game.add.sprite(-100, 360, 'fruit2_1');
+        mush2 = game.add.sprite(-100, 460, 'mon_1');
         mush2.anchor.setTo(.5,1);
-        mush2.scale.setTo(.5);
+        mush2.scale.setTo(2);
         game.physics.enable([player, mush2], Phaser.Physics.ARCADE);
 
-        mush3 = game.add.sprite(700, 360, 'fruit3_1');
+        mush3 = game.add.sprite(700, 460, 'mon_1');
         mush3.anchor.setTo(.5,1);
-        mush3.scale.setTo(.5);
+        mush3.scale.setTo(2);
         game.physics.enable([player, mush3], Phaser.Physics.ARCADE);
 
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
@@ -193,6 +200,19 @@ part3.prototype = {
                 text.text = '';
                 x_continue.text = '';
                 nextLine(protect_speech[1]);
+
+                game.add.tween(border).to({ x:border.x+6 }, 100, function (k) {
+                    return wiggle(k, 0.5, 0.2);
+                }, true, 0, 5, false);
+                game.add.tween(border).to({  y:border.y+6 }, 100, function (k) {
+                    return wiggle(k, 0.2, 0.5);
+                }, true, 0, 5, false);
+                game.add.tween(text).to({ x:text.x+6 }, 100, function (k) {
+                    return wiggle(k, 0.5, 0.2);
+                }, true, 0, 5, false);
+                game.add.tween(text).to({  y:text.y+6 }, 100, function (k) {
+                    return wiggle(k, 0.2, 0.5);
+                }, true, 0, 5, false);
             }
             if(char == 'x' && text.endOfDial2) {
                 text.endOfDial2 = false;
@@ -208,35 +228,63 @@ part3.prototype = {
         game.time.events.add(1500, function(){
             nextLine(protect_speech[0], 250, 150, 'neutral');
             game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
+
+            game.add.tween(border).to({ x:border.x+6 }, 100, function (k) {
+                return wiggle(k, 0.5, 0.2);
+            }, true, 0, 5, false);
+            game.add.tween(border).to({  y:border.y+6 }, 100, function (k) {
+                return wiggle(k, 0.2, 0.5);
+            }, true, 0, 5, false);
+            game.add.tween(text).to({ x:text.x+6 }, 100, function (k) {
+                return wiggle(k, 0.5, 0.2);
+            }, true, 0, 5, false);
+            game.add.tween(text).to({  y:text.y+6 }, 100, function (k) {
+                return wiggle(k, 0.2, 0.5);
+            }, true, 0, 5, false);
         });
 
         // game.state.start('Part4');
+
+        // wiggle function
+        function wiggle(aProgress, aPeriod1, aPeriod2) {
+            var current1 = aProgress * Math.PI * 2 * aPeriod1;
+            var current2 = aProgress * (Math.PI * 2 * aPeriod2 + Math.PI / 2);
+
+            return Math.sin(current1) * Math.cos(current2);
+        }
     },
     
     update: function(){
 
         // when player moves past a certain point, trigger mush movement!
         if(player.x >= 200){
-            mush.body.velocity.x = -50;
+            mush.body.velocity.x = -45;
             place = false;
         }
 
         // resets charr velocity, so he doesn't get stuck in movement.
         player.body.velocity.x = 0;
 
-        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !player.immovable)
-        {player
+        if(player.x >= 200 ){
+            mush.body.velocity.x = -50;
+            place = false;
+        }
+
+        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        {
             player.x -= 4;
             player.animations.play('left');
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !player.immovable)
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
             player.x += 4;
             player.animations.play('right');
         } else {
-            player.animations.stop();
-            player.frame = 3;
+                // Stop and stand still
+                player.animations.stop();
+                player.frame = 3;
         }
+
 //        if(charr.overlap(mush)){
 //            charr.tint = 0xff00ff;
 //        }
@@ -289,11 +337,12 @@ part3.prototype = {
             num++;
             console.log(num);
             if(num >= 30 && num <= 59){
-                mush.tint = 0xf4f441;
+                // mush.tint = 0xf4f441;
+                mush.loadTexture('mon_2', 0);
             } else if(num >= 60 && num <= 89){
-                mush.tint = 0xf49842;
+                mush.loadTexture('mon_3', 0);
             } else if(num >= 90 && num <= 119){
-                mush.tint = 0xef3817;
+                mush.loadTexture('mon_4', 0);
             } else if(num >= 120){
                 alive = false;
                 mush.kill();
@@ -307,11 +356,11 @@ part3.prototype = {
             num3++;
             console.log(num3);
             if(num3 >= 30 && num3 <= 59){
-                mush2.tint = 0xf4f441;
+                mush2.loadTexture('mon_2', 0);
             } else if(num3 >= 60 && num3 <= 89){
-                mush2.tint = 0xf49842;
+                mush2.loadTexture('mon_3', 0);
             } else if(num3 >= 90 && num3 <= 119){
-                mush2.tint = 0xef3817;
+                mush2.loadTexture('mon_4', 0);
             } else if(num3 >= 120){
                 alive2 = false;
                 mush2.kill();
@@ -325,11 +374,11 @@ part3.prototype = {
             num4++;
             console.log(num4);
             if(num4 >= 30 && num4 <= 59){
-                mush3.tint = 0xf4f441;
+                mush3.loadTexture('mon_2', 0);
             } else if(num4 >= 60 && num4 <= 89){
-                mush3.tint = 0xf49842;
+                mush3.loadTexture('mon_3', 0);
             } else if(num4 >= 90 && num4 <= 119){
-                mush3.tint = 0xef3817;
+                mush3.loadTexture('mon_4', 0);
             } else if(num4 >= 120){
                 alive3 = false;
                 mush3.kill();
@@ -338,6 +387,9 @@ part3.prototype = {
 
         }
         game.physics.arcade.collide(player, mush);
+
+
+        // game.physics.arcade.collide(player, mush);
 
         // Size adjustment for x-continue.
         // test code ******
@@ -353,6 +405,20 @@ part3.prototype = {
             } else if (x_continue.fontSize < 15) {
                 textGrow = true;
             }
+        }
+
+        // process end of scene
+        if(!mush.alive && !mush2.alive && !mush3.alive) {
+            console.log('process end dialogue pt2');
+            player.immovable = true;
+        }
+
+        // wiggle function
+        function wiggle(aProgress, aPeriod1, aPeriod2) {
+            var current1 = aProgress * Math.PI * 2 * aPeriod1;
+            var current2 = aProgress * (Math.PI * 2 * aPeriod2 + Math.PI / 2);
+
+            return Math.sin(current1) * Math.cos(current2);
         }
     },
     

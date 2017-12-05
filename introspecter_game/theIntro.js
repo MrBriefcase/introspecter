@@ -40,7 +40,9 @@ gameIntro.prototype = {
         };
         
         function viewCredits(){
-            game.state.start('Credits');
+            game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
+            var tween = game.add.tween(game.world).to({ alpha: 0 }, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
+            tween.onComplete.add(function(){game.state.start('Credits');}, this);
         };
 
 
@@ -211,19 +213,19 @@ gameIntro.prototype = {
         // VVVVVVVVVVV minus this line to go full (retain aspect ratio);
         // game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
-        game.input.onDown.add(gofull, this);
-        function gofull() {
-
-            if (game.scale.isFullScreen)
-            {
-                game.scale.stopFullScreen();
-            }
-            else
-            {
-                game.scale.startFullScreen(false);
-            }
-
-        }
+        // game.input.onDown.add(gofull, this);
+        // function gofull() {
+        //
+        //     if (game.scale.isFullScreen)
+        //     {
+        //         game.scale.stopFullScreen();
+        //     }
+        //     else
+        //     {
+        //         game.scale.startFullScreen(false);
+        //     }
+        //
+        // }
 
 
         filter = game.add.filter('Pixelate', 800, 600);
