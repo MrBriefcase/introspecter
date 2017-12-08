@@ -803,9 +803,9 @@ part4.prototype = {
             // ***** Create the sprites that display count progress.
 
             // The text
-            pos_txt = game.add.text(60, 50, 'POSITIVE', {font: '18px orange-kid', fill: '#000000'});
-            neg_txt = game.add.text(60, 100, 'NEGATIVE', {font: '18px orange-kid', fill: '#000000'});
-            neut_txt = game.add.text(60, 150, 'NEUTRAL', {font: '18px orange-kid', fill: '#000000'});
+            pos_txt = game.add.text(60, 50, 'POSITIVE', {font: '18px orange-kid', fill: '#ffffff'});
+            neg_txt = game.add.text(60, 100, 'NEGATIVE', {font: '18px orange-kid', fill: '#ffffff'});
+            neut_txt = game.add.text(60, 150, 'NEUTRAL', {font: '18px orange-kid', fill: '#ffffff'});
 
             // the fill
             posBar = game.add.sprite(150, 48, 'pos_bar');

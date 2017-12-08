@@ -17,8 +17,8 @@
       <file leaf-file-name="theIntro.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/theIntro.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="241" column="10" lean-forward="true" selection-start-line="241" selection-start-column="10" selection-end-line="241" selection-end-column="10" />
+            <state relative-caret-position="364">
+              <caret line="242" column="12" lean-forward="true" selection-start-line="228" selection-start-column="11" selection-end-line="242" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -27,7 +27,7 @@
       <file leaf-file-name="theGame.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/theGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7530">
+            <state relative-caret-position="6636">
               <caret line="502" column="8" lean-forward="false" selection-start-line="502" selection-start-column="8" selection-end-line="502" selection-end-column="8" />
               <folding />
             </state>
@@ -77,8 +77,8 @@
       <file leaf-file-name="part4.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/part4.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="77" column="44" lean-forward="false" selection-start-line="77" selection-start-column="44" selection-end-line="77" selection-end-column="44" />
+            <state relative-caret-position="1329">
+              <caret line="807" column="97" lean-forward="false" selection-start-line="807" selection-start-column="97" selection-end-line="807" selection-end-column="97" />
               <folding />
             </state>
           </provider>
@@ -97,8 +97,8 @@
       <file leaf-file-name="preload.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/preload.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="41" column="82" lean-forward="false" selection-start-line="41" selection-start-column="82" selection-end-line="41" selection-end-column="82" />
+            <state relative-caret-position="-460">
+              <caret line="53" column="56" lean-forward="false" selection-start-line="53" selection-start-column="56" selection-end-line="53" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -125,7 +125,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Part3</find>
       <find>endOfDial7</find>
       <find>endOfDial6</find>
       <find>holdEnd</find>
@@ -155,6 +154,7 @@
       <find>music</find>
       <find>musi</find>
       <find>the end</find>
+      <find>positive</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -167,13 +167,13 @@
         <option value="$PROJECT_DIR$/introVideo.js" />
         <option value="$PROJECT_DIR$/theGame.js" />
         <option value="$PROJECT_DIR$/part2.js" />
-        <option value="$PROJECT_DIR$/part4.js" />
         <option value="$PROJECT_DIR$/creditsVid.js" />
         <option value="$PROJECT_DIR$/part3.js" />
         <option value="$PROJECT_DIR$/intro_pt2.js" />
-        <option value="$PROJECT_DIR$/preload.js" />
         <option value="$PROJECT_DIR$/credits.js" />
         <option value="$PROJECT_DIR$/prototype_v1.html" />
+        <option value="$PROJECT_DIR$/part4.js" />
+        <option value="$PROJECT_DIR$/preload.js" />
         <option value="$PROJECT_DIR$/theIntro.js" />
       </list>
     </option>
@@ -254,12 +254,12 @@
       <workItem from="1512200228240" duration="35388000" />
       <workItem from="1512478460859" duration="1501000" />
       <workItem from="1512514593043" duration="574000" />
-      <workItem from="1512648375615" duration="15342000" />
+      <workItem from="1512648375615" duration="16241000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125621000" />
+    <option name="totallyTimeSpent" value="126520000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -616,14 +616,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/part4.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="77" column="44" lean-forward="false" selection-start-line="77" selection-start-column="44" selection-end-line="77" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/intro_pt2.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -640,26 +632,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/theGame.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7530">
-          <caret line="502" column="8" lean-forward="false" selection-start-line="502" selection-start-column="8" selection-end-line="502" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/part3.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="231" column="30" lean-forward="false" selection-start-line="231" selection-start-column="30" selection-end-line="231" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/preload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="41" column="82" lean-forward="false" selection-start-line="41" selection-start-column="82" selection-end-line="41" selection-end-column="82" />
           <folding />
         </state>
       </provider>
@@ -688,10 +664,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/part4.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1329">
+          <caret line="807" column="97" lean-forward="false" selection-start-line="807" selection-start-column="97" selection-end-line="807" selection-end-column="97" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/theGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6636">
+          <caret line="502" column="8" lean-forward="false" selection-start-line="502" selection-start-column="8" selection-end-line="502" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-460">
+          <caret line="53" column="56" lean-forward="false" selection-start-line="53" selection-start-column="56" selection-end-line="53" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/theIntro.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="241" column="10" lean-forward="true" selection-start-line="241" selection-start-column="10" selection-end-line="241" selection-end-column="10" />
+        <state relative-caret-position="364">
+          <caret line="242" column="12" lean-forward="true" selection-start-line="228" selection-start-column="11" selection-end-line="242" selection-end-column="12" />
           <folding />
         </state>
       </provider>
