@@ -1,6 +1,11 @@
 var credits = function(game){};
 
 var vid_tween;
+var team_cred;
+var music_page;
+var backBtn;
+var to_sound;
+var to_team;
 
 credits.prototype = {
     preload: function(){
@@ -25,11 +30,27 @@ credits.prototype = {
         // });
 
         // insert Credit Page photo. and prof pics.
-        game.add.sprite(0, 0, 'cred_pg');
+        team_cred = game.add.sprite(0, 0, 'cred_pg');
+        music_page = game.add.sprite(0, 0, 'music_cred');
+        music_page.alpha = 0;
         // game.add.sprite(550, 30, 'noah_pic');
         // game.add.sprite(550, 175, 'jenny_pic');
         // game.add.sprite(550, 320, 'judy_pic');
         // game.add.sprite(550, 440, 'dar_pic');
+        to_sound = game.add.button(700, 275, 'to_music', function(){
+            btn_sound.play();
+            team_cred.alpha = 0;
+            music_page.alpha = 1;
+            to_team = game.add.button(30, 275, 'back_btn_cred', function(){
+                btn_sound.play();
+                team_cred.alpha = 1;
+                music_page.alpha = 0;
+                to_team.alpha = 0;
+                to_sound.alpha = 1;
+            });
+            to_sound.alpha = 0;
+            to_team.alpha = 1;
+        }, this);
 
         filter2 = game.add.filter('Pixelate', 800, 600);
         game.world.filters = [filter2];
@@ -46,6 +67,6 @@ credits.prototype = {
         // creditTxt.text = 'A Game By:\n\nJUDY\n\nJENNY\n\nNOAH\n\nDAREN';
         
         // Create back button.
-        var backBtn = game.add.button(275, 550, 'backBtn', backToIntro, this);
+        backBtn = game.add.button(275, 550, 'backBtn', backToIntro, this);
     }
 }

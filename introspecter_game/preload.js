@@ -37,6 +37,9 @@ preload.prototype = {
 
         // Credits assets.
         game.load.image('cred_pg', './images/credits_page/credits_page_v2.png');
+        game.load.image('to_music', './images/credits_page/to_music.png');
+        game.load.image('back_btn_cred', './images/credits_page/back_button_cred.png');
+        game.load.image('music_cred', './images/credits_page/extended_creds.png');
         // game.load.image('noah_pic', './images/credits_page/noah_pic.png');
         // game.load.image('jenny_pic', './images/credits_page/jenny_pic.png');
         // game.load.image('judy_pic', './images/credits_page/judy_pic.png');
@@ -114,7 +117,7 @@ preload.prototype = {
         game.load.audio('intro3', './audio/music/intro-pt3.wav');
         game.load.audio('audio_pt1', './audio/music/part1-fruits-fast.wav');
         game.load.audio('audio_pt1_v2', './audio/music/part1-fruits-slow.wav');
-        game.load.audio('audio_pt2', './audio/music/05_HERE_WE_GOOOO.wav');
+        game.load.audio('audio_pt2', './audio/music/part2-music.wav');
         game.load.audio('audio_pt3', './audio/music/06_Classroom2v3.wav');
         game.load.audio('audio_ending', './audio/music/ending-sound.wav');
         // game.load.audio('audio_credits', './audio/music/08_are_you_happy_to_see_me.wav');
