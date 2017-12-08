@@ -10,10 +10,13 @@ var sprite;
 var twink1, twink2, twink3, twink4, twink5;
 var star_ct = 0;
 
+var btn_sound;
+var music_started = false;
+
 gameIntro.prototype = {
     preload: function(){
         // game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/Marble.js');
-        game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/Pixelate.js');
+        // game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/Pixelate.js');
     },
 
     create: function(){
@@ -27,6 +30,15 @@ gameIntro.prototype = {
         menu_bg.tint = '0xe8c0df';
         // title_logo = game.add.sprite(100, 75, 'introspecter');
 
+        // Set music and sounds
+        if(!music_started) {
+            music_started = true;
+            music = game.add.audio('menu_sound');
+            music.loop = true;
+            music.play();
+        }
+        btn_sound = game.add.audio('btn_sfx');
+
 
         function playGame(){
             // ***** RETURN TO NORMAL WHEN DONE
@@ -34,13 +46,15 @@ gameIntro.prototype = {
            // game.state.start('Part2');
            // game.state.start('Part4');
 
+            btn_sound.play();
             game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*2, Phaser.Easing.Default, true, 0, 0, false);
             var tween = game.add.tween(game.world).to({ alpha: 0 }, Phaser.Timer.SECOND*2, Phaser.Easing.Default, true, 0, 0, false);
-            tween.onComplete.add(function(){game.state.start('TheGame');}, this);
+            tween.onComplete.add(function(){music.stop();game.state.start('TheGame');}, this);
             
         };
         
         function viewCredits(){
+            btn_sound.play();
             game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
             var tween = game.add.tween(game.world).to({ alpha: 0 }, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
             tween.onComplete.add(function(){game.state.start('Credits');}, this);
@@ -213,7 +227,7 @@ gameIntro.prototype = {
 
         // VVVVVVVVVVV minus this line to go full (retain aspect ratio);
         // game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-
+        //
         // game.input.onDown.add(gofull, this);
         // function gofull() {
         //

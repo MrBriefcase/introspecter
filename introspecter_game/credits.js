@@ -26,15 +26,16 @@ credits.prototype = {
 
         // insert Credit Page photo. and prof pics.
         game.add.sprite(0, 0, 'cred_pg');
-        game.add.sprite(550, 30, 'noah_pic');
-        game.add.sprite(550, 175, 'jenny_pic');
-        game.add.sprite(550, 320, 'judy_pic');
-        game.add.sprite(550, 440, 'dar_pic');
+        // game.add.sprite(550, 30, 'noah_pic');
+        // game.add.sprite(550, 175, 'jenny_pic');
+        // game.add.sprite(550, 320, 'judy_pic');
+        // game.add.sprite(550, 440, 'dar_pic');
 
         filter2 = game.add.filter('Pixelate', 800, 600);
         game.world.filters = [filter2];
         
         function backToIntro(){
+            btn_sound.play();
             game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
             var tween = game.add.tween(game.world).to({ alpha: 0 }, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
             tween.onComplete.add(function(){game.state.start('GameIntro');}, this);

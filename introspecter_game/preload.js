@@ -21,6 +21,8 @@ preload.prototype = {
 
         // Load up the webfont script
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+        // filter scripts
+        game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/Pixelate.js');
 
         // Play button and Credit button. and back button. Menu stuff
         game.load.image('menu_bg', './images/MenuPage/MN_PG_v3.png');
@@ -34,11 +36,11 @@ preload.prototype = {
         game.load.image('star3', './images/MenuPage/twinkle_3.png');
 
         // Credits assets.
-        game.load.image('cred_pg', './images/credits_page/credits_page.png');
-        game.load.image('noah_pic', './images/credits_page/noah_pic.png');
-        game.load.image('jenny_pic', './images/credits_page/jenny_pic.png');
-        game.load.image('judy_pic', './images/credits_page/judy_pic.png');
-        game.load.image('dar_pic', './images/credits_page/dar_pic.png');
+        game.load.image('cred_pg', './images/credits_page/credits_page_v2.png');
+        // game.load.image('noah_pic', './images/credits_page/noah_pic.png');
+        // game.load.image('jenny_pic', './images/credits_page/jenny_pic.png');
+        // game.load.image('judy_pic', './images/credits_page/judy_pic.png');
+        // game.load.image('dar_pic', './images/credits_page/dar_pic.png');
 
         // instructions
         game.load.image('instructions', './images/instructions_v2.png');
@@ -62,7 +64,7 @@ preload.prototype = {
         game.load.spritesheet('buddy_kid', './images/friend_spritesheet_21x54.png', 21, 54);
 
         // various assets (intro, pt2)
-        game.load.image('car', './images/car.png');
+        game.load.image('car', './images/car_v3.png');
         game.load.image('part2_bg', './images/Part2_BG_v3.png');
         game.load.image('pt2_tint', './images/part2_BG_tint.png');
         game.load.image('pt2_buddy', './images/pt2_buddy.png');
@@ -106,16 +108,16 @@ preload.prototype = {
         game.load.image('camera_blood', './images/blood_texture_v2.png');
         
         // Load up music and sounds.
-        game.load.audio('introTest', ['./audio/Cosmic_Disaster_OST.wav']);
-        game.load.audio('intro1', './audio/music/01_back_to_my_roots.wav');
-        game.load.audio('intro2', './audio/music/02_A_Cold_Night.wav');
-        game.load.audio('intro3', './audio/music/03_Cheer_Up.wav');
-        game.load.audio('audio_pt1', './audio/music/04_FairytaleLand.wav');
-        game.load.audio('audio_pt1_v2', './audio/music/FairytaleLand_v2.wav');
+        // game.load.audio('introTest', ['./audio/Cosmic_Disaster_OST.wav']);
+        game.load.audio('intro1', './audio/music/intro-pt1.wav');
+        game.load.audio('intro2', './audio/music/intro-pt2.wav');
+        game.load.audio('intro3', './audio/music/intro-pt3.wav');
+        game.load.audio('audio_pt1', './audio/music/part1-fruits-fast.wav');
+        game.load.audio('audio_pt1_v2', './audio/music/part1-fruits-slow.wav');
         game.load.audio('audio_pt2', './audio/music/05_HERE_WE_GOOOO.wav');
         game.load.audio('audio_pt3', './audio/music/06_Classroom2v3.wav');
-        game.load.audio('audio_ending', './audio/music/07_Werent_We.wav');
-        game.load.audio('audio_credits', './audio/music/08_are_you_happy_to_see_me.wav');
+        game.load.audio('audio_ending', './audio/music/ending-sound.wav');
+        // game.load.audio('audio_credits', './audio/music/08_are_you_happy_to_see_me.wav');
         game.load.audio('text1sound', './audio/text_sound1.wav');
         game.load.audio('bite_sfx', './audio/sound_fx/bite.wav');
         game.load.audio('crash_sfx', './audio/sound_fx/crash.mp3');
@@ -129,9 +131,16 @@ preload.prototype = {
 
         // Load test videos.
         game.load.video('intro_vid', './videos/beginning_intro.mp4');
+        game.load.video('cred_vid', './videos/credits_vid_v3.mp4');
 
         // Ending background
         game.load.image('ending_bg', './images/ending_bg.png');
+
+        // Last changes
+        game.load.image('part3_bg', './images/part3_bg_v2.png');
+        game.load.image('past_filter', './images/past_filter.png');
+        game.load.audio('menu_sound', './audio/music/001-menu-screen.wav');
+        game.load.audio('btn_sfx', './audio/sound_fx/button-select.wav');
         
         // Setup some variables.
         // i think these are accessible in the create() of other parts.

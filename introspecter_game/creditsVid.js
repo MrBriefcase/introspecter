@@ -17,6 +17,8 @@ var ending_ending_speech = "I CAN BE";
 var playAgain;
 var tweenToColour = true;
 
+var camera_setup;
+
 
 creditsVid.prototype = {
     create: function(){
@@ -69,7 +71,8 @@ creditsVid.prototype = {
         black_bg.alpha = 1;
 
         // Setup camera movement.
-        game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+        camera_setup = game.camera;
+        camera_setup.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
         // Setup music
         music = game.add.audio('audio_ending');
@@ -253,25 +256,41 @@ creditsVid.prototype = {
                 x_continue.text = '';
 
                 black_bg.loadTexture('blk_bg');
-                game.add.tween(player).to({alpha:0}, 3000, Phaser.Easing.Default, true, 0, 0, false);
-                game.add.tween(bg).to({alpha:0}, 3000, Phaser.Easing.Default, true, 0, 0, false);
-                game.add.tween(buddy).to({alpha:0}, 3000, Phaser.Easing.Default, true, 0, 0, false);
-                game.add.tween(border).to({alpha:0}, 3000, Phaser.Easing.Default, true, 0, 0, false);
+                game.add.tween(player).to({alpha:0}, Phaser.Timer.SECOND*3, Phaser.Easing.Default, true, 0, 0, false);
+                game.add.tween(bg).to({alpha:0}, Phaser.Timer.SECOND*3, Phaser.Easing.Default, true, 0, 0, false);
+                game.add.tween(buddy).to({alpha:0}, Phaser.Timer.SECOND*3, Phaser.Easing.Default, true, 0, 0, false);
+                game.add.tween(border).to({alpha:0}, Phaser.Timer.SECOND*3, Phaser.Easing.Default, true, 0, 0, false);
                 border.created = true;
 
+                // tween.onComplete.add(function(){
+                //     music.stop();
+                //     pulp_fiction = game.add.video('cred_vid');
+                //     pulp_fiction.play();
+                //     pulp_fiction.addToWorld();
+                //     camera_setup.follow(bg);
+                // });
+
                 game.time.events.add(Phaser.Timer.SECOND*5, function(){
+                    camera_setup.follow(player);
                     nextLine(ending_ending_speech, 1700, 150, 'ending');
                 });
                 game.time.events.add(Phaser.Timer.SECOND*8, function(){
                     game.add.tween(text).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
                     console.log('The game is complete.');
                 });
-                game.time.events.add(Phaser.Timer.SECOND*10, function(){
-                    game.add.text(1870, 450, 'The End', { font: '48px Parisienne-Regular', fill: '#ffffff' })
+                game.time.events.add(Phaser.Timer.SECOND*11, function(){
+                    music.stop();
+                    pulp_fiction = game.add.video('cred_vid');
+                    pulp_fiction.play();
+                    pulp_fiction.addToWorld();
+                    camera_setup.follow(bg);
                 });
-                game.time.events.add(Phaser.Timer.SECOND*13, function(){
+                game.time.events.add(Phaser.Timer.SECOND*49, function(){
+                    game.add.text(550, 450, 'The End', { font: '48px Parisienne-Regular', fill: '#ffffff' })
+                });
+                game.time.events.add(Phaser.Timer.SECOND*51, function(){
                     // NEEDS WORK ***** change to button later.
-                    playAgain = game.add.text(1880, 540, 'Play Again?', {font: '24px orange-kid', fill: '#ffffff'});
+                    playAgain = game.add.text(550, 540, 'Play Again?', {font: '24px orange-kid', fill: '#ffffff'});
                     playAgain.inputEnabled = true;
                     playAgain.input.useHandCursor = true;
                     playAgain.events.onInputDown.add(function(){
@@ -282,6 +301,57 @@ creditsVid.prototype = {
                         }, this);
                     }, this);
                 })
+
+
+                pulp_fiction.onComplete.add(function(){
+                    // game.time.events.add(Phaser.Timer.SECOND*5, function(){
+                    //     camera_setup.follow(player);
+                    //     nextLine(ending_ending_speech, 1700, 150, 'ending');
+                    // });
+                    // game.time.events.add(Phaser.Timer.SECOND*8, function(){
+                    //     game.add.tween(text).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
+                    //     console.log('The game is complete.');
+                    // });
+                    game.time.events.add(Phaser.Timer.SECOND, function(){
+                        game.add.text(1870, 450, 'The End', { font: '48px Parisienne-Regular', fill: '#ffffff' })
+                    });
+                    game.time.events.add(Phaser.Timer.SECOND*3, function(){
+                        // NEEDS WORK ***** change to button later.
+                        playAgain = game.add.text(1880, 540, 'Play Again?', {font: '24px orange-kid', fill: '#ffffff'});
+                        playAgain.inputEnabled = true;
+                        playAgain.input.useHandCursor = true;
+                        playAgain.events.onInputDown.add(function(){
+                            var tween = game.add.tween(game.world).to({alpha:0}, 1000, Phaser.Easing.Default, true, 0, 0, false);
+                            tween.onComplete.add(function() {
+                                music.stop();
+                                game.state.start('GameIntro');
+                            }, this);
+                        }, this);
+                    })
+                });
+                // game.time.events.add(Phaser.Timer.SECOND*5, function(){
+                //     nextLine(ending_ending_speech, 1700, 150, 'ending');
+                // });
+                // game.time.events.add(Phaser.Timer.SECOND*8, function(){
+                //     game.add.tween(text).to({alpha:0}, 300, Phaser.Easing.Default, true, 0, 0, false);
+                //     console.log('The game is complete.');
+                // });
+                // game.time.events.add(Phaser.Timer.SECOND*10, function(){
+                //     game.add.text(1870, 450, 'The End', { font: '48px Parisienne-Regular', fill: '#ffffff' })
+                // });
+                // game.time.events.add(Phaser.Timer.SECOND*13, function(){
+                //     // NEEDS WORK ***** change to button later.
+                //     playAgain = game.add.text(1880, 540, 'Play Again?', {font: '24px orange-kid', fill: '#ffffff'});
+                //     playAgain.inputEnabled = true;
+                //     playAgain.input.useHandCursor = true;
+                //     playAgain.events.onInputDown.add(function(){
+                //         var tween = game.add.tween(game.world).to({alpha:0}, 1000, Phaser.Easing.Default, true, 0, 0, false);
+                //         tween.onComplete.add(function() {
+                //             music.stop();
+                //             game.state.start('GameIntro');
+                //         }, this);
+                //     }, this);
+                // })
             }
         }
 
@@ -291,6 +361,9 @@ creditsVid.prototype = {
         game.time.events.add(Phaser.Timer.SECOND*2, function(){
             text = game.add.text(border.x+20, border.y+15, '', { font: "62px dpcomic", fill: "#ffffff" });
             nextLine(ending_intro_speech[0], 75, 300);
+            // game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
+        });
+        game.time.events.add(Phaser.Timer.SECOND*4, function(){
             game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
         });
     },

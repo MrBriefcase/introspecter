@@ -444,7 +444,7 @@ part4.prototype = {
                     destroyWord(typeableWords[0]);
                     typeableWords.splice(0, 1);
 
-                    choiceBG.loadTexture('bg_1');
+                    choiceBG.loadTexture('part3_bg');
                     // ****** NEED TO IMPLEMENT FADE
 
                     // starts the mini game.
@@ -474,6 +474,10 @@ part4.prototype = {
             }
             word[0].isCurrChar = true;
         }
+
+        // past filter
+        past_overlay = game.add.sprite(0, 0, 'past_filter');
+        past_overlay.fixedToCamera = true;
     },
     
     update: function(){

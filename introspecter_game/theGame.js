@@ -84,7 +84,7 @@ theGame.prototype = {
         
         // Create background & setup filter for it.
         intro_pt1_bg = game.add.sprite(0, 0, 'intro_bg');
-        intro_pt1_bg.filters = [filter];
+        // intro_pt1_bg.filters = [filter];
 
         // create the car
         car = game.add.sprite(2400, 240, 'car');

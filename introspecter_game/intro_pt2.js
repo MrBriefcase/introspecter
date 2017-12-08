@@ -38,7 +38,12 @@ intro_pt2.prototype = {
         
         dialogue_Num = 0;
         
-        game.time.events.add(Phaser.Timer.SECOND*3, function(){
+        game.time.events.add(Phaser.Timer.SECOND*5, function(){
+            // Setup music
+            music = game.add.audio('intro2');
+            music.loop = true;
+            music.play();
+
             nextLine(intro_pt2_speech[0], 400, 200, 'milo');
             game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
         });
@@ -248,9 +253,9 @@ intro_pt2.prototype = {
         game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
         
         // Setup music
-        music = game.add.audio('intro2');
-        music.loop = true;
-        music.play();
+        // music = game.add.audio('intro2');
+        // music.loop = true;
+        // music.play();
     },
     
     update: function(){

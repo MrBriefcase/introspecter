@@ -227,6 +227,11 @@ part3.prototype = {
 
         // Delay start of dialogue.
         game.time.events.add(1500, function(){
+            // start music
+            music = game.add.audio('audio_pt2');
+            music.loop = true;
+            music.play();
+
             nextLine(protect_speech[0], 250, 150, 'milo');
             game.input.keyboard.addCallbacks(this, null, null, dialogueKeyPress);
 
@@ -245,6 +250,10 @@ part3.prototype = {
         });
 
         // game.state.start('Part4');
+
+        // past filter
+        past_overlay = game.add.sprite(0, 0, 'past_filter');
+        past_overlay.fixedToCamera = true;
 
         // wiggle function
         function wiggle(aProgress, aPeriod1, aPeriod2) {
@@ -684,6 +693,7 @@ part3.prototype = {
                 border.created = false;
 
                 game.time.events.add(Phaser.Timer.SECOND*1, function(){
+                    music.stop();
                     game.state.start('Part4');
                 })
             }

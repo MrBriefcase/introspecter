@@ -59,6 +59,7 @@ var camSpot;
 var checkFruit;
 
 var blood_texture;
+var past_overlay;
 
 
 part2.prototype = {    
@@ -461,6 +462,10 @@ part2.prototype = {
         
         // Sounds and music
         eatingSound = game.add.audio('bite_sfx');
+
+        // overlay
+        past_overlay = game.add.sprite(0, 0, 'past_filter');
+        past_overlay.fixedToCamera = true;
 
         // wiggle function
         function wiggle(aProgress, aPeriod1, aPeriod2) {
