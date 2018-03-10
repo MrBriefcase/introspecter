@@ -44,9 +44,10 @@ creditsVid.prototype = {
         bg = game.add.sprite(0, 0, 'ending_bg');
 
         // pixel filter the world
-        filter.sizeX = 5;
-        filter.sizeY = 5;
-        bg.filters = [ filter ];
+        // *** DEPRECATED FILTER
+//        filter.sizeX = 5;
+//        filter.sizeY = 5;
+//        bg.filters = [ filter ];
 
         // Create player and its attributes.
         player = game.add.sprite(300, 270, 'char');

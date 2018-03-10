@@ -47,7 +47,9 @@ gameIntro.prototype = {
            // game.state.start('Part4');
 
             btn_sound.play();
-            game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*2, Phaser.Easing.Default, true, 0, 0, false);
+            
+            // *** DEPRECATED filter
+//            game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*2, Phaser.Easing.Default, true, 0, 0, false);
             var tween = game.add.tween(game.world).to({ alpha: 0 }, Phaser.Timer.SECOND*2, Phaser.Easing.Default, true, 0, 0, false);
             tween.onComplete.add(function(){music.stop();game.state.start('TheGame');}, this);
             
@@ -55,7 +57,8 @@ gameIntro.prototype = {
         
         function viewCredits(){
             btn_sound.play();
-            game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
+            // **** DEPRECATED FILTER
+//            game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
             var tween = game.add.tween(game.world).to({ alpha: 0 }, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
             tween.onComplete.add(function(){game.state.start('Credits');}, this);
         };
@@ -226,30 +229,31 @@ gameIntro.prototype = {
 
 
         // VVVVVVVVVVV minus this line to go full (retain aspect ratio);
-        // game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
-        //
-        // game.input.onDown.add(gofull, this);
-        // function gofull() {
-        //
-        //     if (game.scale.isFullScreen)
-        //     {
-        //         game.scale.stopFullScreen();
-        //     }
-        //     else
-        //     {
-        //         game.scale.startFullScreen(false);
-        //     }
-        //
-        // }
+        
+        // ** NO FULL SCREEN
+        
+//        game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+//        game.input.onDown.add(gofull, this);
+//        function gofull() {
+////                    if (game.scale.isFullScreen)
+////            {
+////                game.scale.stopFullScreen();
+////            }
+////            else
+////            {
+//                game.scale.startFullScreen(false);
+////            }
+//        }
 
-
-        filter = game.add.filter('Pixelate', 800, 600);
-        filter2 = game.add.filter('Pixelate', 800, 600);
-        filter.sizeX = 10;
-        filter.sizeY = 10;
-
-        menu_bg.filters = [filter];
-        game.world.filters = [filter2];
+        
+        // ***** FILTERS ARE DEPRECATED
+//        filter = game.add.filter('Pixelate', 800, 600);
+//        filter2 = game.add.filter('Pixelate', 800, 600);
+//        filter.sizeX = 10;
+//        filter.sizeY = 10;
+//
+//        menu_bg.filters = [filter];
+//        game.world.filters = [filter2];
         // game.add.tween(filter).to( { sizeX: 1, sizeY: 1 }, 5000, Phaser.Easing.Default, true, 0, 0, false);
 
 

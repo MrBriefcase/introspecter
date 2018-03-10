@@ -26,7 +26,8 @@ intro_pt2.prototype = {
         cursors = game.input.keyboard.createCursorKeys();
         var bg = game.add.sprite(0, 0, 'intro_pt2_bg');
         bg.tint = 0x673636;
-        bg.filters = [ filter ];
+        //** DEPRECATE FILTER
+//        bg.filters = [ filter ];
         arrow_dir_show = true;
         
         // tweeeen

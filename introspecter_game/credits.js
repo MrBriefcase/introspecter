@@ -10,7 +10,10 @@ var to_team;
 credits.prototype = {
     preload: function(){
         // game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/Marble.js');
-        game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/Pixelate.js');
+
+        // **** DEPRECATED
+        
+        //        game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/Pixelate.js');
     },
 
     create: function(){
@@ -52,12 +55,16 @@ credits.prototype = {
             to_team.alpha = 1;
         }, this);
 
-        filter2 = game.add.filter('Pixelate', 800, 600);
-        game.world.filters = [filter2];
+        
+        // *** DEPRECATED FILTERS
+//        filter2 = game.add.filter('Pixelate', 800, 600);
+//        game.world.filters = [filter2];
         
         function backToIntro(){
             btn_sound.play();
-            game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
+
+            // *** DEPRECATED FILTER
+            //            game.add.tween(filter2).to({sizeX: 50, sizeY: 50}, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
             var tween = game.add.tween(game.world).to({ alpha: 0 }, Phaser.Timer.SECOND*0.5, Phaser.Easing.Default, true, 0, 0, false);
             tween.onComplete.add(function(){game.state.start('GameIntro');}, this);
         };

@@ -22,7 +22,8 @@ preload.prototype = {
         // Load up the webfont script
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
         // filter scripts
-        game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/Pixelate.js');
+        // *** DEPRECATED
+//        game.load.script('filter', 'https://cdn.rawgit.com/photonstorm/phaser/master/v2/filters/Pixelate.js');
 
         // Play button and Credit button. and back button. Menu stuff
         game.load.image('menu_bg', './images/MenuPage/MN_PG_v3.png');
